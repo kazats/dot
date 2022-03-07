@@ -1,0 +1,5 @@
+#!/bin/bash
+
+exec dmenu_run -b -i -nb '#181830' -nf '#fff9e5' -sb '#30305f' -sf '#ffc800' -fn 'Noto Sans Mono:size=12:antialias=true:autohint=true' "$@"
+# exec dmenu_run -b -i -nb '#181830' -nf '#fff9e5' -sb '#ffc800' -sf '#181830' -fn 'Noto Sans Mono:size=12:antialias=true:autohint=true' "$@"
+# exec dmenu_run -b -i -nb '#181830' -nf '#fff9e5' -sb '#fff9e5' -sf '#181830' -fn 'Noto Sans Mono:size=12:antialias=true:autohint=true' "$@"

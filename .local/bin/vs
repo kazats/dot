@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -rf ~/.backup/config/vivaldi
+rsync -ah --no-compress /dev/shm/config/vivaldi ~/.backup/config/

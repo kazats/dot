@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec ~/.local/bin/vitetris-0.57/tetris

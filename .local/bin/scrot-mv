@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+exec scrot '%Y-%m-%d %H:%M:%S.png' -e 'mv "$f" ~/m/p/scr/ && notify -a scrot -u low "$f"'

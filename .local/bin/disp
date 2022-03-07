@@ -1,0 +1,10 @@
+#!/bin/bash
+
+intern=eDP
+extern=HDMI-A-0
+
+if xrandr | grep "$extern disconnected"; then
+  . ~/.screenlayout/lap.sh
+else
+  . ~/.screenlayout/home.sh
+fi

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+ffmpeg -i "$1" -qscale:a 0 "$2".mp3

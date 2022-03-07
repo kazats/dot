@@ -1,0 +1,36 @@
+clear Control
+clear Lock
+
+keycode 66    = Control_L
+keycode 51    = Control_R
+! keycode 90    = Control_R
+keycode 94    = backslash     bar
+
+keycode 37    = Mode_switch   Insert
+keycode 105   = kana_fullstop kana_comma    kana_conjunctive  kana_middledot
+
+keycode 23    = Tab           ISO_Left_Tab
+
+keycode 34    = bracketleft   braceleft     Escape
+keycode 35    = bracketright  braceright    ssharp
+
+keycode 30    = u             U             Home        Home
+keycode 31    = i             I             Prior       Prior
+keycode 32    = o             O             Next        Next
+keycode 33    = p             P             End         End
+
+keycode 43    = h             H             Left        Left
+keycode 44    = j             J             Down        Down
+keycode 45    = k             K             Up          Up
+keycode 46    = l             L             Right       Right
+
+keycode 47    = semicolon     colon         odiaeresis  Odiaeresis
+keycode 48    = apostrophe    quotedbl      adiaeresis  Adiaeresis
+keycode 61    = slash         question      udiaeresis  Udiaeresis
+
+keycode 57    = n             N             BackSpace
+keycode 58    = m             M             Return
+keycode 59    = comma         less          Delete
+
+add Control = Control_L
+add Control = Control_R

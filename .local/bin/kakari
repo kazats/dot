@@ -1,0 +1,14 @@
+#!/bin/ruby
+
+
+pacman  = `pacman -Qi linux`.lines[1].match(/(\d)\.(\d+)\.(\d+).*-(\d+)/).captures
+uname   = `uname -r`.match(/(\d)\.(\d+)\.(\d+)-.*(\d+)/).captures
+code    = if pacman == uname then
+            0
+          else
+            1
+          end
+
+
+exit code
+# exec ~/ぶ/Kakari/kakari "$@"

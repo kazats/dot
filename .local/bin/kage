@@ -1,0 +1,17 @@
+#!/bin/env ruby
+
+
+v1 = eval(ARGV.fetch 1, '')
+v2 = eval(ARGV.fetch 2, '')
+v3 = eval(ARGV.fetch 3, '')
+v4 = eval(ARGV.fetch 4, '')
+v5 = eval(ARGV.fetch 5, '')
+
+file = File.read ARGV[0]
+safe = file.gsub(/\\/, "\\\\\\").gsub(/"/, '\"')
+pile = eval("\"" + safe + "\"")
+
+puts pile
+
+
+# "%<blub>s" % { blub: "lala" }
