@@ -37,11 +37,11 @@ require('packer').startup(function()
     config = function()
       require('gitsigns').setup {
         signs = {
-          add          = {hl = 'GitSignsAdd'   , text = '|', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-          change       = {hl = 'GitSignsChange', text = '|', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-          delete       = {hl = 'GitSignsDelete', text = '|', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          topdelete    = {hl = 'GitSignsDelete', text = '‖', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          changedelete = {hl = 'GitSignsChange', text = '‖', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+          add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},    -- |
+          change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+          delete       = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+          topdelete    = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+          changedelete = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
         },
         signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
         numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -789,9 +789,9 @@ vim.cmd [[
     " nmap \\ gcc
     " vmap \\ gc
 
-    imap <leader><leader> <esc>
-    imap <leader>       ,
-    imap <leader>w        <esc><cmd>w<cr>
+    inoremap <leader><leader> <esc>
+    inoremap <leader>       ,
+    inoremap <leader>w        <esc><cmd>w<cr>
 
     imap <m-o> <esc>o
 
