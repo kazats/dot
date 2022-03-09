@@ -357,7 +357,7 @@ pavucontrol   = "pavucontrol"
 scrot         = "scrot-mv"
 skype         = "skypeforlinux"
 transmission  = "transmission-gtk"
-vivaldi       = "vivaldi-stable --use-gl=desktop --enable-features=VaapiVideoDecoder --disable-features=UseChromeOSDirectVideoDecoder"
+vivaldi       = "vivaldi"
 vlc           = "vlc"
 zoom          = "zoom"
 
