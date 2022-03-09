@@ -42,7 +42,7 @@
 
     # The transparency of the window. range: [0; 100]
     # This option will only work if a compositing windowmanager is present (e.g. xcompmgr, compiz, etc..)
-    transparency = 10
+    transparency = 0
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -91,33 +91,32 @@
     #  * foreground: use the same color as the foreground
     #  * frame: use the same color as the frame.
     #  * anything else will be interpreted as a X color
-    separator_color = "#30305f"
+    separator_color = "#26233a"
 
     icon_position = off
 
     # dmenu path
-    # dmenu = /usr/bin/dmenu
-    dmenu = /usr/bin/dmenu -b -nb #000000 -nf #ffffff -sb #ffffff -sf #000000 -fn Inconsolata:size=14
+    dmenu = ~/.local/bin/dmenu-v
 
     # browser for opening urls in context menu
-    browser = /usr/bin/vivaldi-stable --enable-features=VaapiVideoDecoder
+    browser = ~/.local/bin/vivaldi
 
 [urgency_low]
-    background  = "#181830"
-    foreground  = "#fff9e5"
-    frame_color = "#30305f"
+    background  = "#191724"
+    foreground  = "#e0def4"
+    frame_color = "#26233a"
     timeout     = 5
 
 [urgency_normal]
-    background  = "#181830"
-    foreground  = "#fff9e5"
-    frame_color = "#30305f"
+    background  = "#191724"
+    foreground  = "#e0def4"
+    frame_color = "#26233a"
     timeout     = 10
 
 [urgency_critical]
-    background  = "#181830"
-    foreground  = "#ffc800"
-    frame_color = "#ffc800"
+    background  = "#191724"
+    foreground  = "#c4a7e7"
+    frame_color = "#c4a7e7"
     timeout     = 0
 
 
@@ -147,7 +146,7 @@
     appname    = "control"
     format     = "%s"
     # format     = "　"
-    foreground = "#fff9e5"
+    foreground = "#e0def4"
     # highlight  = "#fff9e5"
     timeout    = 1
 
@@ -155,7 +154,7 @@
     appname    = "control-muted"
     format     = "%s"
     # format     = "　"
-    foreground = "#30305f"
+    foreground = "#6e6a86"
     # highlight  = "#fff9e5"
     timeout    = 1
 
