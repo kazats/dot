@@ -4,7 +4,7 @@ intern=eDP
 extern=HDMI-A-0
 
 if xrandr | grep "$extern disconnected"; then
-  . ~/.screenlayout/lap.sh
+  ~/.local/bin/scr/lap.sh
 else
-  . ~/.screenlayout/home.sh
+  ~/.local/bin/scr/home.sh
 fi
