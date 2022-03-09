@@ -1,40 +1,45 @@
 function fish_prompt
 
-  # Keep the command executed status
-  set --local last_status $status
+  set -l last_status $status
 
   show_status $last_status
 end
 
 
+function mode_color
+
+  switch $fish_bind_mode
+    case default
+    echo cyan
+    case insert
+    echo blue
+    case replace
+    echo green
+    case replace_one
+    echo green
+    case visual
+    echo magenta
+    case '*'
+    echo red
+  end
+end
+
+
 function show_path
 
-  set_color normal
-  echo -en (prompt_pwd)
+  set -l bg (mode_color)
+
+  set_color    black
+  set_color -b $bg
+
+  echo -en "" (prompt_pwd) ""
 end
 
 
 function show_status -a last_status
 
-  set --local bg     normal
-  set --local prompt '＊'
-
-  switch $fish_bind_mode
-    case default
-    set bg bryellow
-    # set prompt 'ノ'
-    case insert
-    set bg brwhite
-    # set prompt 'イ'
-    case replace_one
-    set bg cyan
-    # set prompt 'リ'
-    case visual
-    set bg magenta
-    # set prompt 'ビ'
-    case '*'
-    set bg red
-  end
+  set -l bg     (mode_color)
+  set -l prompt '＊'
 
   set_color    black
   set_color -b $bg
@@ -56,10 +61,7 @@ end
 
 function fish_right_prompt
 
-  # A dark grey
-  set --local dark_grey 555
-
-  set_color $dark_grey
+  set_color brblack
 
   show_virtualenv_name
   show_git_info
@@ -72,17 +74,17 @@ end
 function show_virtualenv_name
 
   if set -q VIRTUAL_ENV
-    echo -en "["(basename "$VIRTUAL_ENV")"] "
+    echo -en "" (basename "$VIRTUAL_ENV")
   end
 end
 
 
 function show_git_info
 
-  set --local LIMBO /dev/null
-  set --local git_status (git status --porcelain 2> $LIMBO)
-  set --local git_stash (git stash list 2> $LIMBO)
-  set --local dirty ""
+  set -l LIMBO      /dev/null
+  set -l git_status (git status --porcelain 2> $LIMBO)
+  set -l git_stash  (git stash list 2> $LIMBO)
+  set -l dirty      ""
 
   [ $status -eq 128 ]; and return  # Not a repository? Nothing to do
 
@@ -91,7 +93,7 @@ function show_git_info
     set dirty "*"
   end
 
-  # If there is new or deleted files, add  '+' to dirty
+  # If there is new or deleted files, add '+' to dirty
   if not [ -z (echo "$git_status" | grep -e '^[MDA]') ]
     set dirty "$dirty+"
   end
@@ -101,8 +103,8 @@ function show_git_info
     set dirty "$dirty^"
   end
 
-  # Prints git repository status
-  # echo -en "("
-  echo -en (git_branch_name)$dirty
-  echo -en " "
+  set_color    (mode_color)
+  set_color -b 26233a
+
+  echo -en "" (git_branch_name)$dirty ""
 end
