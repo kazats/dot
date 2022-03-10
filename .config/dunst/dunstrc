@@ -38,11 +38,11 @@
     ignore_newline = no
 
     width = (305, 400) #(100, 500)
-    offset = 20x20
+    offset = 30x30
 
     # The transparency of the window. range: [0; 100]
     # This option will only work if a compositing windowmanager is present (e.g. xcompmgr, compiz, etc..)
-    transparency = 0
+    transparency = 20
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -91,7 +91,7 @@
     #  * foreground: use the same color as the foreground
     #  * frame: use the same color as the frame.
     #  * anything else will be interpreted as a X color
-    separator_color = "#26233a"
+    separator_color = frame
 
     icon_position = off
 
@@ -101,23 +101,65 @@
     # browser for opening urls in context menu
     browser = ~/.local/bin/vivaldi
 
+
+# rose pine
+# [urgency_low]
+#     background  = "#191724"
+#     foreground  = "#e0def4"
+#     frame_color = "#26233a"
+#     timeout     = 5
+#
+# [urgency_normal]
+#     background  = "#191724"
+#     foreground  = "#e0def4"
+#     frame_color = "#26233a"
+#     timeout     = 10
+#
+# [urgency_critical]
+#     background  = "#191724"
+#     foreground  = "#c4a7e7"
+#     frame_color = "#c4a7e7"
+#     timeout     = 0
+
+
+# rose pine moon
 [urgency_low]
-    background  = "#191724"
+    background  = "#232136"
     foreground  = "#e0def4"
-    frame_color = "#26233a"
+    frame_color = "#393552"
     timeout     = 5
 
 [urgency_normal]
-    background  = "#191724"
+    background  = "#232136"
     foreground  = "#e0def4"
-    frame_color = "#26233a"
+    frame_color = "#393552"
     timeout     = 10
 
 [urgency_critical]
-    background  = "#191724"
+    background  = "#232136"
     foreground  = "#c4a7e7"
     frame_color = "#c4a7e7"
     timeout     = 0
+
+
+# # rose pine dawn
+# [urgency_low]
+#     background  = "#faf4ed"
+#     foreground  = "#575279"
+#     frame_color = "#f2e9de"
+#     timeout     = 5
+#
+# [urgency_normal]
+#     background  = "#faf4ed"
+#     foreground  = "#575279"
+#     frame_color = "#f2e9de"
+#     timeout     = 10
+#
+# [urgency_critical]
+#     background  = "#faf4ed"
+#     foreground  = "#907aa9"
+#     frame_color = "#907aa9"
+#     timeout     = 0
 
 
 # Every section that isn't one of the above is interpreted as a rules
@@ -146,7 +188,7 @@
     appname    = "control"
     format     = "%s"
     # format     = "　"
-    foreground = "#e0def4"
+    # foreground = "#e0def4"
     # highlight  = "#fff9e5"
     timeout    = 1
 
@@ -154,13 +196,31 @@
     appname    = "control-muted"
     format     = "%s"
     # format     = "　"
-    foreground = "#6e6a86"
+    foreground = "#817c9c" # "#6e6a86"
     # highlight  = "#fff9e5"
     timeout    = 1
 
-#[espeak]
-#    summary = "*"
-#    script = dunst_espeak.sh
+[control sink]
+    appname    = "control-sink"
+    format     = "<b>%s</b>"
+    # format     = "　"
+    # foreground = "#e0def4"
+    # highlight  = "#fff9e5"
+    timeout    = 1
+
+[fcitx]
+    appname    = "Input Method"
+    timeout    = 3
+
+[fcitx completion]
+    appname    = "Input Method"
+    summary    = "Completion"
+    format     = "<b>%a</b>\n%b"
+
+[fcitx preedit]
+    appname    = "Input Method"
+    summary    = "Preedit"
+    format     = "<b>%a</b>\n%b"
 
 #[script-test]
 #    summary = "*script*"
