@@ -27,7 +27,7 @@ if status is-login
 
 
   if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-    exec startx -- -keeptty
+    exec startx
   end
 end
 
@@ -64,7 +64,7 @@ if status is-interactive
   alias g    'git'
   alias dot  'git --git-dir=$HOME/.dot --work-tree=$HOME'
 
-  alias e    'exa --icons --group-directories-first'
+  alias e    'exa --icons --group-directories-first --git'
   alias l    'e -TL1'
   alias l2   'e -TL2'
   alias l3   'e -TL3'
