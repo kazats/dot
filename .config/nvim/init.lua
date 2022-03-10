@@ -140,8 +140,7 @@ require('packer').startup(function()
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require('trouble').setup {
-      }
+      require('trouble').setup()
     end
   }
 
@@ -366,6 +365,7 @@ require('packer').startup(function()
       }
     end
   }
+
   use {
     'windwp/nvim-autopairs',
     config = function()
@@ -377,6 +377,13 @@ require('packer').startup(function()
   use {
     'dccsillag/magma-nvim',
     run = ':UpdateRemotePlugins'
+  }
+
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('colorizer').setup()
+    end
   }
 end)
 
@@ -639,6 +646,11 @@ cmp.setup {
 -- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 
+
+vim.wo.foldmethod = 'expr'
+vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
+
+
 vim.cmd [[
   " let g:airline_theme = 'onedark'
   " let g:airline_left_sep  = ''
@@ -659,7 +671,7 @@ vim.cmd [[
   "   \ }
 
 
-    set foldmethod=syntax
+    " set foldmethod=indent
     set foldnestmax=3
     set foldlevel=10
     set foldenable
@@ -820,6 +832,8 @@ vim.cmd [[
     " map #  <Plug>(incsearch-nohl-#)
     " map g* <Plug>(incsearch-nohl-g*)
     " map g# <Plug>(incsearch-nohl-g#)
+
+    nnoremap <silent> <C-c> :ColorizerToggle<cr>
 
     nnoremap <silent> <F11> :set spell!<cr>
     inoremap <silent> <F11> <C-o>:set spell!<cr>
