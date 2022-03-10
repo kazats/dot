@@ -1,32 +1,25 @@
 [Hotkey]
-# トリガーキーを押すたびに切り替える
+# Enumerate when press trigger key repeatedly
 EnumerateWithTriggerKeys=False
-# 切り替え時は第1入力メソッドをスキップする
+# Temporally switch between first and current Input Method
+AltTriggerKeys=
+# Enumerate Input Method Forward
+EnumerateForwardKeys=
+# Enumerate Input Method Backward
+EnumerateBackwardKeys=
+# Skip first input method while enumerating
 EnumerateSkipFirst=False
-# 次の入力メソッドグループに切り替える
+# Enumerate Input Method Group Forward
 EnumerateGroupForwardKeys=
-# 前の入力メソッドグループに切り替える
+# Enumerate Input Method Group Backward
 EnumerateGroupBackwardKeys=
+# Activate Input Method
+ActivateKeys=
+# Deactivate Input Method
+DeactivateKeys=
 
 [Hotkey/TriggerKeys]
-0=Control+Control_L
-1=Zenkaku_Hankaku
-2=Hangul
-
-[Hotkey/AltTriggerKeys]
-0=Shift+space
-
-[Hotkey/EnumerateForwardKeys]
-0=Control+Control_R
-
-[Hotkey/EnumerateBackwardKeys]
 0=Shift+Shift_L
-
-[Hotkey/ActivateKeys]
-0=Hangul_Hanja
-
-[Hotkey/DeactivateKeys]
-0=Hangul_Romaja
 
 [Hotkey/PrevPage]
 0=Up
@@ -41,25 +34,29 @@ EnumerateGroupBackwardKeys=
 0=Tab
 
 [Hotkey/TogglePreedit]
-0=Control+Alt+P
+0=Control+Shift+P
 
 [Behavior]
-# デフォルトで有効にする
+# Active By Default
 ActiveByDefault=False
-# 入力状態を共有する
+# Share Input State
 ShareInputState=Program
-# アプリケーションにプリエディットを表示する
+# Show preedit in application
 PreeditEnabledByDefault=True
-# 入力メソッドを切り替える際に入力メソッドの情報を表示する
+# Show Input Method Information when switch input method
 ShowInputMethodInformation=True
-# フォーカスを変更する際に入力メソッドの情報を表示する
-showInputMethodInformationWhenFocusIn=False
-# 入力メソッドの情報をコンパクトに表示する
+# Show Input Method Information when changing focus
+showInputMethodInformationWhenFocusIn=True
+# Show compact input method information
 CompactInputMethodInformation=True
-# 第1入力メソッドの情報を表示する
-ShowFirstInputMethodInformation=True
-# デフォルトのページサイズ
+# Show first input method information
+ShowFirstInputMethodInformation=False
+# Default page size
 DefaultPageSize=10
+# Override Xkb Option
+OverrideXkbOption=False
+# Custom Xkb Option
+CustomXkbOption=
 # Force Enabled Addons
 EnabledAddons=
 # Force Disabled Addons
