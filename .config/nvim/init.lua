@@ -373,18 +373,25 @@ require('packer').startup(function()
     end
   }
 
-  -- use { 'untitled-ai/jupyter_ascending.vim' }
-  use {
-    'dccsillag/magma-nvim',
-    run = ':UpdateRemotePlugins'
-  }
-
   use {
     'norcalli/nvim-colorizer.lua',
     config = function()
       require('colorizer').setup()
     end
   }
+
+  -- use { 'untitled-ai/jupyter_ascending.vim' }
+  use {
+    'dccsillag/magma-nvim',
+    run = ':UpdateRemotePlugins'
+  }
+
+use {
+    'glacambre/firenvim',
+    run = function()
+      vim.fn['firenvim#install'](0)
+    end
+}
 end)
 
 --Set highlight on search
