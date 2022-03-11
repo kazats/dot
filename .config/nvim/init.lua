@@ -15,11 +15,9 @@ local use = require('packer').use
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
-  use 'joshdick/onedark.vim' -- Theme inspired by Atom
   use {
     'rose-pine/neovim',
     as = 'rose-pine',
-    -- tag = 'v0.1.0', -- Optional tag release
     -- config = function()
     --   vim.cmd('colorscheme rose-pine')
     -- end
@@ -37,11 +35,11 @@ require('packer').startup(function()
     config = function()
       require('gitsigns').setup {
         signs = {
-          add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},    -- |
-          change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-          delete       = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          topdelete    = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          changedelete = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+          add          = { hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
+          change       = { hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
+          delete       = { hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
+          topdelete    = { hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
+          changedelete = { hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
         },
         signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
         numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -114,10 +112,13 @@ require('packer').startup(function()
           },
           mappings = {
             i = {
+              ["<C-u>"] = false,
               ["<C-j>"] = require('telescope.actions').move_selection_next,
               ["<C-k>"] = require('telescope.actions').move_selection_previous,
               ["<C-s>"] = require('telescope.actions').select_horizontal,
-              [",cd"] = function(prompt_bufnr)
+            },
+            n = {
+              ["cd"] = function(prompt_bufnr)
                 local selection = require("telescope.actions.state").get_selected_entry()
                 local dir = vim.fn.fnamemodify(selection.path, ":p:h")
                 require("telescope.actions").close(prompt_bufnr)
@@ -125,12 +126,38 @@ require('packer').startup(function()
                 vim.cmd(string.format("silent lcd %s", dir))
               end
             }
+          },
+          winblend        = 3,
+          prompt_prefix   = ' ',
+          selection_caret = '⟩ ',
+          multi_icon      = '┃',
+          show_line       = false,
+          borderchars = {
+            prompt  = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+            results = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+            preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+          },
+          preview = {
+            msg_bg_fillchar = ""
           }
         },
         pickers = {
           find_files = {
-            find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
-          }
+            prompt_title  = '', results_title = '', preview_title = '',
+            find_command  = { 'fd', '-t', 'f', '-H', '--strip-cwd-prefix', '--ignore-file', '~/.fdignore' },
+          },
+          oldfiles                  = { prompt_title  = '', results_title = '', preview_title = '' },
+          live_grep                 = { prompt_title  = '', results_title = '', preview_title = '' },
+          grep_string               = { prompt_title  = '', results_title = '', preview_title = '' },
+          buffers                   = { prompt_title  = '', results_title = '', preview_title = '' },
+          help_tags                 = { prompt_title  = '', results_title = '', preview_title = '' },
+          command_history           = { prompt_title  = '', results_title = '', preview_title = '' },
+          commands                  = { prompt_title  = '', results_title = '', preview_title = '' },
+          search_history            = { prompt_title  = '', results_title = '', preview_title = '' },
+          man_pages                 = { prompt_title  = '', results_title = '', preview_title = '' },
+          marks                     = { prompt_title  = '', results_title = '', preview_title = '' },
+          media_files               = { prompt_title  = '', results_title = '', preview_title = '' },
+          current_buffer_fuzzy_find = { prompt_title  = '', results_title = '', preview_title = '' },
         }
       }
     end
@@ -219,18 +246,17 @@ require('packer').startup(function()
         options = {
           icons_enabled        = false,
           theme                = 'auto',
+          color                = { gui = '' },
           component_separators = { left = '', right = ''},
           section_separators   = { left = '', right = ''},
           disabled_filetypes   = {},
           always_divide_middle = true,
         },
         sections = {
-          lualine_a = {'mode'},
-          lualine_b = {'branch', 'diff', 'diagnostics'},
-          -- lualine_c = {'filename'},
+          lualine_a = { 'mode' },
+          lualine_b = { 'branch', 'diff', 'diagnostics' },
           lualine_c = {
-            {
-              'buffers',
+            { 'buffers',
               show_filename_only   = true,
               show_modified_status = true,
 
@@ -250,20 +276,20 @@ require('packer').startup(function()
               }
             }
           },
-          lualine_x = {'encoding', 'fileformat', 'filetype'},
-          lualine_y = {'progress'},
-          lualine_z = {'location'}
+          lualine_x = { 'encoding', 'fileformat', 'filetype' },
+          lualine_y = { 'progress' },
+          lualine_z = { 'location' }
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {'filename'},
-          lualine_x = {'location'},
+          lualine_c = { 'filename' },
+          lualine_x = { 'location' },
           lualine_y = {},
           lualine_z = {}
         },
         tabline = {},
-        extensions = {'nvim-tree'}
+        extensions = { 'nvim-tree' }
       }
     end
   }
@@ -286,6 +312,47 @@ require('packer').startup(function()
       }
     end
   }
+
+  -- use {
+  --   'glepnir/lspsaga.nvim',
+  --   config = function()
+  --     require('lspsaga').init_lsp_saga {
+  --       -- use_saga_diagnostic_sign = true
+  --       -- error_sign = '',
+  --       -- warn_sign = '',
+  --       -- hint_sign = '',
+  --       -- infor_sign = '',
+  --       -- dianostic_header_icon = '   ',
+  --       -- code_action_icon = ' ',
+  --       -- code_action_prompt = {
+  --       --   enable = true,
+  --       --   sign = true,
+  --       --   sign_priority = 20,
+  --       --   virtual_text = true,
+  --       -- },
+  --       -- finder_definition_icon = '  ',
+  --       -- finder_reference_icon = '  ',
+  --       -- max_preview_lines = 10, -- preview lines of lsp_finder and definition preview
+  --       -- finder_action_keys = {
+  --       --   open = 'o', vsplit = 's',split = 'i',quit = 'q',scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
+  --       -- },
+  --       -- code_action_keys = {
+  --       --   quit = 'q',exec = '<CR>'
+  --       -- },
+  --       -- rename_action_keys = {
+  --       --   quit = '<C-c>',exec = '<CR>'  -- quit can be a table
+  --       -- },
+  --       -- definition_preview_icon = '  '
+  --       -- "single" "double" "round" "plus"
+  --       -- border_style = "single"
+  --       -- rename_prompt_prefix = '➤',
+  --       -- if you don't use nvim-lspconfig you must pass your server name and
+  --       -- the related filetypes into this table
+  --       -- like server_filetype_map = {metals = {'sbt', 'scala'}}
+  --       -- server_filetype_map = {}
+  --     }
+  --   end
+  -- }
 
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -386,13 +453,23 @@ require('packer').startup(function()
     run = ':UpdateRemotePlugins'
   }
 
-use {
+  use {
     'glacambre/firenvim',
     run = function()
       vim.fn['firenvim#install'](0)
     end
-}
+  }
 end)
+
+
+vim.diagnostic.config {
+  virtual_text     = false,
+  signs            = true,
+  underline        = false,
+  update_in_insert = false,
+  severity_sort    = false,
+}
+
 
 --Set highlight on search
 vim.o.hlsearch = false
@@ -537,7 +614,8 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', ':Trouble<cr>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
@@ -644,14 +722,83 @@ cmp.setup {
   }
 }
 
--- vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+
+vim.g.mapleader      = ','
+vim.g.maplocalleader = '\\'
+
+
+local map  = vim.api.nvim_set_keymap
+-- local bmap = vim.api.nvim_buf_set_keymap
+local opt  = { noremap = true }
+local opts = { noremap = true, silent = true }
+
+local function maps(o, defs)
+  for mode, bindings in pairs(defs) do
+    for _, binding in pairs(bindings) do
+      map(mode, binding[1], binding[2], o)
+    end
+  end
+end
+
+local function l(k)
+  return string.format('<leader>%s', k)
+end
+
+local function l2(k)
+  return string.format('<leader><leader>%s', k)
+end
+
+local function cmd(c)
+  return string.format('<cmd>%s<cr>', c)
+end
+
+
+maps(opt, {
+  n = {
+  { '<space>', ':'                     },
+  },
+})
+
+maps(opts, {
+  n = {
+  { 'Y',          'y$'                                      },
+  { l  'v',       cmd 'tabedit $MYVIMRC'                    },
+
+  { l  'w',       cmd 'w'                                   },
+  { l  's',       cmd 'wq'                                  },
+  { l  'a',       cmd 'q'                                   },
+  { l  'A',       cmd 'q!'                                  },
+  { l  'z',       cmd 'qa'                                  },
+  { l  'Z',       cmd 'qa!'                                 },
+  { l  'b',       cmd 'bd'                                  },
+
+  { '<tab>',      '<C-w><c-w>'                              },
+  { l  'h',       '<C-w>h'                                  },
+  { l  'j',       '<C-w>j'                                  },
+  { l  'k',       '<C-w>k'                                  },
+  { l  'l',       '<C-w>l'                                  },
+  { l  'H',       '<C-w>H'                                  },
+  { l  'J',       '<C-w>J'                                  },
+  { l  'K',       '<C-w>K'                                  },
+  { l  'L',       '<C-w>L'                                  },
+
+  { l  'm',       cmd 'Telescope find_files'                },
+  { l  'r',       cmd 'Telescope oldfiles'                  },
+  { l  '/',       cmd 'Telescope search_history'            },
+  { l  '\'',      cmd 'Telescope marks'                     },
+  { l  'f',       cmd 'Telescope current_buffer_fuzzy_find' },
+  { l  '<space>', cmd 'Telescope command_history'           },
+  { l2 'g',       cmd 'Telescope live_grep'                 },
+  { l2 'c',       cmd 'Telescope grep_string'               },
+  { l2 'b',       cmd 'Telescope buffers'                   },
+  { l2 'h',       cmd 'Telescope help_tags'                 },
+  { l2 'm',       cmd 'Telescope man_pages'                 },
+  { l2 'f',       cmd 'Telescope media_files'               },
+  { l2 '<space>', cmd 'Telescope commands'                  },
+
+  { '<C-a>',      cmd 'RnvimrToggle'                        },
+  },
+})
 
 
 vim.wo.foldmethod = 'expr'
@@ -659,26 +806,6 @@ vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
 
 
 vim.cmd [[
-  " let g:airline_theme = 'onedark'
-  " let g:airline_left_sep  = ''
-  " let g:airline_right_sep = ''
-  " let g:airline_section_y = '%{strlen(&fenc) > 0 ? &fenc . " " : ""}%{strlen(&ff) > 0 ? &ff : ""}'
-  " let g:airline_section_z = '%3l %3c %3p'
-  " let g:airline_mode_map  = {
-  "   \ 'n' : '通',
-  "   \ 'i' : '入',
-  "   \ 'R' : '換',
-  "   \ 'v' : '視',
-  "   \ 'V' : '行',
-  "   \ '': '方',
-  "   \ 's' : '擇',
-  "   \ 'S' : '行',
-  "   \ '': '方',
-  "   \ 'c' : '令',
-  "   \ }
-
-
-    " set foldmethod=indent
     set foldnestmax=3
     set foldlevel=10
     set foldenable
@@ -749,45 +876,6 @@ vim.cmd [[
     let mapleader      = ','
     let maplocalleader = '\'
 
-    nnoremap <space> :
-    nnoremap Y y$
-
-    nnoremap <leader>ev :tabedit $MYVIMRC<cr>
-
-    nnoremap <tab>     <c-w><c-w>
-    nnoremap <leader>h <c-w>h
-    nnoremap <leader>j <c-w>j
-    nnoremap <leader>k <c-w>k
-    nnoremap <leader>l <c-w>l
-    nnoremap <leader>H <c-w>H
-    nnoremap <leader>J <c-w>J
-    nnoremap <leader>K <c-w>K
-    nnoremap <leader>L <c-w>L
-
-    nnoremap <C-a> <cmd>RnvimrToggle<cr>
-
-    nnoremap <leader>m         <cmd>Telescope find_files<cr>
-    nnoremap <leader>r         <cmd>Telescope oldfiles<cr>
-    nnoremap <leader><leader>g <cmd>Telescope live_grep<cr>
-    nnoremap <leader><leader>c <cmd>Telescope grep_string<cr>
-    nnoremap <leader><leader>b <cmd>Telescope buffers<cr>
-    nnoremap <leader><leader>h <cmd>Telescope help_tags<cr>
-    nnoremap <leader><space>   <cmd>Telescope command_history<cr>
-    nnoremap <leader><leader><space> <cmd>Telescope commands<cr>
-    nnoremap <leader><leader>/ <cmd>Telescope search_history<cr>
-    nnoremap <leader><leader>m <cmd>Telescope man_pages<cr>
-    nnoremap <leader><leader>' <cmd>Telescope marks<cr>
-    nnoremap <leader><leader>f <cmd>Telescope media_files<cr>
-    nnoremap <leader>f         <cmd>Telescope current_buffer_fuzzy_find<cr>
-
-    nnoremap <leader>w <cmd>w<cr>
-    nnoremap <leader>s <cmd>wq<cr>
-    nnoremap <leader>a <cmd>q<cr>
-    nnoremap <leader>A <cmd>q!<cr>
-    nnoremap <leader>z <cmd>qa<cr>
-    nnoremap <leader>Z <cmd>qa!<cr>
-    nnoremap <leader>b <cmd>bd<cr>
-
     nmap     <LocalLeader><LocalLeader>f :lua vim.lsp.buf.formatting_sync()<cr>
     " nmap     <LocalLeader>n              <Plug>JupyterExecute
     " nmap     <LocalLeader><localleader>n <Plug>JupyterExecuteAll
@@ -808,9 +896,10 @@ vim.cmd [[
     " nmap \\ gcc
     " vmap \\ gc
 
-    inoremap <leader><leader> <esc>
-    inoremap <leader>       ,
-    inoremap <leader>w        <esc><cmd>w<cr>
+    silent inoremap <leader>m <esc>
+    silent inoremap ,       ,
+    silent inoremap <leader>w <esc><cmd>w<cr>
+    silent inoremap ,,w       ,<esc><cmd>w<cr>
 
     imap <m-o> <esc>o
 
