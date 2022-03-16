@@ -60,7 +60,7 @@ myLayout
     $ tiledF
 
     where
-    tiledF = tiled ||| vGrid ||| hGrid ||| full
+    tiledF = tiled ||| full ||| vGrid ||| hGrid
     -- fullF  = full  ||| tiled ||| grid
 
     tiled  = reflectHoriz $ Tall 1 (5/100) (1/2)
