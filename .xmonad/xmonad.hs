@@ -72,7 +72,7 @@ myLayout
 
 myManageHook = composeAll $ concatMap withMatch
     [ shift "q" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
-    , shift "w" ｜ ["terminal"]
+    , shift "w" ｜ ["main"]
     , shift "e" ｜ []
     , shift "r" ｜ ["Transmission-gtk"]
 
@@ -116,7 +116,7 @@ myKeys XConfig
     } = M.fromList $
 
     map (second spawn)
-    [ a  xK_grave         ｜ dmenu
+    [ a  xK_grave         ｜ rofi "run"
     , a  xK_Return        ｜ termNew
     , as xK_Return        ｜ nvim
 
@@ -338,7 +338,7 @@ dunst         = "dunst"
 fcitx         = "fcitx5"
 feh           = "~/.fehbg"
 htop          = term "htop"    "htop -u v"
-mainTerminal  = termClass "terminal"
+mainTerminal  = termClass "main"
 picom         = "picom --experimental-backends"
 ranger        = term "ranger"  "ranger"
 redshift      = "redshift -l 48.4:10.9 -t 6500:3500"
@@ -354,6 +354,7 @@ nvim          = term "nvim" "nvim"
 katrain       = "prime-run katrain"
 libreoffice   = "libreoffice"
 pavucontrol   = "pavucontrol"
+rofi          = ("rofi -show " ++)
 scrot         = "scrot-mv"
 skype         = "skypeforlinux"
 transmission  = "transmission-gtk"
@@ -397,10 +398,10 @@ data Term = Term
     , execOpt  :: String
     }
 
-term c e    = term' (Just c) (Just e)
-termNew     = term' Nothing  Nothing
-termClass c = term' (Just c) Nothing
-termExec e  = term' Nothing  (Just e)
+term c e    = term' (Just c)     (Just e)
+termNew     = term' (Just "wez") Nothing
+termClass c = term' (Just c)     Nothing
+termExec e  = term' Nothing      (Just e)
 
 term' = term'' wezterm
 
