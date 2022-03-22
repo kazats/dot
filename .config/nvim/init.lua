@@ -386,9 +386,17 @@ require('packer').startup(function()
 
   use 'h-hg/fcitx.nvim'
   use 'easymotion/vim-easymotion'
+  use 'unblevable/quick-scope'
   use 'junegunn/vim-easy-align'
   -- use 'haya14busa/incsearch.vim'
   use 'mtth/scratch.vim'
+  -- use {
+  --   'karb94/neoscroll.nvim',
+  --   config = function()
+  --     require('neoscroll').setup()
+  --   end
+  -- }
+
   use {
     'akinsho/toggleterm.nvim',
     config = function()
