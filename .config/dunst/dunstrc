@@ -222,6 +222,11 @@
     summary    = "Preedit"
     format     = "<b>%a</b>\n%b"
 
+[wezterm font problem]
+    appname    = "wezterm"
+    summary    = "Font problem"
+    format     = "<b>%a</b>\n%s"
+
 #[script-test]
 #    summary = "*script*"
 #    script = dunst_test.sh
