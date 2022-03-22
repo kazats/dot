@@ -98,11 +98,13 @@ local rose_pine = {
 
 
 return {
-  font = wezterm.font_with_fallback {                       -- font = wezterm.font("JetBrains Mono", {weight="Bold",italic=true}) , -- [JetBrains Mono] Name with parameters
-    'JetBrains Mono',                                       -- 'Noto Sans Mono',
-    'Noto Sans CJK JP DemiLight'                            -- 'HanaMinB' 'Noto Sans CJK JP'
+  font = wezterm.font_with_fallback {
+    'JetBrains Mono',                                       -- Fira Code / Iosevka / Cascadia Code
+    'Noto Sans Mono',
+    'Noto Sans CJK JP DemiLight',
+    'HanaMinB',
   },
-  font_size                                   = 14.0,       -- [12.0]
+  font_size                                   = 16.0,       -- [12.0]
   colors                                      = rose_pine,  -- color_scheme = "ayu", -- wezfurlong.org/wezterm/colorschemes/index.html
 
   window_padding                              = { left = 0, right = 0, top = 0, bottom = 0 },
