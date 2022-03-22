@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec dmenu_run -b -i -nb '#191724' -nf '#e0def4' -sb '#c4a7e7' -sf '#191724' -fn 'JetBrains Mono:size=14:antialias=true:autohint=true' "$@"
+exec dmenu_run -b -i -nb '#191724' -nf '#e0def4' -sb '#c4a7e7' -sf '#191724' -fn 'JetBrains Mono:size=16:antialias=true:autohint=true' "$@"
 # exec dmenu_run -b -i -nb '#181830' -nf '#fff9e5' -sb '#30305f' -sf '#ffc800' -fn 'Noto Sans Mono:size=12:antialias=true:autohint=true' "$@"
 # exec dmenu_run -b -i -nb '#181830' -nf '#fff9e5' -sb '#ffc800' -sf '#181830' -fn 'Noto Sans Mono:size=12:antialias=true:autohint=true' "$@"
 # exec dmenu_run -b -i -nb '#181830' -nf '#fff9e5' -sb '#fff9e5' -sf '#181830' -fn 'Noto Sans Mono:size=12:antialias=true:autohint=true' "$@"
