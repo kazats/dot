@@ -86,7 +86,7 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "3" ｜ ["ranger"]
     , shift "4" ｜ ["htop"]
 
-    , dofloat   ｜ ["lxqt-openssh-askpass", "sun-awt-X11-XFramePeer"]
+    , dofloat   ｜ ["lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
     ]
     ++
@@ -119,6 +119,7 @@ myKeys XConfig
     [ a  xK_grave         ｜ rofi "run"
     , a  xK_Return        ｜ termNew
     , as xK_Return        ｜ nvim
+    , as xK_r             ｜ autorandr
 
     -- , m  xK_q             ｜ ""
     , m  xK_w             ｜ vivaldi
@@ -210,7 +211,6 @@ myKeys XConfig
     , a  xK_period        ｜ sendMessage $ IncMasterN 1
     -- , a  xK_x             ｜ sendMessage ToggleStruts
     , as xK_e             ｜ io exitSuccess
-    -- , as xK_r             ｜ spawn xmonadRestart
 
     , a  xK_i             ｜ toggleWS
     , a  xK_x             ｜ toggleWS
@@ -318,6 +318,7 @@ myStartupHook = do
        [ xcape
        , xset
        , autocutsel
+       , warpd
        , feh
        , picom
        , fcitx
@@ -334,6 +335,7 @@ myStartupHook = do
 -- xmonadRestart = "xmonad-restart"
 
 autocutsel    = "autocutsel -fork" ＆ "autocutsel -s PRIMARY -fork"
+autorandr     = "autorandr -c"
 dunst         = "dunst"
 fcitx         = "fcitx5"
 feh           = "~/.fehbg"
@@ -343,6 +345,7 @@ picom         = "picom --experimental-backends"
 ranger        = term "ranger"  "ranger"
 redshift      = "redshift -l 48.4:10.9 -t 6500:3500"
 -- unclutter     = "unclutter -idle 5 -root"
+warpd         = "warpd"
 xcape         = "xcape -e 'Mode_switch=Scroll_Lock'"
 xset          = "xset r rate 250"
 
@@ -354,7 +357,7 @@ nvim          = term "nvim" "nvim"
 katrain       = "prime-run katrain"
 libreoffice   = "libreoffice"
 pavucontrol   = "pavucontrol"
-rofi          = ("rofi -show " ++)
+rofi          = ("rofi -m -4 -show " ++)
 scrot         = "scrot-mv"
 skype         = "skypeforlinux"
 transmission  = "transmission-gtk"
