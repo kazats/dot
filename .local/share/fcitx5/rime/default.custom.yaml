@@ -1,0 +1,22 @@
+patch:
+  menu:
+    page_size: 9
+  schema_list:
+    - schema: luna_pinyin
+    - schema: luna_pinyin_simp
+    - schema: luna_pinyin_fluency
+    - schema: bopomofo
+    - schema: bopomofo_tw
+    - schema: cangjie5
+    - schema: stroke
+    - schema: terra_pinyin
+    - schema: taigi
+  switcher:
+    abbreviate_options: true
+    caption: "options"
+    fold_options: false
+    hotkeys:
+      - "Control+grave"
+      - "Control+Shift+grave"
+      - F4
+    option_list_separator: "·"
