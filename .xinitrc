@@ -34,7 +34,7 @@ fi
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
-# autorandr -c
+# autorandr -c &
 disp
 
-exec xmonad-v
+exec xmonad-x86_64-linux
