@@ -33,7 +33,8 @@ if status is-login
 
   fzf_configure_bindings --directory=\cf --git_log=\cg --git_status=\cs --processes=\cp
 
-  set -xg FZF_DEFAULT_OPTS    --cycle --layout=reverse --height=50% --border=none --margin=0,1,0,0 \
+  # --layout=reverse
+  set -xg FZF_DEFAULT_OPTS    --cycle --height=50% --border=none --margin=0,1,0,0 \
                               --preview-window=border-none,nowrap \
                               "--prompt=''" "--pointer=' ⟩'" "--marker=' ┃'" \
                               --color=fg:#e0def4,bg:#191724,hl:#c4a7e7 \
@@ -47,7 +48,7 @@ if status is-login
 
 
   if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-    exec startx
+    startx
   end
 end
 
