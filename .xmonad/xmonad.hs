@@ -317,7 +317,6 @@ myStartupHook = do
     mapM_ spawnOnce
        [ xcape
        , xset
-       , autocutsel
        , warpd
        , feh
        , picom
@@ -327,7 +326,8 @@ myStartupHook = do
        , ranger
        , dunst
        , redshift
-       , vivaldi
+       -- , autocutsel
+       -- , vivaldi
        ]
 
 
