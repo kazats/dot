@@ -324,8 +324,8 @@ myStartupHook = do
        , mainTerminal
        , htop
        , ranger
-       , dunst
        , redshift
+       -- , dunst
        -- , autocutsel
        -- , vivaldi
        ]
