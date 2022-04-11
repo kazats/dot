@@ -1,0 +1,85 @@
+(defcfg
+  input  (device-file "/dev/input/by-id/usb-Logitech_Logitech_Illuminated_Keyboard-event-kbd")
+  output (uinput-sink "kmonad" ;;"")
+    "/bin/sleep 1 && /usr/bin/setxkbmap -option compose:ralt")
+  cmp-seq ralt
+  ;; cmp-seq-delay 5
+
+  fallthrough true
+  allow-cmd   true
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12       ins  prnt pause mute vold volu
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc del  home pgup  nlck kp/  kp*  kp-
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret       end  pgdn  kp7  kp8  kp9  kp+
+  caps a    s    d    f    g    h    j    k    l    ;    '    \                         kp4  kp5  kp6
+  lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft           up         kp1  kp2  kp3  kprt
+  lctl lmet lalt           spc                      ralt      rctl      left down rght  kp0  kp.
+)
+
+#|
+(deflayer name
+  _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _                         _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _              _          _    _    _    _
+  _    _    _              _                        _         _         _    _    _     _    _
+)
+|#
+
+(defalias
+ ;; num  (layer-toggle default) ;; Bind num to a button that switches to a layer
+ ;; kil  C-A-del                ;; Bind kil to a button that Ctrl-Alt-deletes
+ \Ex (tap-hold-next-release 200 \ (layer-toggle extend))
+
+ eta (tap-hold 100 esc ralt) ;;  escape on tap, ralt on hold
+
+ zAlt (tap-hold-next-release 200 z lalt)
+ xGui (tap-hold-next-release 200 x lmet)
+ cCtl (tap-hold-next-release 200 c lctl)
+ vSft (tap-hold-next-release 200 v lsft)
+
+ mSft (tap-hold-next-release 200 m rsft)
+ ,Ctl (tap-hold-next-release 200 , rctl)
+ .Gui (tap-hold-next-release 200 . rmet)
+ /Alt (tap-hold-next-release 200 / lalt) ;; lalt!
+
+ wSft (tap-hold-next-release 200 w lsft)
+ ;; iExt (tap-hold-next-release 200 i (layer-toggle extend))
+ oSft (tap-hold-next-release 200 o rsft)
+
+ aAlg RA-'
+ oAlg RA-;
+ uAlg RA-[
+ sAlg RA--
+)
+
+(deflayer default
+  _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _     _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _     _    _    _    _
+  lctl _    _    _    _    _    _    _    _    _    _    _    rctl                      _    _    _
+  _    @\Ex _    _    _    _    _    _    _    _    _    _    _              _          _    _    _    _
+  _    _    _              _                        _         _         _    _    _     _    _
+)
+
+;;             _     _     _           _     _                                   _     _     _
+;; _           _     _     _     _     _     _     _     _     _     _     _     _     _
+;; _           _     _     _     _     _     _     _     _     _     _     _     _           _
+;; _           _     @wSft @eExt _     _     _     _     @iExt @oSft _     _     _           _
+;; esc         _     _     _     _     _     _     _     _     _     _     _     _           _
+;; _     _     @zAlt @xGui @cCtl @vSft _     _     @mSft @,Ctl @.Gui @/Alt                   _
+;; _           _     _                 _                 _     _     _           _     _     _
+
+(deflayer extend
+  _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _     _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
+  _    _    _    _    _    _    _    home pgup pgdn end  esc  ß    _         _    _     _    _    _    _
+  _    _    _    _    _    _    left down up   rght ö    ä    _                         _    _    _
+  _    _    _    _    _    _    _    bspc ret  del  _    ü    _              _          _    _    _    _
+  _    _    _              _                        _         _         _    _    _     _    _
+)
+
+;; vi: ft=lisp
