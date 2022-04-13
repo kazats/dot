@@ -315,18 +315,18 @@ myStartupHook = do
         ]
 
     mapM_ spawnOnce
-       [ xcape
-       , xset
+       [ xset
        , warpd
        , feh
-       , picom
        , fcitx
        , mainTerminal
        , htop
        , ranger
        , redshift
+       -- , xcape
        -- , dunst
        -- , autocutsel
+       -- , picom
        -- , vivaldi
        ]
 
