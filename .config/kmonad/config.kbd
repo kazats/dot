@@ -1,8 +1,8 @@
 (defcfg
   input  (device-file "/dev/input/by-id/usb-Logitech_Logitech_Illuminated_Keyboard-event-kbd")
   output (uinput-sink "kmonad" ;;"")
-    "/bin/sleep 1 && /usr/bin/setxkbmap -option compose:ralt")
-  cmp-seq ralt
+    "/bin/sleep 1 && /usr/bin/setxkbmap -option compose:menu")
+  cmp-seq compose
   ;; cmp-seq-delay 5
 
   fallthrough true
@@ -30,30 +30,15 @@
 |#
 
 (defalias
- ;; num  (layer-toggle default) ;; Bind num to a button that switches to a layer
- ;; kil  C-A-del                ;; Bind kil to a button that Ctrl-Alt-deletes
- \Ex (tap-hold-next-release 200 \ (layer-toggle extend))
-
- eta (tap-hold 100 esc ralt) ;;  escape on tap, ralt on hold
-
- zAlt (tap-hold-next-release 200 z lalt)
- xGui (tap-hold-next-release 200 x lmet)
- cCtl (tap-hold-next-release 200 c lctl)
- vSft (tap-hold-next-release 200 v lsft)
-
- mSft (tap-hold-next-release 200 m rsft)
- ,Ctl (tap-hold-next-release 200 , rctl)
- .Gui (tap-hold-next-release 200 . rmet)
- /Alt (tap-hold-next-release 200 / lalt) ;; lalt!
-
- wSft (tap-hold-next-release 200 w lsft)
- ;; iExt (tap-hold-next-release 200 i (layer-toggle extend))
- oSft (tap-hold-next-release 200 o rsft)
-
- aAlg RA-'
- oAlg RA-;
- uAlg RA-[
- sAlg RA--
+  hen  Henkan
+  lEs  (tap-hold 200 esc  lctl)
+  rRt  (tap-hold 200 ret  rctl)
+  lHn  (tap-hold 200 @hen lsft)
+  rSp  (tap-hold 200 spc  rsft)
+  sSh  (tap-hold 200 spc  shft)
+  rCm  (tap-hold 200 cmps ralt)
+  \Ex  (tap-hold 200 \    (layer-toggle ext))
+  cNm  (tap-hold 200 lctl (layer-toggle num))
 )
 
 (deflayer default
@@ -61,8 +46,8 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _     _    _    _    _
   lctl _    _    _    _    _    _    _    _    _    _    _    rctl                      _    _    _
-  _    @\Ex _    _    _    _    _    _    _    _    _    _    _              _          _    _    _    _
-  _    _    _              _                        _         _         _    _    _     _    _
+  @lHn @\Ex _    _    _    _    _    _    _    _    _    _    @rSp           _          _    _    _    _
+  @cNm _    _              spc                      @rCm      @hen      _    _    _     _    _
 )
 
 ;;             _     _     _           _     _                                   _     _     _
@@ -73,7 +58,7 @@
 ;; _     _     @zAlt @xGui @cCtl @vSft _     _     @mSft @,Ctl @.Gui @/Alt                   _
 ;; _           _     _                 _                 _     _     _           _     _     _
 
-(deflayer extend
+(deflayer ext
   _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _     _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
   _    _    _    _    _    _    _    home pgup pgdn end  esc  ß    _         _    _     _    _    _    _
@@ -81,5 +66,16 @@
   _    _    _    _    _    _    _    bspc ret  del  _    ü    _              _          _    _    _    _
   _    _    _              _                        _         _         _    _    _     _    _
 )
+
+(deflayer num
+  _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _     _    _    _
+  _    _    _    _    _    _    _    _    *    _    _    _    _    _    _    _    _     _    _    _    _
+  _    _    _    _    _    _    bspc 7    8    9    -    _    _    _         _    _     _    _    _    _
+  _    _    _    _    _    _    +    4    5    6    .    ,    _                         _    _    _
+  _    _    _    _    _    _    _    0    1    2    3    /    _              _          _    _    _    _
+  _    _    _              _                        _         _         _    _    _     _    _
+)
+
+;; vi: ft=lisp
 
 ;; vi: ft=lisp
