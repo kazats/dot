@@ -180,9 +180,9 @@
 # NOTE: It might be helpful to run dunst -print in a terminal in order to find
 # fitting options for rules.
 
-[vivaldi]
-    appname = "Vivaldi"
-    format  = "<b>%a</b>\n%s"
+# [vivaldi]
+#     appname = "Vivaldi"
+#     format  = "<b>%a</b>\n%s"
 
 [control]
     appname    = "control"
