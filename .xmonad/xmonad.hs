@@ -309,7 +309,7 @@ myStartupHook = do
     setWMName "LG3D"
     addScreenCorners
         [ (SCLowerLeft,  spawn volumeToggle)
-        , (SCLowerRight, spawn $ xdokey "Shift+p")
+        , (SCLowerRight, spawn volumeDec)
         , (SCUpperLeft,  spawn volumeDec)
         , (SCUpperRight, spawn volumeInc)
         ]
