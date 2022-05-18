@@ -39,15 +39,23 @@
   rCm  (tap-hold 200 cmps ralt)
   \Ex  (tap-hold 200 \    (layer-toggle ext))
   cNm  (tap-hold 200 lctl (layer-toggle num))
+
+  mpr  C-S-m
+  mpp  C-S-,
+  mne  C-S-.
+  mlk  C-S-b
+  mrp  C-S-r
+  msh  C-S-s
+  pom  C-S-k
 )
 
 (deflayer default
   _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _     _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _     _    _    _    @pom
   lctl _    _    _    _    _    _    _    _    _    _    _    rctl                      _    _    _
-  @lHn @\Ex _    _    _    _    _    _    _    _    _    _    @rSp           _          _    _    _    _
-  @cNm _    _              spc                      @rCm      @hen      _    _    _     _    _
+  lsft @\Ex _    _    _    _    _    _    _    _    _    _    rsft           _          @mlk @msh @mrp @mne
+  @cNm _    _              spc                      @rCm      @hen      _    _    _     @mpp @mpr
 )
 
 ;;             _     _     _           _     _                                   _     _     _
@@ -75,7 +83,5 @@
   _    _    _    _    _    _    _    0    1    2    3    /    _              _          _    _    _    _
   _    _    _              _                        _         _         _    _    _     _    _
 )
-
-;; vi: ft=lisp
 
 ;; vi: ft=lisp
