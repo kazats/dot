@@ -82,7 +82,7 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "f" ｜ ["skype", "zoom", "cmus", "spotify", "vlc"]
 
     , shift "1" ｜ []
-    , shift "2" ｜ []
+    , shift "2" ｜ ["VirtualBox"]
     , shift "3" ｜ ["ranger"]
     , shift "4" ｜ ["htop"]
 
