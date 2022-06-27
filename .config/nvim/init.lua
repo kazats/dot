@@ -221,7 +221,7 @@ require('packer').startup(function()
           height = 30,
           hide_root_folder = false,
           side = 'left',
-          auto_resize = false,
+          adaptive_size = false,
           mappings = {
             custom_only = false,
             list = {}
@@ -414,7 +414,7 @@ require('packer').startup(function()
         hide_numbers = true, -- hide the number column in toggleterm buffers
         shade_filetypes = {},
         shade_terminals = true,
-        shading_factor = '<number>', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+        shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
         start_in_insert = true,
         insert_mappings = true, -- whether or not the open mapping applies in insert mode
         terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
@@ -595,13 +595,13 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
-parser_config.haskell = {
-  install_info = {
-    url = "~/.local/src/tree-sitter-haskell",
-    files = {'src/parser.c', 'src/scanner.c'}
-  }
-}
+-- local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
+-- parser_config.haskell = {
+--   install_info = {
+--     url = "~/.local/src/tree-sitter-haskell",
+--     files = {'src/parser.c', 'src/scanner.c'}
+--   }
+-- }
 
 -- LSP settings
 local lspconfig = require 'lspconfig'
