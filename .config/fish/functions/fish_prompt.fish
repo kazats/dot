@@ -1,0 +1,1 @@
+/home/v/.config/fish/themes/kaze/fish_prompt.fish
