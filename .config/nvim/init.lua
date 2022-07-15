@@ -763,48 +763,56 @@ end
 
 maps(opt, {
   n = {
-  { '<space>', ':'                     },
+    { '<space>', ':'                     },
   },
 })
 
 maps(opts, {
   n = {
-  { 'Y',          'y$'                                      },
-  { l  'v',       cmd 'tabedit $MYVIMRC'                    },
+    { 'Y',          'y$'                                      },
+    { l  'v',       cmd 'tabedit $MYVIMRC'                    },
 
-  { l  'w',       cmd 'w'                                   },
-  { l  's',       cmd 'wq'                                  },
-  { l  'a',       cmd 'q'                                   },
-  { l  'A',       cmd 'q!'                                  },
-  { l  'z',       cmd 'qa'                                  },
-  { l  'Z',       cmd 'qa!'                                 },
-  { l  'b',       cmd 'bd'                                  },
+    { l  'w',       cmd 'w'                                   },
+    { l  's',       cmd 'wq'                                  },
+    { l  'a',       cmd 'q'                                   },
+    { l  'A',       cmd 'q!'                                  },
+    { l  'z',       cmd 'qa'                                  },
+    { l  'Z',       cmd 'qa!'                                 },
+    { l  'b',       cmd 'bd'                                  },
 
-  { '<tab>',      '<C-w><c-w>'                              },
-  { l  'h',       '<C-w>h'                                  },
-  { l  'j',       '<C-w>j'                                  },
-  { l  'k',       '<C-w>k'                                  },
-  { l  'l',       '<C-w>l'                                  },
-  { l  'H',       '<C-w>H'                                  },
-  { l  'J',       '<C-w>J'                                  },
-  { l  'K',       '<C-w>K'                                  },
-  { l  'L',       '<C-w>L'                                  },
+    { '<tab>',      '<C-w><c-w>'                              },
+    { l  'h',       '<C-w>h'                                  },
+    { l  'j',       '<C-w>j'                                  },
+    { l  'k',       '<C-w>k'                                  },
+    { l  'l',       '<C-w>l'                                  },
+    { l  'H',       '<C-w>H'                                  },
+    { l  'J',       '<C-w>J'                                  },
+    { l  'K',       '<C-w>K'                                  },
+    { l  'L',       '<C-w>L'                                  },
 
-  { l  'm',       cmd 'Telescope find_files'                },
-  { l  'r',       cmd 'Telescope oldfiles'                  },
-  { l  '/',       cmd 'Telescope search_history'            },
-  { l  '\'',      cmd 'Telescope marks'                     },
-  { l  'f',       cmd 'Telescope current_buffer_fuzzy_find' },
-  { l  '<space>', cmd 'Telescope command_history'           },
-  { l2 'g',       cmd 'Telescope live_grep'                 },
-  { l2 'c',       cmd 'Telescope grep_string'               },
-  { l2 'b',       cmd 'Telescope buffers'                   },
-  { l2 'h',       cmd 'Telescope help_tags'                 },
-  { l2 'm',       cmd 'Telescope man_pages'                 },
-  { l2 'f',       cmd 'Telescope media_files'               },
-  { l2 '<space>', cmd 'Telescope commands'                  },
+    { l  'm',       cmd 'Telescope find_files'                },
+    { l  'r',       cmd 'Telescope oldfiles'                  },
+    { l  '/',       cmd 'Telescope search_history'            },
+    { l  '\'',      cmd 'Telescope marks'                     },
+    { l  'f',       cmd 'Telescope current_buffer_fuzzy_find' },
+    { l  '<space>', cmd 'Telescope command_history'           },
+    { l2 'g',       cmd 'Telescope live_grep'                 },
+    { l2 'c',       cmd 'Telescope grep_string'               },
+    { l2 'b',       cmd 'Telescope buffers'                   },
+    { l2 'h',       cmd 'Telescope help_tags'                 },
+    { l2 'm',       cmd 'Telescope man_pages'                 },
+    { l2 'f',       cmd 'Telescope media_files'               },
+    { l2 '<space>', cmd 'Telescope commands'                  },
 
-  { '<C-a>',      cmd 'RnvimrToggle'                        },
+    { '<C-a>',      cmd 'RnvimrToggle'                        },
+  },
+
+  i = {
+    { l  'm',       '<esc>'                                   },
+    {    ',\n',     ',\n'                                     },
+    { l  'w',       '<esc><cmd>w<cr>'                         },
+    {    ',,w',     ',<esc><cmd>w<cr>'                        },
+    {    '<M-o>',   '<esc>o'                                  },
   },
 })
 
@@ -904,12 +912,12 @@ vim.cmd [[
     " nmap \\ gcc
     " vmap \\ gc
 
-    silent inoremap <leader>m <esc>
-    silent inoremap ,       ,
-    silent inoremap <leader>w <esc><cmd>w<cr>
-    silent inoremap ,,w       ,<esc><cmd>w<cr>
-
-    imap <m-o> <esc>o
+    " silent inoremap <leader>m <esc>
+    " silent inoremap ,       ,
+    " silent inoremap <leader>w <esc><cmd>w<cr>
+    " silent inoremap ,,w       ,<esc><cmd>w<cr>
+    "
+    " imap <m-o> <esc>o
 
 
     " Start interactive EasyAlign in visual mode (e.g. vipga)
