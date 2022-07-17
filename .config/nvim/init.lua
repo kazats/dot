@@ -89,6 +89,7 @@ require('packer').startup(function()
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use {
     'nvim-telescope/telescope.nvim',
+    tag = '0.1.0',
     requires = {
       'nvim-lua/plenary.nvim',
       'nvim-lua/popup.nvim',
@@ -735,10 +736,14 @@ vim.g.mapleader      = ','
 vim.g.maplocalleader = '\\'
 
 
-local map  = vim.api.nvim_set_keymap
+-- local map  = vim.api.nvim_set_keymap
+local map  = vim.keymap.set
 -- local bmap = vim.api.nvim_buf_set_keymap
-local opt  = { noremap = true }
-local opts = { noremap = true, silent = true }
+-- local opt  = { noremap = true }
+-- local opts = { noremap = true, silent = true }
+local o    = {}
+local o_s  = { silent = true }
+local o_se = { silent = true, expr = true }
 
 local function maps(o, defs)
   for mode, bindings in pairs(defs) do
@@ -756,65 +761,90 @@ local function l2(k)
   return string.format('<leader><leader>%s', k)
 end
 
+local function ll(k)
+  return string.format('<localleader>%s', k)
+end
+
+local function ll2(k)
+  return string.format('<localleader><localleader>%s', k)
+end
+
 local function cmd(c)
   return string.format('<cmd>%s<cr>', c)
 end
 
 
-maps(opt, {
+local t = require('telescope.builtin')
+
+
+maps(o, {
   n = {
     { '<space>', ':'                     },
   },
 })
 
-maps(opts, {
+maps(o_s, {
   n = {
-    { 'Y',          'y$'                                      },
-    { l  'v',       cmd 'tabedit $MYVIMRC'                    },
+    { 'Y',          'y$'                                         },
+    { l  'v',       cmd 'tabedit $MYVIMRC'                       },
 
-    { l  'w',       cmd 'w'                                   },
-    { l  's',       cmd 'wq'                                  },
-    { l  'a',       cmd 'q'                                   },
-    { l  'A',       cmd 'q!'                                  },
-    { l  'z',       cmd 'qa'                                  },
-    { l  'Z',       cmd 'qa!'                                 },
-    { l  'b',       cmd 'bd'                                  },
+    { l  'w',       cmd 'w'                                      },
+    { l  's',       cmd 'wq'                                     },
+    { l  'a',       cmd 'q'                                      },
+    { l  'A',       cmd 'q!'                                     },
+    { l  'z',       cmd 'qa'                                     },
+    { l  'Z',       cmd 'qa!'                                    },
+    { l  'b',       cmd 'bd'                                     },
 
-    { '<tab>',      '<C-w><c-w>'                              },
-    { l  'h',       '<C-w>h'                                  },
-    { l  'j',       '<C-w>j'                                  },
-    { l  'k',       '<C-w>k'                                  },
-    { l  'l',       '<C-w>l'                                  },
-    { l  'H',       '<C-w>H'                                  },
-    { l  'J',       '<C-w>J'                                  },
-    { l  'K',       '<C-w>K'                                  },
-    { l  'L',       '<C-w>L'                                  },
+    { '<tab>',      '<C-w><c-w>'                                 },
+    { l  'h',       '<C-w>h'                                     },
+    { l  'j',       '<C-w>j'                                     },
+    { l  'k',       '<C-w>k'                                     },
+    { l  'l',       '<C-w>l'                                     },
+    { l  'H',       '<C-w>H'                                     },
+    { l  'J',       '<C-w>J'                                     },
+    { l  'K',       '<C-w>K'                                     },
+    { l  'L',       '<C-w>L'                                     },
 
-    { l  'm',       cmd 'Telescope find_files'                },
-    { l  'r',       cmd 'Telescope oldfiles'                  },
-    { l  '/',       cmd 'Telescope search_history'            },
-    { l  '\'',      cmd 'Telescope marks'                     },
-    { l  'f',       cmd 'Telescope current_buffer_fuzzy_find' },
-    { l  '<space>', cmd 'Telescope command_history'           },
-    { l2 'g',       cmd 'Telescope live_grep'                 },
-    { l2 'c',       cmd 'Telescope grep_string'               },
-    { l2 'b',       cmd 'Telescope buffers'                   },
-    { l2 'h',       cmd 'Telescope help_tags'                 },
-    { l2 'm',       cmd 'Telescope man_pages'                 },
-    { l2 'f',       cmd 'Telescope media_files'               },
-    { l2 '<space>', cmd 'Telescope commands'                  },
+    { l  'm',       function() t.find_files()                end },
+    { l  'r',       function() t.oldfiles()                  end },
+    { l  '/',       function() t.search_history()            end },
+    { l  '\'',      function() t.marks()                     end },
+    { l  'f',       function() t.current_buffer_fuzzy_find() end },
+    { l  '<space>', function() t.command_history()           end },
+    { l2 'g',       function() t.live_grep()                 end },
+    { l2 'c',       function() t.grep_string()               end },
+    { l2 'b',       function() t.buffers()                   end },
+    { l2 'h',       function() t.help_tags()                 end },
+    { l2 'm',       function() t.man_pages()                 end },
+    { l2 'f',       function() t.media_files()               end },
+    { l2 '<space>', function() t.commands()                  end },
 
-    { '<C-a>',      cmd 'RnvimrToggle'                        },
-  },
+    { '<C-a>',      cmd 'RnvimrToggle'                           },
+
+    { ll  '/',      cmd 'noh'                                    },
+    { ll  'v',      '"+gP'                                       },
+    { ll2 'q',      'gqip'                                       },
+    { ll2 'ft',     'Vatzf'                                      },
+    { ll2 'J',      'mqgg=G`qzz'                                 },
+    { ll2 'f',      function() vim.lsp.buf.formatting_sync() end },
+                                                                 },
 
   i = {
-    { l  'm',       '<esc>'                                   },
-    {    ',\n',     ',\n'                                     },
-    { l  'w',       '<esc><cmd>w<cr>'                         },
-    {    ',,w',     ',<esc><cmd>w<cr>'                        },
-    {    '<M-o>',   '<esc>o'                                  },
+    { l  'm',       '<esc>'                                      },
+    {    ',\n',     ',\n'                                        },
+    { l  'w',       '<esc><cmd>w<cr>'                            },
+    {    ',,w',     ',<esc><cmd>w<cr>'                           },
+    {    '<M-o>',   '<esc>o'                                     },
   },
 })
+
+-- map('n', ll2 'i', cmd 'MagmaInit',                o_s)
+-- map('n', ll  'o', '<cmd>MagmaEvaluateOperator<cr>',   { noremap = true, silent = true, expr = true})
+-- map('n', ll  'm', cmd 'MagmaEvaluateLine',        o_s)
+-- map('x', ll  'm', cmd '<C-u>MagmaEvaluateVisual', o_s)
+-- map('n', ll  'r', cmd 'MagmaReevaluateCell',      o_s)
+-- map('n', ll2 'm', cmd 'MagmaDelete',              o_s)
 
 
 vim.wo.foldmethod = 'expr'
@@ -892,7 +922,7 @@ vim.cmd [[
     let mapleader      = ','
     let maplocalleader = '\'
 
-    nmap     <LocalLeader><LocalLeader>f :lua vim.lsp.buf.formatting_sync()<cr>
+    " nmap     <LocalLeader><LocalLeader>f :lua vim.lsp.buf.formatting_sync()<cr>
     " nmap     <LocalLeader>n              <Plug>JupyterExecute
     " nmap     <LocalLeader><localleader>n <Plug>JupyterExecuteAll
 
@@ -903,12 +933,12 @@ vim.cmd [[
     nnoremap <silent>       <LocalLeader>r              :MagmaReevaluateCell<CR>
     nnoremap <silent>       <LocalLeader><LocalLeader>m :MagmaDelete<CR>
 
-    nnoremap <LocalLeader><LocalLeader>q gqip
-    nnoremap <LocalLeader><LocalLeader>ft Vatzf
-    nnoremap <LocalLeader><LocalLeader>J mqgg=G`qzz
-
-    nnoremap <LocalLeader>v "+gP
-    nnoremap <silent><LocalLeader>/ :noh<cr>
+    " nnoremap <LocalLeader><LocalLeader>q gqip
+    " nnoremap <LocalLeader><LocalLeader>ft Vatzf
+    " nnoremap <LocalLeader><LocalLeader>J mqgg=G`qzz
+    "
+    " nnoremap <LocalLeader>v "+gP
+    " nnoremap <silent><LocalLeader>/ :noh<cr>
     " nmap \\ gcc
     " vmap \\ gc
 
