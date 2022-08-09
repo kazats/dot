@@ -81,30 +81,44 @@ end
 
 function show_git_info
 
-  set -l LIMBO      /dev/null
-  set -l git_status (git status --porcelain 2> $LIMBO)
-  set -l git_stash  (git stash list 2> $LIMBO)
-  set -l dirty      ""
-
-  [ $status -eq 128 ]; and return  # Not a repository? Nothing to do
-
-  # If there is modifications, set repository dirty to '*'
-  if not [ -z (echo "$git_status" | grep -e '^ M') ]
-    set dirty "*"
-  end
-
-  # If there is new or deleted files, add '+' to dirty
-  if not [ -z (echo "$git_status" | grep -e '^[MDA]') ]
-    set dirty "$dirty+"
-  end
-
-  # If there is stashed modifications on repository, add '^' to dirty
-  if not [ -z (echo "$git_stash") ]
-    set dirty "$dirty^"
-  end
-
   set_color    (mode_color)
   set_color -b 26233a
 
-  echo -en "" (git_branch_name)$dirty ""
+  # set -g __fish_git_prompt_color_prefix '#26233a'
+  # set -g __fish_git_prompt_color_suffix '#26233a'
+
+  set -l git_prompt (string replace -ra '\(|\)' '' (fish_git_prompt))
+
+  echo -en $git_prompt ""
 end
+
+
+# function show_git_info
+#
+#   set -l LIMBO      /dev/null
+#   set -l git_status (git status --porcelain 2> $LIMBO)
+#   set -l git_stash  (git stash list 2> $LIMBO)
+#   set -l dirty      ""
+#
+#   [ $status -eq 128 ]; and return  # Not a repository? Nothing to do
+#
+#   # If there is modifications, set repository dirty to '*'
+#   if not [ -z (echo "$git_status" | grep -e '^ M') ]
+#     set dirty "*"
+#   end
+#
+#   # If there is new or deleted files, add '+' to dirty
+#   if not [ -z (echo "$git_status" | grep -e '^[MDA]') ]
+#     set dirty "$dirty+"
+#   end
+#
+#   # If there is stashed modifications on repository, add '^' to dirty
+#   if not [ -z (echo "$git_stash") ]
+#     set dirty "$dirty^"
+#   end
+#
+#   set_color    (mode_color)
+#   set_color -b 26233a
+#
+#   echo -en "" (git_branch_name)$dirty ""
+# end
