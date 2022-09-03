@@ -299,6 +299,8 @@ require('packer').startup(function()
 
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use 'nvim-treesitter/nvim-treesitter-context'
+
   use 'neovim/nvim-lspconfig'
   use {
     'jose-elias-alvarez/null-ls.nvim',
