@@ -35,7 +35,7 @@ main = xmonad
     . ewmh
     $ def
     -- { terminal            = "alacritty"
-    { focusFollowsMouse   = False
+    { focusFollowsMouse   = True
     , borderWidth         = 1
     -- , modMask             = mod1Mask
     , workspaces          = return <$> "qwerasdf1234"
@@ -60,7 +60,7 @@ myLayout
     $ tiledF
 
     where
-    tiledF = tiled ||| full ||| vGrid ||| hGrid
+    tiledF = tiled ||| full -- ||| vGrid ||| hGrid
     -- fullF  = full  ||| tiled ||| grid
 
     tiled  = reflectHoriz $ Tall 1 (5/100) (1/2)
