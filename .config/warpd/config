@@ -1,16 +1,16 @@
 hint_activation_key:     A-;
 grid_activation_key:     A-S-g
 screen_activation_key:   A-/
-activation_key:          A-'
+activation_key:          A-S-o
 hint_oneshot_key:        A-S-;
 repeat_interval:         20
 speed:                   100
 max_speed:               1000
 acceleration:            1000
 buttons:                 m , .
-oneshot_buttons:         n < >
+oneshot_buttons:         n K L
 oneshot_timeout:         200
-exit:                    [
+exit:                    esc
 drag:                    v
 copy_and_exit:           y
 hint:                    ;
@@ -35,7 +35,7 @@ grid_up:                 w
 grid_left:               a
 grid_down:               s
 grid_right:              d
-grid_keys:               u,i,j,k
+grid_keys:               u i j k
 grid_color:              #c4a7e7
 grid_size:               2
 grid_border_size:        0
