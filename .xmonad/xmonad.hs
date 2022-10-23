@@ -144,7 +144,7 @@ myKeys XConfig
     -- , n  eject            ｜ ""
     , n  xK_Print         ｜ scrot
     -- , c  scroll           ｜ ""
-    -- , a  xK_Pause         ｜ ""
+    , a  xK_Pause         ｜ "systemctl suspend"
 
     , m  xK_space         ｜ dunstctl "close"
     , ms xK_space         ｜ dunstctl "close-all"
