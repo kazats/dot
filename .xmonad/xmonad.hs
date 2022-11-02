@@ -323,34 +323,28 @@ myStartupHook = do
        , htop
        , ranger
        , redshift
-       -- , xcape
-       -- , dunst
-       -- , autocutsel
-       -- , picom
-       -- , vivaldi
        ]
 
 
 -- PROGRAMS
 -- xmonadRestart = "xmonad-restart"
 
-autocutsel    = "autocutsel -fork" ＆ "autocutsel -s PRIMARY -fork"
+-- autocutsel    = "autocutsel -fork" ＆ "autocutsel -s PRIMARY -fork"
 autorandr     = "autorandr -c"
-dunst         = "dunst"
 fcitx         = "fcitx5"
 feh           = "~/.fehbg"
-htop          = term "htop"    "htop -u v"
+htop          = term "htop" "htop -u v"
 mainTerminal  = termClass "main"
-picom         = "picom --experimental-backends"
+-- picom         = "picom --experimental-backends"
 ranger        = term "ranger"  "ranger"
 redshift      = "redshift -l 48.4:10.9 -t 6500:3500"
 -- unclutter     = "unclutter -idle 5 -root"
 warpd         = "warpd"
-xcape         = "xcape -e 'Mode_switch=Scroll_Lock'"
-xset          = "xset r rate 250"
+-- xcape         = "xcape -e 'Mode_switch=Scroll_Lock'"
+xset          = "xset r rate 250; xset dpms 0 0 0; xset s off"
 
 anki          = "anki -b ~/.anki"
-dmenu         = "dmenu-run"
+-- dmenu         = "dmenu-run"
 dunstctl      = ("dunstctl " ++)
 gimp          = "gimp"
 nvim          = term "nvim" "nvim"
