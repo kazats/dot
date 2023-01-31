@@ -15,6 +15,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Fullscreen   (fullscreenManageHook)
 import XMonad.Layout.GridVariants (Orientation (..), SplitGrid (..))
 import XMonad.Layout.NoBorders    (smartBorders)
+import XMonad.Layout.SimplestFloat
 -- import XMonad.Layout.PerWorkspace (onWorkspaces)
 import XMonad.Layout.Reflect      (reflectHoriz, reflectVert)
 
@@ -60,7 +61,7 @@ myLayout
     $ tiledF
 
     where
-    tiledF = tiled ||| full -- ||| vGrid ||| hGrid
+    tiledF = tiled ||| full ||| simplestFloat -- ||| vGrid ||| hGrid
     -- fullF  = full  ||| tiled ||| grid
 
     tiled  = reflectHoriz $ Tall 1 (5/100) (1/2)
@@ -82,11 +83,11 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "f" ｜ ["skype", "zoom", "cmus", "spotify", "vlc"]
 
     , shift "1" ｜ []
-    , shift "2" ｜ ["VirtualBox Manager", "VirtualBox Machine"]
+    , shift "2" ｜ ["vmware", "VirtualBox Manager", "VirtualBox Machine"]
     , shift "3" ｜ ["ranger"]
     , shift "4" ｜ ["htop"]
 
-    , dofloat   ｜ ["lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
+    , dofloat   ｜ ["foxwq.exe", "lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
     ]
     ++
@@ -139,7 +140,7 @@ myKeys XConfig
 
     , m  xK_z             ｜ zoom
     -- , m  xK_c             ｜ ""
-    , m  xK_v             ｜ vlc
+    , m  xK_v             ｜ vmware
 
     -- , n  eject            ｜ ""
     , n  xK_Print         ｜ scrot
@@ -356,7 +357,7 @@ scrot         = "scrot-mv"
 skype         = "skypeforlinux"
 transmission  = "transmission-gtk"
 vivaldi       = "vivaldi"
-vlc           = "vlc"
+vmware        = "vmware"
 zoom          = "zoom"
 
 volumeDec     = "control v -"
