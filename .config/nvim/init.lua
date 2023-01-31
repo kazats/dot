@@ -4,15 +4,14 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
 end
 
-vim.cmd [[,
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost init.lua PackerCompile
-  augroup end
-]]
+-- vim.cmd [[,
+--   augroup Packer
+--     autocmd!
+--     autocmd BufWritePost init.lua PackerCompile
+--   augroup end
+-- ]]
 
-local use = require('packer').use
-require('packer').startup(function()
+require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use {
@@ -92,13 +91,10 @@ require('packer').startup(function()
     tag = '0.1.0',
     requires = {
       'nvim-lua/plenary.nvim',
-      'nvim-lua/popup.nvim',
       'nvim-telescope/telescope-media-files.nvim',
       'kyazdani42/nvim-web-devicons', opt = true
     },
     config = function()
-      require('telescope').load_extension('fzf')
-      require('telescope').load_extension('media_files')
       require('telescope').setup {
         defaults = {
           vimgrep_arguments = {
@@ -159,8 +155,12 @@ require('packer').startup(function()
           marks                     = { prompt_title  = '', results_title = '', preview_title = '' },
           media_files               = { prompt_title  = '', results_title = '', preview_title = '' },
           current_buffer_fuzzy_find = { prompt_title  = '', results_title = '', preview_title = '' },
+          lsp_references            = { prompt_title  = '', results_title = '', preview_title = '' },
+          lsp_document_symbols      = { prompt_title  = '', results_title = '', preview_title = '' },
         }
       }
+      require('telescope').load_extension('fzf')
+      require('telescope').load_extension('media_files')
     end
   }
 
@@ -191,12 +191,12 @@ require('packer').startup(function()
         --   auto_open = true,
         -- },
         diagnostics = {
-          enable = false,
+          enable = true,
           icons = {
-            hint    = "H",
-            info    = "I",
-            warning = "W",
-            error   = "E",
+            hint    = "H", --
+            info    = "I", --🛈
+            warning = "W", --
+            error   = "E", --
           }
         },
         update_focused_file = {
@@ -219,7 +219,7 @@ require('packer').startup(function()
         },
         view = {
           width = 30,
-          height = 30,
+          -- height = 30,
           hide_root_folder = false,
           side = 'left',
           adaptive_size = false,
@@ -252,9 +252,10 @@ require('packer').startup(function()
           section_separators   = { left = '', right = ''},
           disabled_filetypes   = {},
           always_divide_middle = true,
+          globalstatus = true,
         },
         sections = {
-          lualine_a = { 'mode' },
+          lualine_a = { { 'mode', fmt = function(str) return str:sub(1,1) end } },
           lualine_b = { 'branch', 'diff', 'diagnostics' },
           lualine_c = {
             { 'buffers',
@@ -300,6 +301,49 @@ require('packer').startup(function()
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'nvim-treesitter/nvim-treesitter-context'
+  -- use 'nvim-treesitter/nvim-treesitter-refactor'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use 'drybalka/tree-climber.nvim'
+  use {
+    'andymass/vim-matchup',
+    setup = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end
+  }
+
+  use {
+    'folke/twilight.nvim',
+    config = function()
+      require('twilight').setup {
+        dimming = {
+          alpha = 0.25, -- amount of dimming
+          -- we try to get the foreground from the highlight groups or fallback color
+          color = { "Normal", "#ffffff" },
+          term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
+          inactive = true, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+        },
+        context = 0, -- amount of lines we will try to show around the current line
+        treesitter = true, -- use treesitter when available for the filetype
+        -- treesitter is used to automatically expand the visible text,
+        -- but you can further control the types of nodes that should always be fully expanded
+        expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+          "function",
+          "method",
+          "table",
+          "if_statement",
+        },
+        exclude = {}, -- exclude these filetypes
+      }
+    end
+  }
+
+  use {
+    'folke/zen-mode.nvim',
+    config = function()
+      require('zen-mode').setup {
+      }
+    end
+  }
 
   use 'neovim/nvim-lspconfig'
   use {
@@ -316,66 +360,53 @@ require('packer').startup(function()
     end
   }
 
-  -- use {
-  --   'glepnir/lspsaga.nvim',
-  --   config = function()
-  --     require('lspsaga').init_lsp_saga {
-  --       -- use_saga_diagnostic_sign = true
-  --       -- error_sign = '',
-  --       -- warn_sign = '',
-  --       -- hint_sign = '',
-  --       -- infor_sign = '',
-  --       -- dianostic_header_icon = '   ',
-  --       -- code_action_icon = ' ',
-  --       -- code_action_prompt = {
-  --       --   enable = true,
-  --       --   sign = true,
-  --       --   sign_priority = 20,
-  --       --   virtual_text = true,
-  --       -- },
-  --       -- finder_definition_icon = '  ',
-  --       -- finder_reference_icon = '  ',
-  --       -- max_preview_lines = 10, -- preview lines of lsp_finder and definition preview
-  --       -- finder_action_keys = {
-  --       --   open = 'o', vsplit = 's',split = 'i',quit = 'q',scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
-  --       -- },
-  --       -- code_action_keys = {
-  --       --   quit = 'q',exec = '<CR>'
-  --       -- },
-  --       -- rename_action_keys = {
-  --       --   quit = '<C-c>',exec = '<CR>'  -- quit can be a table
-  --       -- },
-  --       -- definition_preview_icon = '  '
-  --       -- "single" "double" "round" "plus"
-  --       -- border_style = "single"
-  --       -- rename_prompt_prefix = '➤',
-  --       -- if you don't use nvim-lspconfig you must pass your server name and
-  --       -- the related filetypes into this table
-  --       -- like server_filetype_map = {metals = {'sbt', 'scala'}}
-  --       -- server_filetype_map = {}
-  --     }
-  --   end
-  -- }
-
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use {
     'hrsh7th/cmp-cmdline',
     config = function()
-      require('cmp').setup.cmdline(':', {
-        sources = {
-          { name = 'cmdline' }
-        }
-      })
       require('cmp').setup.cmdline('/', {
+        mapping = require('cmp').mapping.preset.cmdline(),
         sources = {
           { name = 'buffer' }
         }
       })
+
+      require('cmp').setup.cmdline(':', {
+        mapping = require('cmp').mapping.preset.cmdline(),
+        sources = require('cmp').config.sources({
+          { name = 'path' }
+        }, {
+            {
+              name = 'cmdline',
+              option = {
+                ignore_cmds = { 'Man', '!' }
+              }
+            }
+          })
+      })
     end
   }
+
+  use 'mfussenegger/nvim-dap'
+
+  use {
+    'mfussenegger/nvim-dap-python',
+    config = function()
+      require('dap-python').setup('~/.local/var/debugpy/bin/python')
+    end
+  }
+  use {
+    'theHamsta/nvim-dap-virtual-text',
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end
+
+  }
+
   use {
     'L3MON4D3/LuaSnip',
     config = function()
@@ -405,11 +436,11 @@ require('packer').startup(function()
     config = function()
       require('toggleterm').setup {
         size = 20, -- | function(term)
-          -- if term.direction == "horizontal" then
-          --   return 15
-          -- elseif term.direction == "vertical" then
-          --   return vim.o.columns * 0.4
-          -- end
+        -- if term.direction == "horizontal" then
+        --   return 15
+        -- elseif term.direction == "vertical" then
+        --   return vim.o.columns * 0.4
+        -- end
         -- end,
         open_mapping = [[<c-\>]],
         -- on_open = fun(t: Terminal), -- function to run when the terminal opens
@@ -464,12 +495,12 @@ require('packer').startup(function()
     run = ':UpdateRemotePlugins'
   }
 
-  use {
-    'glacambre/firenvim',
-    run = function()
-      vim.fn['firenvim#install'](0)
-    end
-  }
+  -- use {
+  --   'glacambre/firenvim',
+  --   run = function()
+  --     vim.fn['firenvim#install'](0)
+  --   end
+  -- }
 end)
 
 
@@ -478,7 +509,7 @@ vim.diagnostic.config {
   signs            = true,
   underline        = false,
   update_in_insert = false,
-  severity_sort    = false,
+  severity_sort    = true,
 }
 
 
@@ -542,12 +573,13 @@ vim.api.nvim_set_keymap('n', '<C-n>', "<cmd>NvimTreeToggle<cr>", { noremap = tru
 -- ]]
 
 --Map blankline
-vim.g.indent_blankline_char = '┊' --┊┆│
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_show_trailing_blankline_indent = false
+-- vim.g.indent_blankline_char = '┊' --┊┆│
+-- vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
+-- vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
+-- vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 require('nvim-treesitter.configs').setup {
+  auto_install = true,
   highlight = {
     enable = true, -- false will disable the whole extension
   },
@@ -555,9 +587,9 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     keymaps = {
       init_selection    = 'gnn',
-      node_incremental  = 'grn',
-      scope_incremental = 'grc',
-      node_decremental  = 'grm',
+      node_incremental  = 'gin',
+      node_decremental  = 'gdn',
+      scope_incremental = 'gic',
     },
   },
   indent = {
@@ -573,6 +605,11 @@ require('nvim-treesitter.configs').setup {
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
         ['ic'] = '@class.inner',
+      },
+      selection_modes = {
+        ['@parameter.outer'] = 'v', -- charwise
+        ['@function.outer'] = 'V', -- linewise
+        ['@class.outer'] = 'V', -- blockwise
       },
     },
     move = {
@@ -595,45 +632,73 @@ require('nvim-treesitter.configs').setup {
         ['[]'] = '@class.outer',
       },
     },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<localleader>mp"] = "@parameter.inner",
+        ["<localleader>mf"] = "@function.outer",
+        ["<localleader>mc"] = "@class.outer",
+      },
+      swap_previous = {
+        ["<localleader>mP"] = "@parameter.inner",
+        ["<localleader>mF"] = "@function.outer",
+        ["<localleader>mC"] = "@class.outer",
+      },
+    },
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+        ["<leader>df"] = "@function.outer",
+        ["<leader>dF"] = "@class.outer",
+      },
+    },
+    context_commentstring = {
+      enable = true,
+    },
+    matchup = {
+      enable = true,
+    },
+    -- refactor = {
+    --   highlight_definitions = {
+    --     enable = true, -- Set to false if you have an `updatetime` of ~100.
+    --     clear_on_cursor_move = true,
+    --   },
+    --   highlight_current_scope = { enable = true },
+    -- },
   },
 }
 
--- local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
--- parser_config.haskell = {
---   install_info = {
---     url = "~/.local/src/tree-sitter-haskell",
---     files = {'src/parser.c', 'src/scanner.c'}
---   }
--- }
 
 -- LSP settings
 local lspconfig = require 'lspconfig'
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = false }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]], opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', ':Trouble<cr>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', ':Trouble<cr>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Enable the following language servers
 local servers = { 'hls', 'sumneko_lua', 'clangd', 'pyright'--[[ , 'bashls', 'rust_analyzer'  ]]}
@@ -670,6 +735,7 @@ lspconfig.sumneko_lua.setup {
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file('', true),
+        checkThirdParty = false,
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -730,6 +796,7 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
+    { name = 'nvim_lsp_signature_help' },
   }
 }
 
@@ -745,6 +812,7 @@ local map  = vim.keymap.set
 -- local opts = { noremap = true, silent = true }
 local o    = {}
 local o_s  = { silent = true }
+local o_ns = { noremap = true, silent = true }
 local o_se = { silent = true, expr = true }
 
 local function maps(o, defs)
@@ -776,7 +844,8 @@ local function cmd(c)
 end
 
 
-local t = require('telescope.builtin')
+local ts = require('telescope.builtin')
+local tsex = require('telescope').extensions
 
 
 maps(o, {
@@ -786,60 +855,88 @@ maps(o, {
 })
 
 maps(o_s, {
-  n = {
-    { 'Y',          'y$'                                         },
-    { l  'v',       cmd 'tabedit $MYVIMRC'                       },
+  n   = {
+    { 'Y',          'y$'                                            },
+    { l  'v',       cmd 'tabedit $MYVIMRC'                          },
 
-    { l  'w',       cmd 'w'                                      },
-    { l  's',       cmd 'wq'                                     },
-    { l  'a',       cmd 'q'                                      },
-    { l  'A',       cmd 'q!'                                     },
-    { l  'z',       cmd 'qa'                                     },
-    { l  'Z',       cmd 'qa!'                                    },
-    { l  'b',       cmd 'bd'                                     },
+    { l  'w',       cmd 'w'                                         },
+    { l  's',       cmd 'wq'                                        },
+    { l  'a',       cmd 'q'                                         },
+    { l  'A',       cmd 'q!'                                        },
+    { l  'z',       cmd 'qa'                                        },
+    { l  'Z',       cmd 'qa!'                                       },
+    { l  'b',       cmd 'bd'                                        },
+    { l  'B',       cmd 'bd!'                                        },
 
-    { '<tab>',      '<C-w><c-w>'                                 },
-    { l  'h',       '<C-w>h'                                     },
-    { l  'j',       '<C-w>j'                                     },
-    { l  'k',       '<C-w>k'                                     },
-    { l  'l',       '<C-w>l'                                     },
-    { l  'H',       '<C-w>H'                                     },
-    { l  'J',       '<C-w>J'                                     },
-    { l  'K',       '<C-w>K'                                     },
-    { l  'L',       '<C-w>L'                                     },
+    { '<S-tab>',    '<C-w><c-w>'                                    },
+    { l  'h',       '<C-w>h'                                        },
+    { l  'j',       '<C-w>j'                                        },
+    { l  'k',       '<C-w>k'                                        },
+    { l  'l',       '<C-w>l'                                        },
+    { l  'H',       '<C-w>H'                                        },
+    { l  'J',       '<C-w>J'                                        },
+    { l  'K',       '<C-w>K'                                        },
+    { l  'L',       '<C-w>L'                                        },
 
-    { l  'm',       function() t.find_files()                end },
-    { l  'r',       function() t.oldfiles()                  end },
-    { l  '/',       function() t.search_history()            end },
-    { l  '\'',      function() t.marks()                     end },
-    { l  'f',       function() t.current_buffer_fuzzy_find() end },
-    { l  '<space>', function() t.command_history()           end },
-    { l2 'g',       function() t.live_grep()                 end },
-    { l2 'c',       function() t.grep_string()               end },
-    { l2 'b',       function() t.buffers()                   end },
-    { l2 'h',       function() t.help_tags()                 end },
-    { l2 'm',       function() t.man_pages()                 end },
-    { l2 'f',       function() t.media_files()               end },
-    { l2 '<space>', function() t.commands()                  end },
+    { l  'm',       function() ts.find_files()                  end },
+    { l  'r',       function() ts.oldfiles()                    end },
+    { l  '/',       function() ts.search_history()              end },
+    { l  '\'',      function() ts.marks()                       end },
+    { l  '<space>', function() ts.command_history()             end },
+    { l2 'g',       function() ts.live_grep()                   end },
+    { l2 'c',       function() ts.grep_string()                 end },
+    { l2 'b',       function() ts.buffers()                     end },
+    { l2 'h',       function() ts.help_tags()                   end },
+    { l2 'm',       function() ts.man_pages()                   end },
+    { l  'f',       function() ts.current_buffer_fuzzy_find()   end },
+    { l2 'f',       function() tsex.media_files.media_files()   end },
+    { l2 '<space>', function() ts.commands()                    end },
 
-    { '<C-a>',      cmd 'RnvimrToggle'                           },
+    {     '<C-a>',  cmd 'RnvimrToggle'                              },
+    { ll2 't',      cmd 'Twilight'                                  },
 
-    { ll  '/',      cmd 'noh'                                    },
-    { ll  'v',      '"+gP'                                       },
-    { ll2 'q',      'gqip'                                       },
-    { ll2 'ft',     'Vatzf'                                      },
-    { ll2 'J',      'mqgg=G`qzz'                                 },
-    { ll2 'f',      function() vim.lsp.buf.formatting_sync() end },
-                                                                 },
+    { ll  '/',      cmd 'noh'                                       },
+    { ll  'v',      '"+gP'                                          },
+    { ll2 'q',      'gqip'                                          },
+    { ll2 'ft',     'Vatzf'                                         },
+    { ll2 'J',      'mqgg=G`qzz'                                    },
+    { ll2 'f',      function() vim.lsp.buf.formatting_sync() end    },
+                                                                    },
 
-  i = {
-    { l  'm',       '<esc>'                                      },
-    {    ',\n',     ',\n'                                        },
-    { l  'w',       '<esc><cmd>w<cr>'                            },
-    {    ',,w',     ',<esc><cmd>w<cr>'                           },
-    {    '<M-o>',   '<esc>o'                                     },
-  },
-})
+  i   = {
+    { l  'm',       '<esc>'                                         },
+    { ',\n',     ',\n'                                              },
+    { l  'w',       '<esc><cmd>w<cr>'                               },
+    { ',,w',     ',<esc><cmd>w<cr>'                                 },
+    { '<M-o>',   '<esc>o'                                           },
+                                                                    },
+                                                                    })
+
+vim.keymap.set('n',         '<c-k>', function() require('tree-climber').swap_prev() end, o_ns)
+vim.keymap.set('n',         '<c-j>', function() require('tree-climber').swap_next() end, o_ns)
+-- vim.keymap.set({'n', 'v', 'o'}, 'H', require('tree-climber').goto_parent, o_ns)
+-- vim.keymap.set({'n', 'v', 'o'}, 'L', require('tree-climber').goto_child, o_ns)
+-- vim.keymap.set({'n', 'v', 'o'}, 'J', require('tree-climber').goto_next, o_ns)
+-- vim.keymap.set({'n', 'v', 'o'}, 'K', require('tree-climber').goto_prev, o_ns)
+-- vim.keymap.set({'v', 'o'},  'in',    require('tree-climber').select_node, o_ns)
+-- vim.keymap.set('n',         '<c-h>', require('tree-climber').highlight_node, o_ns)
+
+vim.keymap.set('n', '<F5>',   function() require'dap'.continue() end, o_ns)
+vim.keymap.set('n', '<F10>',  function() require'dap'.step_over() end, o_ns)
+vim.keymap.set('n', '<F11>',  function() require'dap'.step_into() end, o_ns)
+vim.keymap.set('n', '<F12>',  function() require'dap'.step_out() end, o_ns)
+vim.keymap.set('n', l 'db',   function() require'dap'.toggle_breakpoint() end, o_ns)
+vim.keymap.set('n', l 'dB',   function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, o_ns)
+vim.keymap.set('n', l 'dlp',  function() require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, o_ns)
+vim.keymap.set('n', l 'dr',   function() require'dap'.repl.open() end, o_ns)
+vim.keymap.set('n', l 'dl',   function() require'dap'.run_last() end, o_ns)
+
+vim.keymap.set('n', l 'dm',   function() require('dap-python').test_method() end, o_ns)
+vim.keymap.set('n', l 'dc',   function() require('dap-python').test_class() end, o_ns)
+vim.keymap.set('v', l 'ds',   function()
+  vim.api.nvim_input '<Esc>'
+  require('dap-python').debug_selection()
+end, o_ns)
 
 -- map('n', ll2 'i', cmd 'MagmaInit',                o_s)
 -- map('n', ll  'o', '<cmd>MagmaEvaluateOperator<cr>',   { noremap = true, silent = true, expr = true})
@@ -928,12 +1025,12 @@ vim.cmd [[
     " nmap     <LocalLeader>n              <Plug>JupyterExecute
     " nmap     <LocalLeader><localleader>n <Plug>JupyterExecuteAll
 
-    nnoremap <silent>       <LocalLeader><LocalLeader>i :MagmaInit<CR>
-    nnoremap <expr><silent> <LocalLeader>o              nvim_exec('MagmaEvaluateOperator', v:true)
-    nnoremap <silent>       <LocalLeader>m              :MagmaEvaluateLine<CR>
-    xnoremap <silent>       <LocalLeader>m              :<C-u>MagmaEvaluateVisual<CR>
-    nnoremap <silent>       <LocalLeader>r              :MagmaReevaluateCell<CR>
-    nnoremap <silent>       <LocalLeader><LocalLeader>m :MagmaDelete<CR>
+    " nnoremap <silent>       <LocalLeader><LocalLeader>i :MagmaInit<CR>
+    " nnoremap <expr><silent> <LocalLeader>o              nvim_exec('MagmaEvaluateOperator', v:true)
+    " nnoremap <silent>       <LocalLeader>m              :MagmaEvaluateLine<CR>
+    " xnoremap <silent>       <LocalLeader>m              :<C-u>MagmaEvaluateVisual<CR>
+    " nnoremap <silent>       <LocalLeader>r              :MagmaReevaluateCell<CR>
+    " nnoremap <silent>       <LocalLeader><LocalLeader>m :MagmaDelete<CR>
 
     " nnoremap <LocalLeader><LocalLeader>q gqip
     " nnoremap <LocalLeader><LocalLeader>ft Vatzf
@@ -945,7 +1042,6 @@ vim.cmd [[
     " vmap \\ gc
 
     " silent inoremap <leader>m <esc>
-    " silent inoremap ,       ,
     " silent inoremap <leader>w <esc><cmd>w<cr>
     " silent inoremap ,,w       ,<esc><cmd>w<cr>
     "
