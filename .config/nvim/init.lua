@@ -17,9 +17,6 @@ require('packer').startup(function(use)
   use {
     'rose-pine/neovim',
     as = 'rose-pine',
-    -- config = function()
-    --   vim.cmd('colorscheme rose-pine')
-    -- end
   }
 
   use 'tpope/vim-eunuch'
@@ -33,35 +30,35 @@ require('packer').startup(function(use)
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
       require('gitsigns').setup {
-        signs = {
-          add          = { hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
-          change       = { hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
-          delete       = { hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
-          topdelete    = { hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
-          changedelete = { hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
+        signs                        = {
+          add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+          change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+          delete       = { hl = 'GitSignsDelete', text = '│', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+          topdelete    = { hl = 'GitSignsDelete', text = '│', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+          changedelete = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
         },
-        signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-        numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-        linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-        word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-        watch_gitdir = {
+        signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+        numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
+        linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+        word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
+        watch_gitdir                 = {
           interval = 1000,
           follow_files = true
         },
-        attach_to_untracked = true,
-        current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-        current_line_blame_opts = {
+        attach_to_untracked          = true,
+        current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+        current_line_blame_opts      = {
           virt_text = true,
           virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
           delay = 1000,
           ignore_whitespace = false,
         },
         current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-        sign_priority = 6,
-        update_debounce = 100,
-        status_formatter = nil, -- Use default
-        max_file_length = 40000,
-        preview_config = {
+        sign_priority                = 6,
+        update_debounce              = 100,
+        status_formatter             = nil, -- Use default
+        max_file_length              = 40000,
+        preview_config               = {
           -- Options passed to nvim_open_win
           border = 'single',
           style = 'minimal',
@@ -69,7 +66,7 @@ require('packer').startup(function(use)
           row = 0,
           col = 1
         },
-        yadm = {
+        yadm                         = {
           enable = false
         },
       }
@@ -107,7 +104,7 @@ require('packer').startup(function(use)
             "--smart-case",
             "--trim"
           },
-          mappings = {
+          mappings          = {
             i = {
               ["<C-u>"] = false,
               ["<C-j>"] = require('telescope.actions').move_selection_next,
@@ -124,39 +121,39 @@ require('packer').startup(function(use)
               end
             }
           },
-          winblend        = 3,
-          prompt_prefix   = ' ',
-          selection_caret = '⟩ ',
-          multi_icon      = '┃',
-          show_line       = false,
-          borderchars = {
-            prompt  = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-            results = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-            preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+          winblend          = 3,
+          prompt_prefix     = ' ',
+          selection_caret   = '⟩ ',
+          multi_icon        = '┃',
+          show_line         = false,
+          borderchars       = {
+            prompt  = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+            results = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+            preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
           },
-          preview = {
+          preview           = {
             msg_bg_fillchar = ""
           }
         },
         pickers = {
-          find_files = {
-            prompt_title  = '', results_title = '', preview_title = '',
-            find_command  = { 'fd', '-t', 'f', '-H', '--strip-cwd-prefix', '--ignore-file', '~/.fdignore' },
+          find_files                = {
+            results_title = '', preview_title = '', --prompt_title  = '',
+            find_command = { 'fd', '-t', 'f', '-H', '--strip-cwd-prefix', '--ignore-file', '~/.fdignore' },
           },
-          oldfiles                  = { prompt_title  = '', results_title = '', preview_title = '' },
-          live_grep                 = { prompt_title  = '', results_title = '', preview_title = '' },
-          grep_string               = { prompt_title  = '', results_title = '', preview_title = '' },
-          buffers                   = { prompt_title  = '', results_title = '', preview_title = '' },
-          help_tags                 = { prompt_title  = '', results_title = '', preview_title = '' },
-          command_history           = { prompt_title  = '', results_title = '', preview_title = '' },
-          commands                  = { prompt_title  = '', results_title = '', preview_title = '' },
-          search_history            = { prompt_title  = '', results_title = '', preview_title = '' },
-          man_pages                 = { prompt_title  = '', results_title = '', preview_title = '' },
-          marks                     = { prompt_title  = '', results_title = '', preview_title = '' },
-          media_files               = { prompt_title  = '', results_title = '', preview_title = '' },
-          current_buffer_fuzzy_find = { prompt_title  = '', results_title = '', preview_title = '' },
-          lsp_references            = { prompt_title  = '', results_title = '', preview_title = '' },
-          lsp_document_symbols      = { prompt_title  = '', results_title = '', preview_title = '' },
+          oldfiles                  = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          live_grep                 = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          grep_string               = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          buffers                   = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          help_tags                 = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          command_history           = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          commands                  = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          search_history            = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          man_pages                 = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          marks                     = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          media_files               = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          current_buffer_fuzzy_find = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          lsp_references            = { results_title = '', preview_title = '' }, --prompt_title  = '',
+          lsp_document_symbols      = { results_title = '', preview_title = '' }, --prompt_title  = '',
         }
       }
       require('telescope').load_extension('fzf')
@@ -177,7 +174,7 @@ require('packer').startup(function(use)
     'kyazdani42/nvim-tree.lua',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
-      require'nvim-tree'.setup {
+      require 'nvim-tree'.setup {
         -- disable_netrw       = true,
         -- hijack_netrw        = true,
         -- open_on_setup       = false,
@@ -218,18 +215,18 @@ require('packer').startup(function(use)
           timeout = 500,
         },
         view = {
-          width = 30,
+          width            = 30,
           -- height = 30,
           hide_root_folder = false,
-          side = 'left',
-          adaptive_size = false,
-          mappings = {
+          side             = 'left',
+          adaptive_size    = false,
+          mappings         = {
             custom_only = false,
             list = {}
           },
-          number         = true,
-          relativenumber = true,
-          signcolumn     = "no"
+          number           = true,
+          relativenumber   = true,
+          signcolumn       = "no"
         },
         trash = {
           cmd             = "trash",
@@ -248,22 +245,22 @@ require('packer').startup(function(use)
           icons_enabled        = false,
           theme                = 'auto',
           color                = { gui = '' },
-          component_separators = { left = '', right = ''},
-          section_separators   = { left = '', right = ''},
+          component_separators = { left = '', right = '' },
+          section_separators   = { left = '', right = '' },
           disabled_filetypes   = {},
-          always_divide_middle = true,
-          globalstatus = true,
+          always_divide_middle = false,
+          globalstatus         = true,
         },
         sections = {
-          lualine_a = { { 'mode', fmt = function(str) return str:sub(1,1) end } },
+          lualine_a = { { 'mode', fmt = function(str) return str:sub(1, 1) end } },
           lualine_b = { 'branch', 'diff', 'diagnostics' },
           lualine_c = {
             { 'buffers',
               show_filename_only   = true,
               show_modified_status = true,
 
-              mode       = 2,
-              max_length = vim.o.columns * 2/3,
+              mode           = 2,
+              max_length     = vim.o.columns * 2 / 3,
               filetype_names = {
                 TelescopePrompt = 'telescope',
                 dashboard       = 'dashboard',
@@ -345,85 +342,69 @@ require('packer').startup(function(use)
     end
   }
 
-  use 'neovim/nvim-lspconfig'
+  use {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig',
+  }
+
   use {
     'jose-elias-alvarez/null-ls.nvim',
-    config = function()
-      require('null-ls').setup {
-        sources = {
-          require("null-ls").builtins.formatting.stylua,
-          require("null-ls").builtins.formatting.black,
-          require("null-ls").builtins.formatting.fourmolu,
-          require("null-ls").builtins.formatting.prettier,
-        }
-      }
-    end
+    'jay-babu/mason-null-ls.nvim',
   }
 
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use {
-    'hrsh7th/cmp-cmdline',
-    config = function()
-      require('cmp').setup.cmdline('/', {
-        mapping = require('cmp').mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' }
-        }
-      })
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    { 'hrsh7th/cmp-cmdline',
+      config = function()
+        require('cmp').setup.cmdline('/', {
+          mapping = require('cmp').mapping.preset.cmdline(),
+          sources = { { name = 'buffer' } }
+        })
 
-      require('cmp').setup.cmdline(':', {
-        mapping = require('cmp').mapping.preset.cmdline(),
-        sources = require('cmp').config.sources({
-          { name = 'path' }
-        }, {
-            {
-              name = 'cmdline',
-              option = {
-                ignore_cmds = { 'Man', '!' }
-              }
-            }
-          })
-      })
-    end
+        require('cmp').setup.cmdline(':', {
+          mapping = require('cmp').mapping.preset.cmdline(),
+          sources = require('cmp').config.sources {
+            { name = 'path' }
+          }, {
+            { name = 'cmdline',
+              option = { ignore_cmds = { 'Man', '!' } } }
+          }
+        })
+      end
+    }
   }
 
-  use 'mfussenegger/nvim-dap'
-
   use {
-    'mfussenegger/nvim-dap-python',
-    config = function()
-      require('dap-python').setup('~/.local/var/debugpy/bin/python')
-    end
-  }
-  use {
-    'theHamsta/nvim-dap-virtual-text',
-    config = function()
-      require("nvim-dap-virtual-text").setup()
-    end
-
+    'mfussenegger/nvim-dap',
+    { 'mfussenegger/nvim-dap-python',
+      config = function()
+        require('dap-python').setup('~/.local/share/nvim/mason/packages/debugpy/venv/bin/python')
+      end
+    },
+    { 'theHamsta/nvim-dap-virtual-text',
+      config = function()
+        require("nvim-dap-virtual-text").setup {}
+      end
+    },
   }
 
   use {
     'L3MON4D3/LuaSnip',
-    config = function()
-      require('luasnip/loaders/from_vscode').lazy_load { paths = { '~/.local/share/nvim/site/pack/packer/start/friendly-snippets' } }
-      -- vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
-      -- vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
-    end
+    'saadparwaiz1/cmp_luasnip',
+    'rafamadriz/friendly-snippets',
   }
-  use 'saadparwaiz1/cmp_luasnip'
-  use 'rafamadriz/friendly-snippets'
 
   use 'h-hg/fcitx.nvim'
   use 'easymotion/vim-easymotion'
   use 'unblevable/quick-scope'
   use 'junegunn/vim-easy-align'
-  -- use 'haya14busa/incsearch.vim'
   use 'mtth/scratch.vim'
+  -- use 'haya14busa/incsearch.vim'
   -- use {
   --   'karb94/neoscroll.nvim',
   --   config = function()
@@ -489,12 +470,11 @@ require('packer').startup(function(use)
     end
   }
 
-  -- use { 'untitled-ai/jupyter_ascending.vim' }
   use {
     'dccsillag/magma-nvim',
     run = ':UpdateRemotePlugins'
   }
-
+  -- use { 'untitled-ai/jupyter_ascending.vim' }
   -- use {
   --   'glacambre/firenvim',
   --   run = function()
@@ -504,43 +484,6 @@ require('packer').startup(function(use)
 end)
 
 
-vim.diagnostic.config {
-  virtual_text     = false,
-  signs            = true,
-  underline        = false,
-  update_in_insert = false,
-  severity_sort    = true,
-}
-
-
---Set highlight on search
-vim.o.hlsearch = false
-
---Make line numbers default
-vim.wo.number = true
-
---Enable mouse mode
-vim.o.mouse = 'a'
-
---Enable break indent
-vim.o.breakindent = true
-
---Save undo history
-vim.opt.undofile = true
-
---Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
---Decrease update time
-vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
-
---Set colorscheme (order is important here)
-vim.o.termguicolors = true
--- vim.g.onedark_terminal_italics = 2
--- vim.cmd [[colorscheme onedark]]
-
 require('rose-pine').setup {
   bold_vert_split          = false,
   inactive_background      = false,
@@ -548,21 +491,42 @@ require('rose-pine').setup {
   disable_float_background = false,
   disable_italics          = true
 }
--- main | moon | dawn
-vim.g.rose_pine_variant                  = 'main'
-vim.cmd [[colorscheme rose-pine]]
+vim.o.termguicolors = true
+vim.g.rose_pine_variant = 'main'
+vim.cmd.colorscheme 'rose-pine'
 
--- Set completeopt to have a better completion experience
+
+vim.diagnostic.config {
+  virtual_text     = false,
+  signs            = true,
+  underline        = true,
+  update_in_insert = false,
+  severity_sort    = true,
+}
+
+
+vim.o.mouse       = 'a'
+vim.o.updatetime  = 250
+vim.o.hlsearch    = false
+vim.o.incsearch   = true
+vim.o.breakindent = true
+vim.o.undofile    = true
+vim.o.ignorecase  = true
+vim.o.smartcase   = true
 vim.o.completeopt = 'menuone,noselect'
+
+vim.wo.number         = true
+vim.wo.relativenumber = true
+vim.wo.signcolumn     = 'yes'
+
+vim.wo.foldmethod = 'expr'
+vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
 
 vim.g.scratch_insert_autohide = false
 vim.g.scratch_filetype        = 'scratch'
 
---Remap for dealing with word wrap
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<C-n>', "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
 
 -- Highlight on yank
 -- vim.cmd [[
@@ -670,7 +634,6 @@ require('nvim-treesitter.configs').setup {
 }
 
 
--- LSP settings
 local lspconfig = require 'lspconfig'
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = false }
@@ -692,25 +655,32 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', ':Trouble<cr>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so',
+    [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
--- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+require('mason').setup()
 
--- Enable the following language servers
-local servers = { 'hls', 'sumneko_lua', 'clangd', 'pyright'--[[ , 'bashls', 'rust_analyzer'  ]]}
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach    = on_attach,
-    capabilities = capabilities,
-  }
-end
+require('mason-null-ls').setup {
+  automatic_setup = true,
+}
+require('mason-null-ls').setup_handlers()
 
--- Example custom server
--- Make runtime files discoverable to the server
+local mason_lspconfig = require('mason-lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+mason_lspconfig.setup()
+mason_lspconfig.setup_handlers {
+  function(server_name)
+    require('lspconfig')[server_name].setup {
+      -- on_attach = require('shared').on_attach,
+      on_attach    = on_attach,
+      capabilities = capabilities,
+    }
+  end
+}
+
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'init.lua')
 table.insert(runtime_path, 'lua/?.lua')
@@ -843,100 +813,113 @@ local function cmd(c)
   return string.format('<cmd>%s<cr>', c)
 end
 
-
 local ts = require('telescope.builtin')
 local tsex = require('telescope').extensions
 
 
 maps(o, {
   n = {
-    { '<space>', ':'                     },
+    { '<space>', ':' },
   },
 })
 
-maps(o_s, {
-  n   = {
-    { 'Y',          'y$'                                            },
-    { l  'v',       cmd 'tabedit $MYVIMRC'                          },
+maps(o_ns, {
+  n = {
+    { 'Y', 'y$' },
+    { l 'v', cmd 'tabedit $MYVIMRC' },
 
-    { l  'w',       cmd 'w'                                         },
-    { l  's',       cmd 'wq'                                        },
-    { l  'a',       cmd 'q'                                         },
-    { l  'A',       cmd 'q!'                                        },
-    { l  'z',       cmd 'qa'                                        },
-    { l  'Z',       cmd 'qa!'                                       },
-    { l  'b',       cmd 'bd'                                        },
-    { l  'B',       cmd 'bd!'                                        },
+    { l 'w', cmd 'w' },
+    { l 's', cmd 'wq' },
+    { l 'a', cmd 'q' },
+    { l 'A', cmd 'q!' },
+    { l 'z', cmd 'qa' },
+    { l 'Z', cmd 'qa!' },
+    { l 'b', cmd 'bd' },
+    { l 'B', cmd 'bd!' },
 
-    { '<S-tab>',    '<C-w><c-w>'                                    },
-    { l  'h',       '<C-w>h'                                        },
-    { l  'j',       '<C-w>j'                                        },
-    { l  'k',       '<C-w>k'                                        },
-    { l  'l',       '<C-w>l'                                        },
-    { l  'H',       '<C-w>H'                                        },
-    { l  'J',       '<C-w>J'                                        },
-    { l  'K',       '<C-w>K'                                        },
-    { l  'L',       '<C-w>L'                                        },
+    { '<S-tab>', '<C-w><c-w>' },
+    { l 'h', '<C-w>h' },
+    { l 'j', '<C-w>j' },
+    { l 'k', '<C-w>k' },
+    { l 'l', '<C-w>l' },
+    { l 'H', '<C-w>H' },
+    { l 'J', '<C-w>J' },
+    { l 'K', '<C-w>K' },
+    { l 'L', '<C-w>L' },
 
-    { l  'm',       function() ts.find_files()                  end },
-    { l  'r',       function() ts.oldfiles()                    end },
-    { l  '/',       function() ts.search_history()              end },
-    { l  '\'',      function() ts.marks()                       end },
-    { l  '<space>', function() ts.command_history()             end },
-    { l2 'g',       function() ts.live_grep()                   end },
-    { l2 'c',       function() ts.grep_string()                 end },
-    { l2 'b',       function() ts.buffers()                     end },
-    { l2 'h',       function() ts.help_tags()                   end },
-    { l2 'm',       function() ts.man_pages()                   end },
-    { l  'f',       function() ts.current_buffer_fuzzy_find()   end },
-    { l2 'f',       function() tsex.media_files.media_files()   end },
-    { l2 '<space>', function() ts.commands()                    end },
+    { l 'm', function() ts.find_files() end },
+    { l 'r', function() ts.oldfiles() end },
+    { l '/', function() ts.search_history() end },
+    { l '\'', function() ts.marks() end },
+    { l '<space>', function() ts.command_history() end },
+    { l2 'g', function() ts.live_grep() end },
+    { l2 'c', function() ts.grep_string() end },
+    { l2 'b', function() ts.buffers() end },
+    { l2 'h', function() ts.help_tags() end },
+    { l2 'm', function() ts.man_pages() end },
+    { l 'f', function() ts.current_buffer_fuzzy_find() end },
+    { l2 'f', function() tsex.media_files.media_files() end },
+    { l2 '<space>', function() ts.commands() end },
 
-    {     '<C-a>',  cmd 'RnvimrToggle'                              },
-    { ll2 't',      cmd 'Twilight'                                  },
+    { '<C-a>', cmd 'RnvimrToggle' },
+    { '<C-n>', cmd 'NvimTreeToggle' },
+    { ll2 't', cmd 'Twilight' },
 
-    { ll  '/',      cmd 'noh'                                       },
-    { ll  'v',      '"+gP'                                          },
-    { ll2 'q',      'gqip'                                          },
-    { ll2 'ft',     'Vatzf'                                         },
-    { ll2 'J',      'mqgg=G`qzz'                                    },
-    { ll2 'f',      function() vim.lsp.buf.formatting_sync() end    },
-                                                                    },
+    { ll '/', cmd 'noh' },
+    { ll 'v', '"+gP' },
+    { ll2 'q', 'gqip' },
+    { ll2 'ft', 'Vatzf' },
+    { ll2 'J', 'mqgg=G`qzz' },
+    { ll2 'f', function() vim.lsp.buf.format() end },
 
-  i   = {
-    { l  'm',       '<esc>'                                         },
-    { ',\n',     ',\n'                                              },
-    { l  'w',       '<esc><cmd>w<cr>'                               },
-    { ',,w',     ',<esc><cmd>w<cr>'                                 },
-    { '<M-o>',   '<esc>o'                                           },
-                                                                    },
-                                                                    })
+    { '<c-k>', function() require('tree-climber').swap_prev() end },
+    { '<c-j>', function() require('tree-climber').swap_next() end },
+    -- {'n', 'v', 'o'}, 'H', require('tree-climber').goto_parent
+    -- {'n', 'v', 'o'}, 'L', require('tree-climber').goto_child
+    -- {'n', 'v', 'o'}, 'J', require('tree-climber').goto_next
+    -- {'n', 'v', 'o'}, 'K', require('tree-climber').goto_prev
+    -- {'v', 'o'},  'in',    require('tree-climber').select_node
+    -- 'n',         '<c-h>', require('tree-climber').highlight_node
+  },
 
-vim.keymap.set('n',         '<c-k>', function() require('tree-climber').swap_prev() end, o_ns)
-vim.keymap.set('n',         '<c-j>', function() require('tree-climber').swap_next() end, o_ns)
--- vim.keymap.set({'n', 'v', 'o'}, 'H', require('tree-climber').goto_parent, o_ns)
--- vim.keymap.set({'n', 'v', 'o'}, 'L', require('tree-climber').goto_child, o_ns)
--- vim.keymap.set({'n', 'v', 'o'}, 'J', require('tree-climber').goto_next, o_ns)
--- vim.keymap.set({'n', 'v', 'o'}, 'K', require('tree-climber').goto_prev, o_ns)
--- vim.keymap.set({'v', 'o'},  'in',    require('tree-climber').select_node, o_ns)
--- vim.keymap.set('n',         '<c-h>', require('tree-climber').highlight_node, o_ns)
+  i = {
+    { l 'm', '<esc>' },
+    { ',\n', ',\n' },
+    { l 'w', '<esc><cmd>w<cr>' },
+    { ',,w', ',<esc><cmd>w<cr>' },
+    { '<M-o>', '<esc>o' },
+  },
+})
 
-vim.keymap.set('n', '<F5>',   function() require'dap'.continue() end, o_ns)
-vim.keymap.set('n', '<F10>',  function() require'dap'.step_over() end, o_ns)
-vim.keymap.set('n', '<F11>',  function() require'dap'.step_into() end, o_ns)
-vim.keymap.set('n', '<F12>',  function() require'dap'.step_out() end, o_ns)
-vim.keymap.set('n', l 'db',   function() require'dap'.toggle_breakpoint() end, o_ns)
-vim.keymap.set('n', l 'dB',   function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, o_ns)
-vim.keymap.set('n', l 'dlp',  function() require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, o_ns)
-vim.keymap.set('n', l 'dr',   function() require'dap'.repl.open() end, o_ns)
-vim.keymap.set('n', l 'dl',   function() require'dap'.run_last() end, o_ns)
+local dap = require('dap')
+maps(o_ns, {
+  n = {
+    { '<F5>', function() dap.continue() end },
+    { '<F10>', function() dap.step_over() end },
+    { '<F11>', function() dap.step_into() end },
+    { '<F12>', function() dap.step_out() end },
+    { l 'db', function() dap.toggle_breakpoint() end },
+    { l 'dB', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end },
+    { l 'dlp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end },
+    { l 'dr', function() dap.repl.open() end },
+    { l 'dl', function() dap.run_last() end },
+  }
+})
 
-vim.keymap.set('n', l 'dm',   function() require('dap-python').test_method() end, o_ns)
-vim.keymap.set('n', l 'dc',   function() require('dap-python').test_class() end, o_ns)
-vim.keymap.set('v', l 'ds',   function()
-  vim.api.nvim_input '<Esc>'
-  require('dap-python').debug_selection()
-end, o_ns)
+local dap_python = require('dap-python')
+maps(o_ns, {
+  n = {
+    { l 'dm', function() dap_python.test_method() end },
+    { l 'dc', function() dap_python.test_class() end },
+  },
+  v = {
+    { l 'ds',
+      function()
+        dap_python.debug_selection {}
+        -- vim.api.nvim_input '<Esc>'
+      end }
+  },
+})
 
 -- map('n', ll2 'i', cmd 'MagmaInit',                o_s)
 -- map('n', ll  'o', '<cmd>MagmaEvaluateOperator<cr>',   { noremap = true, silent = true, expr = true})
@@ -944,10 +927,6 @@ end, o_ns)
 -- map('x', ll  'm', cmd '<C-u>MagmaEvaluateVisual', o_s)
 -- map('n', ll  'r', cmd 'MagmaReevaluateCell',      o_s)
 -- map('n', ll2 'm', cmd 'MagmaDelete',              o_s)
-
-
-vim.wo.foldmethod = 'expr'
-vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
 
 
 vim.cmd [[
@@ -970,8 +949,6 @@ vim.cmd [[
 
     set cursorline
     set showcmd
-    set number
-    set relativenumber
 
     set smartindent
     set autoindent
@@ -993,9 +970,6 @@ vim.cmd [[
     set list
 
     set smarttab
-    set incsearch
-    set ignorecase smartcase
-    set hlsearch
 
     set scrolloff=5
     set sidescrolloff=10
