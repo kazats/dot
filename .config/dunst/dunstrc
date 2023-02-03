@@ -37,7 +37,7 @@
     # ignore newlines '\n' in notifications
     ignore_newline = no
 
-    width = (305, 400) #(100, 500)
+    width = (305, 500) #(100, 500)
     offset = 30x30
 
     # The transparency of the window. range: [0; 100]
