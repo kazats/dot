@@ -9,7 +9,7 @@ bass source /etc/profile
 #   bass source $f
 # end
 
-fish_add_path ~/.local/bin ~/.cabal/bin ~/.ghcup/bin
+fish_add_path ~/.local/bin ~/.cabal/bin ~/.ghcup/bin ~/.local/opt/go/bin
 
 set -xg DE                "gnome"
 set -xg LANG              "en_US.UTF-8"
@@ -27,6 +27,7 @@ set -xg XMODIFIERS        "@im=fcitx"
 set -xg SAL_USE_VCLPLUGIN "gtk3"
 set -xg NO_AT_BRIDGE      1
 # set -xg QT_STYLE_OVERRIDE "GTK+"
+set -xg GOPATH            "$HOME/.local/opt/go"
 set -xg _JAVA_OPTIONS     "-Dawt.useSystemAAFontSettings=on"
 
 set -xg --path XDG_DATA_DIRS        /usr/local/share /usr/share
