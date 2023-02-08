@@ -120,25 +120,27 @@ myKeys XConfig
     [ a  xK_grave         ｜ rofi "run"
     , a  xK_Return        ｜ termNew
     , as xK_Return        ｜ nvim
-    , as xK_r             ｜ autorandr
+    -- , as xK_r             ｜ autorandr
 
     -- , m  xK_q             ｜ ""
     , m  xK_w             ｜ vivaldi
     -- , m  xK_e             ｜ ""
     , m  xK_r             ｜ ranger
     , m  xK_t             ｜ transmission
-    , m  xK_o             ｜ libreoffice
+    , m  xK_o             ｜ ogatak
     , m  xK_p             ｜ pavucontrol
 
     , m  xK_a             ｜ anki
-    , m  xK_s             ｜ skype
+    -- , m  xK_s             ｜ skype
     -- , m  xK_d             ｜ ""
     -- , m  xK_f             ｜ ""
     , m  xK_g             ｜ gimp
     , m  xK_h             ｜ htop
     , m  xK_k             ｜ katrain
+    , m  xK_l             ｜ libreoffice
 
     , m  xK_z             ｜ zoom
+    , m  xK_x             ｜ openbox
     -- , m  xK_c             ｜ ""
     , m  xK_v             ｜ vmware
 
@@ -351,6 +353,8 @@ gimp          = "gimp"
 nvim          = term "nvim" "nvim"
 katrain       = "prime-run katrain"
 libreoffice   = "libreoffice"
+openbox       = "ob"
+ogatak        = "ogatak"
 pavucontrol   = "pavucontrol"
 rofi          = ("rofi -m -4 -show " ++)
 scrot         = "scrot-mv"
