@@ -72,20 +72,21 @@ myLayout
 
 
 myManageHook = composeAll $ concatMap withMatch
-    [ shift "q" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
-    , shift "w" ｜ ["main"]
-    , shift "e" ｜ []
-    , shift "r" ｜ ["Transmission-gtk"]
-
+    [ shift "1" ｜ []
+    , shift "q" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
     , shift "a" ｜ []
-    , shift "s" ｜ []
-    , shift "d" ｜ ["anki"]
-    , shift "f" ｜ ["skype", "zoom", "cmus", "spotify", "vlc"]
 
-    , shift "1" ｜ []
-    , shift "2" ｜ ["vmware", "VirtualBox Manager", "VirtualBox Machine"]
-    , shift "3" ｜ ["ranger"]
+    , shift "2" ｜ []
+    , shift "w" ｜ ["main"]
+    , shift "s" ｜ []
+
+    , shift "3" ｜ ["ranger", "Transmission-gtk"]
+    , shift "e" ｜ ["Xephyr"]
+    , shift "d" ｜ ["anki"]
+
     , shift "4" ｜ ["htop"]
+    , shift "r" ｜ ["vmware", "VirtualBox Manager", "VirtualBox Machine"]
+    , shift "f" ｜ ["skype", "zoom", "cmus", "spotify", "vlc"]
 
     , dofloat   ｜ ["foxwq.exe", "lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
