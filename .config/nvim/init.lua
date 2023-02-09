@@ -161,7 +161,12 @@ require('packer').startup(function(use)
     end
   }
 
-  use 'folke/neodev.nvim'
+  use {
+    'folke/neodev.nvim',
+    config = function()
+      require('neodev').setup()
+    end
+  }
 
   use {
     'folke/trouble.nvim',
@@ -172,70 +177,16 @@ require('packer').startup(function(use)
   }
 
   use 'kevinhwang91/rnvimr'
+
+  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
   use {
-    'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function()
-      require 'nvim-tree'.setup {
-        -- disable_netrw       = true,
-        -- hijack_netrw        = true,
-        -- open_on_setup       = false,
-        -- ignore_ft_on_setup  = {},
-        -- auto_close          = false,
-        -- open_on_tab         = false,
-        -- hijack_cursor       = false,
-        -- update_cwd          = false,
-        -- update_to_buf_dir   = {
-        --   enable = true,
-        --   auto_open = true,
-        -- },
-        diagnostics = {
-          enable = true,
-          icons = {
-            hint    = "H", --
-            info    = "I", --🛈
-            warning = "W", --
-            error   = "E", --
-          }
-        },
-        update_focused_file = {
-          enable      = false,
-          update_cwd  = false,
-          ignore_list = {}
-        },
-        system_open = {
-          cmd  = nil,
-          args = {}
-        },
-        filters = {
-          dotfiles = false,
-          custom   = {}
-        },
-        git = {
-          enable = true,
-          ignore = true,
-          timeout = 500,
-        },
-        view = {
-          width            = 30,
-          -- height = 30,
-          hide_root_folder = false,
-          side             = 'left',
-          adaptive_size    = false,
-          mappings         = {
-            custom_only = false,
-            list = {}
-          },
-          number           = true,
-          relativenumber   = true,
-          signcolumn       = "no"
-        },
-        trash = {
-          cmd             = "trash",
-          require_confirm = true
-        }
-      }
-    end
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
   }
 
   use {
@@ -290,7 +241,7 @@ require('packer').startup(function(use)
           lualine_z = {}
         },
         tabline = {},
-        extensions = { 'nvim-tree' }
+        extensions = {}
       }
     end
   }
@@ -663,11 +614,10 @@ local on_attach = function(_, bufnr)
 end
 
 require('mason').setup()
-
 require('mason-null-ls').setup {
   automatic_setup = true,
 }
-require('mason-null-ls').setup_handlers()
+require('mason-null-ls').setup_handlers {}
 
 local mason_lspconfig = require('mason-lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -682,6 +632,15 @@ mason_lspconfig.setup_handlers {
   end
 }
 
+lspconfig.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      completion = {
+        callSnippet = "Replace"
+      }
+    }
+  }
+}
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -701,7 +660,7 @@ cmp.setup {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-Space>'] = cmp.mapping.complete {},
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -830,7 +789,7 @@ maps(o_ns, {
     { l2 '<space>', function() ts.commands() end },
 
     { '<C-a>', cmd 'RnvimrToggle' },
-    { '<C-n>', cmd 'NvimTreeToggle' },
+    { '<C-n>', cmd 'Neotree toggle' },
     { ll2 't', cmd 'Twilight' },
 
     { ll '/', cmd 'noh' },
@@ -862,13 +821,13 @@ maps(o_ns, {
 local dap = require('dap')
 maps(o_ns, {
   n = {
-    { '<F5>', function() dap.continue() end },
+    { '<F5>', function() dap.continue({}) end },
     { '<F10>', function() dap.step_over() end },
     { '<F11>', function() dap.step_into() end },
     { '<F12>', function() dap.step_out() end },
     { l 'db', function() dap.toggle_breakpoint() end },
-    { l 'dB', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end },
-    { l 'dlp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end },
+    { l 'dB', function() dap.set_breakpoint(vim.fn.input({'Breakpoint condition: '})) end },
+    { l 'dlp', function() dap.set_breakpoint(nil, nil, vim.fn.input({'Log point message: '})) end },
     { l 'dr', function() dap.repl.open() end },
     { l 'dl', function() dap.run_last() end },
   }
