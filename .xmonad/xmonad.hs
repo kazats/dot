@@ -7,7 +7,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeInactive  (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks   (manageDocks)
-import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isFullscreen)
+import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isFullscreen, isDialog)
 import XMonad.Hooks.ScreenCorners
 import XMonad.Hooks.SetWMName     (setWMName)
 import XMonad.Hooks.UrgencyHook
@@ -92,7 +92,8 @@ myManageHook = composeAll $ concatMap withMatch
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
     ]
     ++
-    [ isFullscreen --> doFullFloat ]
+    [ isFullscreen --> doFullFloat
+    , isDialog     --> dofloat ]
 
     where
     withMatch (f, w) = (--> f) . matchAny <$> w
@@ -401,10 +402,10 @@ data Term = Term
     , execOpt  :: String
     }
 
-term c e    = term' (Just c)     (Just e)
-termNew     = term' (Just "wez") Nothing
-termClass c = term' (Just c)     Nothing
-termExec e  = term' Nothing      (Just e)
+term c e    = term' (Just c)  (Just e)
+termNew     = term' Nothing   Nothing
+termClass c = term' (Just c)  Nothing
+termExec e  = term' Nothing   (Just e)
 
 term' = term'' wezterm
 
@@ -415,7 +416,7 @@ term'' (Term t cOpt eOpt) cStr eStr = do
 
     unwords $ [t] ++ c ++ e
 
-wezterm   = Term "wezterm" "start --class" "--"
+wezterm   = Term "wezterm start --always-new-process" "--class" "--"
 alacritty = Term "alacritty" "--class" "-e"
 xst       = Term "xst"       "-n"      "-e"
 
