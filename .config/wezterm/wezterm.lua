@@ -99,9 +99,11 @@ local rose_pine = {
 
 return {
   font = wezterm.font_with_fallback {
-    'JetBrains Mono',                                       -- Fira Code / Iosevka / Cascadia Code
+    'JetBrains Mono', -- Fira Code / Iosevka / Cascadia Code
+    'NotoSans Nerd Font',
     'Noto Sans Mono',
     'Noto Sans CJK JP DemiLight',
+    'HanaMinA',
     'HanaMinB',
   },
   font_size                                   = 16.0,       -- [12.0]
@@ -114,4 +116,6 @@ return {
   hide_tab_bar_if_only_one_tab                = true,
   use_fancy_tab_bar                           = false,
   adjust_window_size_when_changing_font_size  = false,
+  -- front_end                                   = 'WebGpu',
+  -- webgpu_power_preference                     = 'HighPerformance'
 }
