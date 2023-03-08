@@ -31,11 +31,16 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+
+# xclipsync &
+
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
 setxkbmap -option compose:menu
 # autorandr -c &
+# xrandr --setprovideroutputsource modesetting NVIDIA-0
+# xrandr --auto
 disp
 
 exec xmonad-x86_64-linux
