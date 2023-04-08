@@ -26,7 +26,7 @@ require('lazy').setup({
     end,
   },
 
-  -- { 'folke/which-key.nvim', config = true },
+  -- -- { 'folke/which-key.nvim', config = true },
   { 'folke/neodev.nvim',    config = true },
   {
     'folke/trouble.nvim',
@@ -353,13 +353,13 @@ require('lazy').setup({
             mapping = require('cmp').mapping.preset.cmdline(),
             sources = require('cmp').config.sources({
               { name = 'path' },
-            }),
+            },
             {
               {
                 name = 'cmdline',
                 option = { ignore_cmds = { 'Man', '!' } },
               },
-            },
+            }),
           })
         end,
       },
@@ -379,33 +379,33 @@ require('lazy').setup({
     },
   },
 
-  -- {
-  --     'lewis6991/hover.nvim',
-  --     config = function()
-  --       require('hover').setup({
-  --           init = function()
-  --             -- Require providers
-  --             require('hover.providers.lsp')
-  --             -- require('hover.providers.gh')
-  --             -- require('hover.providers.gh_user')
-  --             -- require('hover.providers.jira')
-  --             require('hover.providers.man')
-  --             require('hover.providers.dictionary')
-  --           end,
-  --           preview_opts = {
-  --               border = 'none',
-  --           },
-  --           -- Whether the contents of a currently open hover window should be moved
-  --           -- to a :h preview-window when pressing the hover keymap.
-  --           preview_window = false,
-  --           title = true,
-  --       })
-  --
-  --       -- Setup keymaps
-  --       vim.keymap.set('n', 'K', require('hover').hover, { desc = 'hover.nvim' })
-  --       vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
-  --     end,
-  -- },
+  {
+      'lewis6991/hover.nvim',
+      config = function()
+        require('hover').setup({
+            init = function()
+              -- Require providers
+              require('hover.providers.lsp')
+              -- require('hover.providers.gh')
+              -- require('hover.providers.gh_user')
+              -- require('hover.providers.jira')
+              -- require('hover.providers.man')
+              -- require('hover.providers.dictionary')
+            end,
+            preview_opts = {
+                border = 'single',
+            },
+            -- Whether the contents of a currently open hover window should be moved
+            -- to a :h preview-window when pressing the hover keymap.
+            preview_window = false,
+            title = false,
+        })
+
+        -- Setup keymaps
+        vim.keymap.set('n', 'K', require('hover').hover, { desc = 'hover.nvim' })
+        vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
+      end,
+  },
 
   {
     'L3MON4D3/LuaSnip',
@@ -541,15 +541,15 @@ require('lazy').setup({
     dependencies = 'nvim-lua/plenary.nvim',
   },
 
-  -- 'lukas-reineke/indent-blankline.nvim'
-  -- 'nvim-treesitter/nvim-treesitter-refactor'
-  -- use 'haya14busa/incsearch.vim'
-  -- use {
-  --   'karb94/neoscroll.nvim',
-  --   config = function()
-  --     require('neoscroll').setup()
-  --   end
-  -- }
+  -- -- 'lukas-reineke/indent-blankline.nvim'
+  -- -- 'nvim-treesitter/nvim-treesitter-refactor'
+  -- -- use 'haya14busa/incsearch.vim'
+  -- -- use {
+  -- --   'karb94/neoscroll.nvim',
+  -- --   config = function()
+  -- --     require('neoscroll').setup()
+  -- --   end
+  -- -- }
 })
 
 vim.diagnostic.config({
@@ -696,7 +696,7 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]], opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -712,8 +712,22 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(
     bufnr,
     'n',
-    '<leader>so',
+    '<leader>ls',
     [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    '<leader>lo',
+    [[<cmd>lua require('telescope.builtin').lsp_outgoing_calls()<CR>]],
+    opts
+  )
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    'n',
+    '<leader>li',
+    [[<cmd>lua require('telescope.builtin').lsp_incoming_calls()<CR>]],
     opts
   )
   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
@@ -724,7 +738,14 @@ require('mason-null-ls').setup({
   automatic_installation = false,
   automatic_setup = true,
 })
-require('null-ls').setup()
+require('null-ls').setup({
+  debug = true,
+  -- sources = {
+  --   require('null-ls').builtins.formatting.fourmolu.with({
+  --     extra_args = { "--indentation", "8" }
+  --   })
+  -- }
+})
 require('mason-null-ls').setup_handlers({})
 
 local mason_lspconfig = require('mason-lspconfig')
@@ -734,7 +755,7 @@ mason_lspconfig.setup()
 mason_lspconfig.setup_handlers({
   function(server_name)
     if server_name == 'sumneko_lua' then
-      lspconfig.sumneko_lua.setup({
+      lspconfig[server_name].setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -742,6 +763,19 @@ mason_lspconfig.setup_handlers({
             completion = {
               callSnippet = 'Replace',
             },
+          },
+        },
+      })
+    elseif server_name == 'hls' then
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          haskell = {
+            formattingProvider = "fourmolu",
+            -- plugin = {
+            --   ghcideCodeActionsTypeSignatures = true
+            -- }
           },
         },
       })
@@ -931,7 +965,7 @@ maps(o_ns, {
     { l('A'),    cmd('q!') },
     { l('z'),    cmd('qa') },
     { l('Z'),    cmd('qa!') },
-    { l('b'),    cmd('bd') },
+    { l2('b'),   cmd('bd') },
     { l('B'),    cmd('bd!') },
 
     { '<S-tab>', '<C-w><c-w>' },
@@ -943,6 +977,9 @@ maps(o_ns, {
     { l('J'),    '<C-w>J' },
     { l('K'),    '<C-w>K' },
     { l('L'),    '<C-w>L' },
+
+    { '<C-d>',   '<C-d>zz' },
+    { '<C-u>',   '<C-u>zz' },
 
     {
       l('m'),
@@ -993,7 +1030,7 @@ maps(o_ns, {
       end,
     },
     {
-      l2('b'),
+      l('b'),
       function()
         ts.buffers()
       end,
@@ -1206,8 +1243,8 @@ vim.cmd([[
     set cursorline
     set showcmd
 
-    set smartindent
-    set autoindent
+    " set smartindent
+    " set autoindent
 
     set noshowmode
     set laststatus=2
@@ -1255,12 +1292,12 @@ vim.cmd([[
     " nmap     <LocalLeader>n              <Plug>JupyterExecute
     " nmap     <LocalLeader><localleader>n <Plug>JupyterExecuteAll
 
-    " nnoremap <silent>       <LocalLeader><LocalLeader>i :MagmaInit<CR>
-    " nnoremap <expr><silent> <LocalLeader>o              nvim_exec('MagmaEvaluateOperator', v:true)
-    " nnoremap <silent>       <LocalLeader>m              :MagmaEvaluateLine<CR>
-    " xnoremap <silent>       <LocalLeader>m              :<C-u>MagmaEvaluateVisual<CR>
-    " nnoremap <silent>       <LocalLeader>r              :MagmaReevaluateCell<CR>
-    " nnoremap <silent>       <LocalLeader><LocalLeader>m :MagmaDelete<CR>
+    nnoremap <silent>       <LocalLeader><LocalLeader>i :MagmaInit<CR>
+    nnoremap <expr><silent> <LocalLeader>o              nvim_exec('MagmaEvaluateOperator', v:true)
+    nnoremap <silent>       <LocalLeader>m              :MagmaEvaluateLine<CR>
+    xnoremap <silent>       <LocalLeader>m              :<C-u>MagmaEvaluateVisual<CR>
+    nnoremap <silent>       <LocalLeader>r              :MagmaReevaluateCell<CR>
+    nnoremap <silent>       <LocalLeader><LocalLeader>m :MagmaDelete<CR>
 
     " nnoremap <LocalLeader><LocalLeader>q gqip
     " nnoremap <LocalLeader><LocalLeader>ft Vatzf
