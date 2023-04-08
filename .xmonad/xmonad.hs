@@ -37,11 +37,12 @@ main = xmonad
     $ def
     -- { terminal            = "alacritty"
     { focusFollowsMouse   = True
-    , borderWidth         = 1
+    , borderWidth         = 2
     -- , modMask             = mod1Mask
     , workspaces          = return <$> "qwerasdf1234"
     , normalBorderColor   = "#000000"
-    , focusedBorderColor  = "#606060"
+    -- , focusedBorderColor  = "#9ccfd8"
+    , focusedBorderColor  = "#c4a7e7"
     , keys                = myKeys
     , mouseBindings       = myMouse
     , layoutHook          = myLayout

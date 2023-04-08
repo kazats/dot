@@ -1,6 +1,7 @@
 #!/bin/sh
 exec ghc \
   -package X11 \
+  -package xmonad \
   --make xmonad.hs \
   -i \
   -ilib \
