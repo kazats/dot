@@ -82,6 +82,7 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
+      'nvim-telescope/telescope-ui-select.nvim',
       'nvim-telescope/telescope-media-files.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
@@ -150,8 +151,14 @@ require('lazy').setup({
           lsp_references = { results_title = '', preview_title = '' }, --prompt_title  = '',
           lsp_document_symbols = { results_title = '', preview_title = '' }, --prompt_title  = '',
         },
+        extensions = {
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown({})
+          }
+        }
       })
       require('telescope').load_extension('fzf')
+      require('telescope').load_extension('ui-select')
       require('telescope').load_extension('media_files')
       require('telescope').load_extension('flutter')
     end,
@@ -379,33 +386,33 @@ require('lazy').setup({
     },
   },
 
-  {
-      'lewis6991/hover.nvim',
-      config = function()
-        require('hover').setup({
-            init = function()
-              -- Require providers
-              require('hover.providers.lsp')
-              -- require('hover.providers.gh')
-              -- require('hover.providers.gh_user')
-              -- require('hover.providers.jira')
-              -- require('hover.providers.man')
-              -- require('hover.providers.dictionary')
-            end,
-            preview_opts = {
-                border = 'single',
-            },
-            -- Whether the contents of a currently open hover window should be moved
-            -- to a :h preview-window when pressing the hover keymap.
-            preview_window = false,
-            title = false,
-        })
-
-        -- Setup keymaps
-        vim.keymap.set('n', 'K', require('hover').hover, { desc = 'hover.nvim' })
-        vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
-      end,
-  },
+  -- {
+  --     'lewis6991/hover.nvim',
+  --     config = function()
+  --       require('hover').setup({
+  --           init = function()
+  --             -- Require providers
+  --             require('hover.providers.lsp')
+  --             -- require('hover.providers.gh')
+  --             -- require('hover.providers.gh_user')
+  --             -- require('hover.providers.jira')
+  --             -- require('hover.providers.man')
+  --             -- require('hover.providers.dictionary')
+  --           end,
+  --           preview_opts = {
+  --               border = 'single',
+  --           },
+  --           -- Whether the contents of a currently open hover window should be moved
+  --           -- to a :h preview-window when pressing the hover keymap.
+  --           preview_window = false,
+  --           title = false,
+  --       })
+  --
+  --       -- Setup keymaps
+  --       vim.keymap.set('n', 'K', require('hover').hover, { desc = 'hover.nvim' })
+  --       vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
+  --     end,
+  -- },
 
   {
     'L3MON4D3/LuaSnip',
@@ -550,7 +557,11 @@ require('lazy').setup({
   -- --     require('neoscroll').setup()
   -- --   end
   -- -- }
-})
+  }, {
+    ui = {
+      border = 'single'
+    }
+  })
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -688,6 +699,28 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
+local _border = "single"
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, {
+    border = _border
+  }
+)
+
+vim.diagnostic.config({
+  float = { border = _border }
+})
+
+require('lspconfig.ui.windows').default_options = {
+  border = _border
+}
+
 local lspconfig = require('lspconfig')
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = false }
@@ -696,7 +729,7 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]], opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -733,10 +766,14 @@ local on_attach = function(_, bufnr)
   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
 end
 
-require('mason').setup()
+require('mason').setup({
+  ui = {
+    border = 'single'
+  }
+})
 require('mason-null-ls').setup({
   automatic_installation = false,
-  automatic_setup = true,
+  handlers = {}
 })
 require('null-ls').setup({
   debug = true,
@@ -746,7 +783,7 @@ require('null-ls').setup({
   --   })
   -- }
 })
-require('mason-null-ls').setup_handlers({})
+-- require('mason-null-ls').setup_handlers({})
 
 local mason_lspconfig = require('mason-lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -957,6 +994,7 @@ maps(o, {
 maps(o_ns, {
   n = {
     { 'Y',       'y$' },
+    { '<C-y',    'yygccp' },
     { l('v'),    cmd('tabedit $MYVIMRC') },
 
     { l('w'),    cmd('w') },
