@@ -127,13 +127,13 @@
     background  = "#232136"
     foreground  = "#e0def4"
     frame_color = "#393552"
-    timeout     = 5
+    timeout     = 0
 
 [urgency_normal]
     background  = "#232136"
     foreground  = "#e0def4"
     frame_color = "#393552"
-    timeout     = 10
+    timeout     = 0
 
 [urgency_critical]
     background  = "#232136"
