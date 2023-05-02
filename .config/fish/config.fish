@@ -9,7 +9,7 @@ bass source /etc/profile
 #   bass source $f
 # end
 
-fish_add_path ~/.local/bin ~/.cabal/bin ~/.ghcup/bin ~/.local/opt/go/bin ~/Android/Sdk/cmdline-tools/latest/bin
+fish_add_path ~/.local/bin ~/.cabal/bin ~/.ghcup/bin ~/.local/opt/go/bin ~/Android/Sdk/cmdline-tools/latest/bin /opt/apache-spark/bin
 
 set -xg DE                "gnome"
 set -xg LANG              "en_US.UTF-8"
@@ -29,7 +29,7 @@ set -xg CHROME_EXECUTABLE "/usr/bin/google-chrome-stable"
 set -xg NO_AT_BRIDGE      1
 set -xg GOPATH            "$HOME/.local/opt/go"
 set -xg _JAVA_OPTIONS     "-Dawt.useSystemAAFontSettings=on"
-# set -xg SAL_USE_VCLPLUGIN "gtk3"
+set -xg SAL_USE_VCLPLUGIN "gtk4"
 # set -xg QT_STYLE_OVERRIDE "GTK+"
 
 set -xg LIBVA_DRIVER_NAME "radeonsi"
@@ -87,6 +87,10 @@ abbr  pp   'ping g.co'
 abbr  mo   'udisksctl mount -b'
 abbr  umo  'udisksctl unmount -b'
 
+abbr  we   'wezterm'
+abbr  wes  'wezterm ssh'
+abbr  wec  'wezterm connect'
+abbr  wet  'wezterm cli spawn --domain-name'
 abbr  o    'mimeopen'
 abbr  r    'ranger'
 abbr  tm   'tmux'
@@ -135,7 +139,7 @@ abbr  pmqs 'pacman -Qs'
 abbr  pmqi 'pacman -Qi'
 abbr  pmqm 'pacman -Qm'
 abbr  pmc  'sudo pacman -Scc'
-abbr  yy   'rf ~/.cache/paru'
+abbr  yy   'rm -r ~/.cache/paru'
 
 abbr  za   'zathura'
 abbr  lo   'libreoffice'
@@ -153,7 +157,7 @@ abbr  jc   'javac'
 abbr  sc   'scala'
 abbr  ha   'systemctl poweroff'
 abbr  re   'systemctl reboot'
-alias mozc '/usr/lib/mozc/mozc_tool --mode=config_dialog'
+abbr  mozc '/usr/lib/mozc/mozc_tool --mode=config_dialog'
 # alias kc   'eval `keychain --quiet --eval --agents ssh id_rsa`'
 
 abbr  f     'flutter'

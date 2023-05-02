@@ -32,7 +32,7 @@ function show_path
   set_color    black
   set_color -b $bg
 
-  echo -en "" (prompt_pwd) ""
+  echo -en "" (prompt_pwd -d 100) ""
 end
 
 
