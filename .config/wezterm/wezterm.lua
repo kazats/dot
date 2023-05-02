@@ -118,4 +118,21 @@ return {
   adjust_window_size_when_changing_font_size  = false,
   -- front_end                                   = 'WebGpu',
   -- webgpu_power_preference                     = 'HighPerformance'
+
+  unix_domains = {
+    {
+      name = 'unix'
+    }
+  },
+
+  ssh_domains = {
+    {
+      name = 'sora',
+      remote_address = 'sora'
+    },
+    {
+      name = 'meer',
+      remote_address = 'meer'
+    },
+  }
 }
