@@ -29,7 +29,7 @@ set -xg CHROME_EXECUTABLE "/usr/bin/google-chrome-stable"
 set -xg NO_AT_BRIDGE      1
 set -xg GOPATH            "$HOME/.local/opt/go"
 set -xg _JAVA_OPTIONS     "-Dawt.useSystemAAFontSettings=on"
-set -xg SAL_USE_VCLPLUGIN "gtk4"
+set -xg SAL_USE_VCLPLUGIN "gtk3"
 # set -xg QT_STYLE_OVERRIDE "GTK+"
 
 set -xg LIBVA_DRIVER_NAME "radeonsi"
