@@ -26,6 +26,17 @@ require('lazy').setup({
     end,
   },
 
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {},
+  },
+
   -- -- { 'folke/which-key.nvim', config = true },
   -- {
   --   "folke/noice.nvim",
@@ -455,8 +466,15 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').add_default_mappings()
+    end,
+  },
+
   'h-hg/fcitx.nvim',
-  'easymotion/vim-easymotion',
+  -- 'easymotion/vim-easymotion',
   'unblevable/quick-scope',
   'junegunn/vim-easy-align',
   'mtth/scratch.vim',
@@ -577,6 +595,27 @@ require('lazy').setup({
     dependencies = 'nvim-lua/plenary.nvim',
   },
 
+  {
+    'echasnovski/mini.indentscope',
+    version = false,
+    config = function()
+      require('mini.indentscope').setup({
+        draw = {
+          animation = require('mini.indentscope').gen_animation.none()
+        },
+        symbol = '│'
+      })
+    end
+  },
+
+  {
+    'echasnovski/mini.files',
+    version = false,
+    config = function()
+      require('mini.files').setup({})
+    end
+  },
+
   -- -- 'lukas-reineke/indent-blankline.nvim'
   -- -- 'nvim-treesitter/nvim-treesitter-refactor'
   -- -- use 'haya14busa/incsearch.vim'
@@ -609,6 +648,8 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.completeopt = 'menuone,noselect'
+vim.o.splitbelow = true
+vim.o.splitright = true
 
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -622,6 +663,8 @@ vim.g.scratch_filetype = 'scratch'
 
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "move highlighted text down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlighted text up" })
 
 -- Highlight on yank
 -- vim.cmd [[
@@ -645,10 +688,10 @@ require('nvim-treesitter.configs').setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = 'gnn',
-      node_incremental = 'gin',
-      node_decremental = 'gdn',
-      scope_incremental = 'gic',
+      init_selection = '<Enter>',
+      node_incremental = 'v',
+      node_decremental = 'V',
+      scope_incremental = '<S-Enter>',
     },
   },
   indent = {
@@ -706,7 +749,7 @@ require('nvim-treesitter.configs').setup({
     },
     lsp_interop = {
       enable = true,
-      border = 'none',
+      border = 'single',
       peek_definition_code = {
         ['<leader>df'] = '@function.outer',
         ['<leader>dF'] = '@class.outer',
@@ -805,7 +848,7 @@ require('mason-null-ls').setup({
   handlers = {}
 })
 require('null-ls').setup({
-  debug = true,
+  -- debug = true,
   -- sources = {
   --   require('null-ls').builtins.formatting.fourmolu.with({
   --     extra_args = { "--indentation", "8" }
@@ -1398,11 +1441,11 @@ vim.cmd([[
     nmap ga <Plug>(EasyAlign)
 
 
-    let g:EasyMotion_do_mapping = 1
-    let g:EasyMotion_smartcase  = 1
-    let g:EasyMotion_use_migemo = 1
-    map  <LocalLeader>  <Plug>(easymotion-prefix)
-    nmap s              <Plug>(easymotion-overwin-f)
+    " let g:EasyMotion_do_mapping = 1
+    " let g:EasyMotion_smartcase  = 1
+    " let g:EasyMotion_use_migemo = 1
+    " map  <LocalLeader>  <Plug>(easymotion-prefix)
+    " nmap s              <Plug>(easymotion-overwin-f)
     " map  <LocalLeader>j <Plug>(easymotion-j)
     " map  <LocalLeader>k <Plug>(easymotion-k)
 
