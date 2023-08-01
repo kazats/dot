@@ -99,6 +99,8 @@ abbr  vd   'nvim -d'
 abbr  sv   'sudo nvim'
 abbr  g    'git'
 alias q    'git --git-dir=$HOME/.dot --work-tree=$HOME'
+abbr  lg   'lazygit'
+abbr  qq   'lazygit -g $HOME/.dot -w $HOME'
 abbr  hx   'helix'
 
 alias ex   'exa --icons --group-directories-first --git'
