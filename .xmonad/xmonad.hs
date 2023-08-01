@@ -146,6 +146,7 @@ myKeys XConfig
     , m  xK_x             ｜ openbox
     -- , m  xK_c             ｜ ""
     , m  xK_v             ｜ vmware
+    , m  xK_b             ｜ blueman
 
     -- , n  eject            ｜ ""
     , n  xK_Print         ｜ scrot
@@ -351,6 +352,7 @@ xset          = "xset r rate 250; xset dpms 0 0 0; xset s off"
 
 anki          = "anki -b ~/.anki"
 -- dmenu         = "dmenu-run"
+blueman       = "blueman-manager"
 dunstctl      = ("dunstctl " ++)
 gimp          = "gimp"
 nvim          = term "nvim" "nvim"
