@@ -324,7 +324,7 @@ myStartupHook = do
     mapM_ spawnOnce
        [ xset
        , warpd
-       , feh
+       , nitrogen
        , fcitx
        , mainTerminal
        , htop
@@ -339,7 +339,7 @@ myStartupHook = do
 -- autocutsel    = "autocutsel -fork" ＆ "autocutsel -s PRIMARY -fork"
 autorandr     = "autorandr -c"
 fcitx         = "fcitx5"
-feh           = "~/.fehbg"
+nitrogen      = "nitrogen --restore"
 htop          = term "htop" "htop -u v"
 mainTerminal  = termClass "main"
 -- picom         = "picom --experimental-backends"
