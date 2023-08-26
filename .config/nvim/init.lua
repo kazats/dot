@@ -613,6 +613,12 @@ require('lazy').setup({
     version = false,
     config = function()
       require('mini.files').setup({})
+
+      vim.keymap.set('n', '<localleader>f',
+        function ()
+          require('mini.files').open()
+        end,
+        { noremap=true, silent=true })
     end
   },
 
