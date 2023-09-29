@@ -30,6 +30,7 @@ set -xg NO_AT_BRIDGE      1
 set -xg GOPATH            "$HOME/.local/opt/go"
 set -xg _JAVA_OPTIONS     "-Dawt.useSystemAAFontSettings=on"
 set -xg SAL_USE_VCLPLUGIN "gtk3"
+set -xg PYP_CONFIG_PATH   "$HOME/.config/pyp/config.py"
 # set -xg QT_STYLE_OVERRIDE "GTK+"
 
 set -xg LIBVA_DRIVER_NAME "radeonsi"
@@ -54,7 +55,7 @@ set -xg FZF_DEFAULT_OPTS    --cycle --height=50% --border=none --margin=0,1,0,0 
                             --color=prompt:#9ccfd8:regular,pointer:#c4a7e7:regular,marker:#c4a7e7:regular \
                             --color=spinner:#c4a7e7:regular,info:#555169:regular,header:#c4a7e7:regular \
                             --color=gutter:#191724,query:#c4a7e7:regular
-set -xg fzf_preview_dir_cmd  exa --icons --group-directories-first --git -TL1
+set -xg fzf_preview_dir_cmd  eza --icons --group-directories-first --git -TL1
 set -xg fzf_preview_file_cmd bat --style 'changes' --color=always
 set -xg fzf_fd_opts          -H --ignore-file ~/.fdignore
 
@@ -105,7 +106,7 @@ abbr  lg   'lazygit'
 abbr  qq   'lazygit -g $HOME/.dot -w $HOME'
 abbr  hx   'helix'
 
-alias ex   'exa --icons --group-directories-first --git'
+alias ex   'eza --icons --group-directories-first --git'
 alias l    'ex -TL1'
 alias l2   'ex -TL2'
 alias l3   'ex -TL3'
