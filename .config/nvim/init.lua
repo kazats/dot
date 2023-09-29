@@ -622,6 +622,14 @@ require('lazy').setup({
     end
   },
 
+  {
+    'LhKipp/nvim-nu',
+    build = ':TSInstall nu',
+    config = function()
+      require('nu').setup()
+    end
+  }
+
   -- -- 'lukas-reineke/indent-blankline.nvim'
   -- -- 'nvim-treesitter/nvim-treesitter-refactor'
   -- -- use 'haya14busa/incsearch.vim'
@@ -631,7 +639,8 @@ require('lazy').setup({
   -- --     require('neoscroll').setup()
   -- --   end
   -- -- }
-  }, {
+  },
+  {
     ui = {
       border = 'single'
     }
@@ -687,7 +696,11 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlig
 -- vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 require('nvim-treesitter.configs').setup({
+  ensure_installed = {},
+  sync_install = false,
   auto_install = true,
+  ignore_install = {},
+  modules = {},
   highlight = {
     enable = true, -- false will disable the whole extension
   },
