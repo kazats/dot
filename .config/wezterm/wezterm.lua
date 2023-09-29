@@ -88,8 +88,8 @@ return {
       remote_address = 'sora'
     },
     {
-      name = 'meer',
-      remote_address = 'meer'
+      name = 'mochi',
+      remote_address = 'mochi'
     },
   },
 
