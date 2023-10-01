@@ -239,7 +239,7 @@ $env.config = {
     history: {
         max_size: 100_000 # Session has to be reloaded for this to take effect
         sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
-        file_format: "plaintext" # "sqlite" or "plaintext"
+        file_format: "sqlite" # "sqlite" or "plaintext"
         isolation: false # only available with sqlite file_format. true enables history isolation, false disables it. true will allow the history to be isolated to the current session using up/down arrows. false will allow the history to be shared across all sessions.
     }
 
@@ -365,13 +365,31 @@ $env.config = {
                 cmd:
                     "commandline (
                         history
-                        | each { |it| $it.command }
-                        | uniq
+                        | uniq-by command
                         | reverse
+                        | each {|it|
+                            [ (ansi dark_gray)
+                              ($it.start_timestamp | format date '%Y-%m-%d %H:%M:%S')
+                              '  '
+                              (ansi reset)
+                              $it.command
+                            ] | str join ''
+                          }
                         | str join (char -i 0)
-                        | fzf --read0 --layout=reverse --height=40% --prompt=' ' -q (commandline)
+                        | fzf --ansi --read0 --layout=reverse --height=40% --prompt=' ' -q (commandline)
                         | decode utf-8
                         | str trim
+                        | parse '{date}  {command}'
+                        | do {
+                              let inp = $in
+                              if ($inp | is-empty | not $in) {
+                                  $inp
+                                  | get -i command.0
+                                  | default ''
+                              } else {
+                                  echo ''
+                              }
+                          }
                     )"
             }
         }
@@ -821,8 +839,6 @@ $env.config = {
     ]
 }
 
-source ~/.config/nushell/zoxide.nu
-
 def cl [bl: closure] {
     let inp = $in
     clear
@@ -865,20 +881,11 @@ alias lg  = lazygit
 alias lq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
 alias hx  = helix
 
-# alias ex  = eza --icons --group-directories-first --git
-# alias l   = ex -TL1
-# alias l2  = ex -TL2
-# alias l3  = ex -TL3
-# alias l4  = ex -TL4
-# alias lt  = ex -T
-# alias la  = l -a
-# alias la2 = l2 -a
-# alias la3 = l3 -a
-# alias la4 = l4 -a
-# alias lat = lt -a
-# alias ll  = ex -l
-# alias lla = ll -a
-# alias lld = ll -d
+alias l   = do { ls | sort-by type name }
+alias la  = do { ls -a | sort-by type name }
+alias ll  = do { ls -l | sort-by type name }
+alias ll  = do { ls -l | sort-by type name }
+alias lla = do { ls -la | sort-by type name }
 
 alias dh  = df -h
 
@@ -919,3 +926,5 @@ alias icams = do {
 }
 alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
 alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
+
+source ~/.config/nushell/zoxide.nu
