@@ -59,7 +59,6 @@ set -xg fzf_preview_dir_cmd  eza --icons --group-directories-first --git -TL1
 set -xg fzf_preview_file_cmd bat --style 'changes' --color=always
 set -xg fzf_fd_opts          -H --ignore-file ~/.fdignore
 
-
 if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
   startx
 end
@@ -242,4 +241,8 @@ function rose_pine -a theme
   set -U fish_pager_color_progress    brwhite --background=cyan
 
   clear
+end
+
+if status is-login
+  exec nu
 end
