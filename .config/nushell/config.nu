@@ -168,6 +168,8 @@ let external_completer = {|spans|
 
     match $spans.0 {
         __zoxide_z  => $zoxide_completer
+        pacman      => $fish_completer
+        systemctl   => $fish_completer
         git         => $fish_completer
         udisksctl   => $fish_completer
         _           => $carapace_completer
@@ -187,12 +189,8 @@ $env.config = {
         always_trash: false # always act as if -t was given. Can be overridden with -p
     }
 
-    cd: {
-        abbreviations: false # allows `cd s/o/f` to expand to `cd some/other/folder`
-    }
-
     table: {
-        mode: none # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+        mode: compact # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
         index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
         show_empty: true # show 'empty list' and 'empty record' placeholders for command output
         padding: { left: 1, right: 1 } # a left right padding of each column in a table
@@ -201,7 +199,7 @@ $env.config = {
             wrapping_try_keep_words: true # A strategy used by the 'wrapping' methodology
             truncating_suffix: "…" # A suffix used by the 'truncating' methodology
         }
-        header_on_separator: true # show header text on separator/border line
+        header_on_separator: false # show header text on separator/border line
     }
 
     error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
@@ -391,6 +389,19 @@ $env.config = {
                               }
                           }
                     )"
+            }
+        }
+        {
+            name: prepend_sudo
+            modifier: control
+            keycode: char_s
+            mode: [emacs, vi_insert]
+            event: {
+                send: ExecuteHostCommand
+                cmd:
+                    "commandline -c '0';
+                    commandline -i 'sudo ';
+                    commandline -e"
             }
         }
         {
@@ -877,17 +888,24 @@ alias vd  = nvim -d
 alias sv  = sudo nvim
 alias gi  = git
 alias qi  = git $"--git-dir=($env.HOME)/.dot" $"--work-tree=($env.HOME)"
-alias lg  = lazygit
-alias lq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
+alias gg  = lazygit
+alias qq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
 alias hx  = helix
 
-alias l   = do { ls | sort-by type name }
-alias la  = do { ls -a | sort-by type name }
-alias ll  = do { ls -l | sort-by type name }
-alias ll  = do { ls -l | sort-by type name }
-alias lla = do { ls -la | sort-by type name }
+def l [dir: string = "."] {
+    ls $dir | sort-by type name
+}
+def la [dir: string = "."] {
+    ls -a $dir | sort-by type name
+}
+def ll [dir: string = "."] {
+    ls -l $dir | sort-by type name
+}
+def lla [dir: string = "."] {
+    ls -la $dir | sort-by type name
+}
 
-alias dh  = df -h
+alias dh  = do { df -h | from ssv -m 1 }
 
 alias ctl  = systemctl
 alias sctl = sudo systemctl
