@@ -862,8 +862,8 @@ def cla [bl: closure] {
 }
 alias c   = cd
 alias d   = cla { cd }
-alias b   = bat
 alias s   = sudo
+alias b   = bat
 alias px  = chmod +x
 alias rf  = rm -rf
 alias cr  = cp -r
@@ -891,6 +891,10 @@ alias qi  = git $"--git-dir=($env.HOME)/.dot" $"--work-tree=($env.HOME)"
 alias gg  = lazygit
 alias qq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
 alias hx  = helix
+
+def-env k [] {
+    cd (walk --icons)
+}
 
 def l [dir: string = "."] {
     ls $dir | sort-by type name
