@@ -97,28 +97,22 @@ require('lazy').setup({
     },
   },
 
-  {
-    'folke/zen-mode.nvim',
-    config = true,
-  },
+  { 'folke/zen-mode.nvim', config = true },
+  { 'kylechui/nvim-surround', config = true },
+  { 'numToStr/Comment.nvim',  config = true },
 
   'tpope/vim-eunuch',
   'tpope/vim-repeat',
-  -- 'tpope/vim-surround',
   'tpope/vim-unimpaired',
   'tpope/vim-fugitive',
   'tpope/vim-speeddating',
 
-  { 'kylechui/nvim-surround', config = true },
-
   'ludovicchabant/vim-gutentags',
   'kevinhwang91/rnvimr',
 
-  { 'numToStr/Comment.nvim',  config = true },
-
   {
     'nvim-telescope/telescope.nvim',
-    version = '0.1.0',
+    branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
@@ -174,7 +168,7 @@ require('lazy').setup({
           find_files = {
             results_title = '',
             preview_title = '', --prompt_title  = '',
-            find_command = { 'fd', '-t', 'f', '-H', '--strip-cwd-prefix', '--ignore-file', '~/.fdignore' },
+            find_command = { 'fd', '-t', 'f', '-H', '--strip-cwd-prefix' },
           },
           oldfiles = { results_title = '', preview_title = '' }, --prompt_title  = '',
           live_grep = { results_title = '', preview_title = '' }, --prompt_title  = '',
