@@ -850,25 +850,30 @@ $env.config = {
     ]
 }
 
-def cl [bl: closure] {
+def --env cl [bl: closure] {
     let inp = $in
     clear
     $inp | do $bl
 }
 
-def cla [bl: closure] {
+def --env cla [bl: closure] {
     $in | do $bl
     clear
 }
+
+def --env d [] {
+    cd
+    clear
+}
+
 alias c   = cd
-alias d   = cla { cd }
 alias s   = sudo
 alias b   = bat
 alias px  = chmod +x
 alias rf  = rm -rf
 alias cr  = cp -r
 alias mv  = mv -i
-alias md  = mkdir
+alias md  = umkdir -v
 alias lns = ln -s
 alias pp  = ping g.co
 alias mo  = udisksctl mount -b
@@ -892,7 +897,7 @@ alias gg  = lazygit
 alias qq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
 alias hx  = helix
 
-def-env k [] {
+def --env k [] {
     cd (walk --icons)
 }
 
