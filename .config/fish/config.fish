@@ -31,6 +31,7 @@ set -xg GOPATH            "$HOME/.local/opt/go"
 set -xg _JAVA_OPTIONS     "-Dawt.useSystemAAFontSettings=on"
 set -xg SAL_USE_VCLPLUGIN "gtk3"
 set -xg PYP_CONFIG_PATH   "$HOME/.config/pyp/config.py"
+set -xg SHH_DIR           "$HOME/.config/shh"
 # set -xg QT_STYLE_OVERRIDE "GTK+"
 
 set -xg LIBVA_DRIVER_NAME "radeonsi"
