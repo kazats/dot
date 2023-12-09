@@ -171,7 +171,11 @@ let external_completer = {|spans|
         pacman      => $fish_completer
         systemctl   => $fish_completer
         git         => $fish_completer
+        pijul       => $fish_completer
         udisksctl   => $fish_completer
+        ghc         => $fish_completer
+        runhaskell  => $fish_completer
+        cabal       => $fish_completer
         _           => $carapace_completer
     } | do $in $spans
 }
@@ -895,6 +899,7 @@ alias gi  = git
 alias qi  = git $"--git-dir=($env.HOME)/.dot" $"--work-tree=($env.HOME)"
 alias gg  = lazygit
 alias qq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
+alias pj  = pijul
 alias hx  = helix
 
 def --env k [] {
