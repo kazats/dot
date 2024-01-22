@@ -41,6 +41,7 @@ let dark_theme = {
     shape_datetime: cyan
     shape_directory: cyan
     shape_external: cyan
+    shape_external_resolved: cyan
     shape_externalarg: green
     shape_filepath: cyan
     shape_flag: blue
@@ -144,13 +145,13 @@ let fish_completer = {|spans|
 }
 
 let carapace_completer = {|spans: list<string>|
-    carapace $spans.0 nushell $spans
-    | from json
-    | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
+    carapace $spans.0 nushell ...$spans
+        | from json
+        | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
 }
 
 let zoxide_completer = {|spans|
-    $spans | skip 1 | zoxide query -l $in | lines | where {|x| $x != $env.PWD}
+    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
 }
 
 let external_completer = {|spans|
@@ -182,6 +183,8 @@ let external_completer = {|spans|
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
+    # highlight_resolved_externals: true
+
     show_banner: false # true or false to enable or disable the welcome banner at startup
 
     ls: {
@@ -878,6 +881,10 @@ alias rf  = rm -rf
 alias cr  = cp -r
 alias mv  = mv -i
 alias md  = umkdir -v
+def --env mdc [dir: path] {
+    umkdir -v $dir
+    cd $dir
+}
 alias lns = ln -s
 alias pp  = ping g.co
 alias mo  = udisksctl mount -b
@@ -947,6 +954,7 @@ alias h   = ghci
 alias rh  = runhaskell
 alias ca  = cabal
 alias py  = python
+alias jl  = julia
 alias fl  = flutter
 alias ha  = systemctl poweroff
 alias re  = systemctl reboot
