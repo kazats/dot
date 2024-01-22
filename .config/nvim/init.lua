@@ -376,6 +376,12 @@ require('lazy').setup({
   },
 
   {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^3',
+    ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+  },
+
+  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
@@ -450,15 +456,16 @@ require('lazy').setup({
 
   {
     'L3MON4D3/LuaSnip',
-    dependencies = {
-      'saadparwaiz1/cmp_luasnip',
-      'rafamadriz/friendly-snippets',
-      'Nash0x7E2/awesome-flutter-snippets',
-    },
+    version = 'v2.*',
+    run = 'make install_jsregexp',
     config = function()
       require('luasnip.loaders.from_vscode').lazy_load()
     end,
   },
+
+  'saadparwaiz1/cmp_luasnip',
+  'rafamadriz/friendly-snippets',
+  'Nash0x7E2/awesome-flutter-snippets',
 
   {
     'ggandor/leap.nvim',
