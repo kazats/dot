@@ -52,8 +52,9 @@ local rose_pine = {
 
 return {
   font = wezterm.font_with_fallback {
-    'IBM Plex Mono',
+    -- 'IBM Plex Mono',
     -- 'JetBrains Mono', --/ Fira Code / Iosevka / Cascadia Code
+    'Iosevka Term Light',
     'Noto Sans Mono',
     'Noto Color Emoji',
     'NotoSans Nerd Font',
@@ -63,7 +64,7 @@ return {
     'HanaMinB',
     'Unifont',
   },
-  font_size                                   = 16.0,
+  font_size                                   = 20,
   colors                                      = rose_pine,
   -- color_scheme                                = 'Rosé Pine (base16)',
 
@@ -73,6 +74,7 @@ return {
   hide_tab_bar_if_only_one_tab                = true,
   use_fancy_tab_bar                           = false,
   adjust_window_size_when_changing_font_size  = false,
+  use_ime                                     = true,
   -- front_end                                   = 'WebGpu',
   -- webgpu_power_preference                     = 'HighPerformance'
 
