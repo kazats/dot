@@ -54,7 +54,7 @@ return {
   font = wezterm.font_with_fallback {
     -- 'IBM Plex Mono',
     -- 'JetBrains Mono', --/ Fira Code / Iosevka / Cascadia Code
-    'Iosevka Term Light',
+    'Iosevka Term Light Extended',
     'Noto Sans Mono',
     'Noto Color Emoji',
     'NotoSans Nerd Font',
@@ -64,7 +64,7 @@ return {
     'HanaMinB',
     'Unifont',
   },
-  font_size                                   = 20,
+  font_size                                   = 16,
   colors                                      = rose_pine,
   -- color_scheme                                = 'Rosé Pine (base16)',
 
