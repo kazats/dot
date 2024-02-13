@@ -75,6 +75,7 @@ return {
   use_fancy_tab_bar                           = false,
   adjust_window_size_when_changing_font_size  = false,
   use_ime                                     = true,
+  enable_kitty_keyboard                       = true,
   -- front_end                                   = 'WebGpu',
   -- webgpu_power_preference                     = 'HighPerformance'
 
