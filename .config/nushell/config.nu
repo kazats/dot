@@ -273,7 +273,7 @@ $env.config = {
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
     use_grid_icons: true
-    footer_mode: "25" # always, never, number_of_rows, auto
+    footer_mode: auto # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
@@ -926,7 +926,16 @@ def lla [dir: string = "."] {
     ls -la $dir | sort-by type name
 }
 
-alias dh  = do { df -h | from ssv -m 1 }
+def dh [] {
+  df -h |
+  from ssv -m 1 |
+  rename --block { str downcase } |
+  update size { into filesize } |
+  update used { into filesize } |
+  update avail { into filesize } |
+  update use% { parse '{x}%' | get x.0 | into int } |
+  sort-by filesystem
+}
 
 alias ctl  = systemctl
 alias sctl = sudo systemctl
@@ -959,6 +968,9 @@ alias fl  = flutter
 alias ha  = systemctl poweroff
 alias re  = systemctl reboot
 alias moz = /usr/lib/mozc/mozc_tool --mode=config_dialog
+def mi [] {
+  cla { mimi }
+}
 
 alias icams = do {
     cd ~/.local/opt/openvpn/icams
