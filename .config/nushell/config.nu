@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = "0.85.0"
+# version = "0.90.1"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -41,7 +41,7 @@ let dark_theme = {
     shape_datetime: cyan
     shape_directory: cyan
     shape_external: cyan
-    shape_external_resolved: cyan
+    shape_external_resolved: light_yellow
     shape_externalarg: green
     shape_filepath: cyan
     shape_flag: blue
@@ -74,14 +74,14 @@ let light_theme = {
     # color for nushell primitives
     separator: dark_gray
     leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
-    header: green_bold
+    header: green
     empty: blue
     # Closures can be used to choose colors for specific values.
     # The value (in this case, a bool) is piped into the closure.
     # eg) {|| if $in { 'dark_cyan' } else { 'dark_gray' } }
     bool: dark_cyan
     int: dark_gray
-    filesize: cyan_bold
+    filesize: cyan
     duration: dark_gray
     date: purple
     range: dark_gray
@@ -90,52 +90,54 @@ let light_theme = {
     nothing: dark_gray
     binary: dark_gray
     cell-path: dark_gray
-    row_index: green_bold
-    record: white
-    list: white
-    block: white
+    row_index: green
+    record: dark_gray
+    list: dark_gray
+    block: dark_gray
     hints: dark_gray
     search_result: {fg: white bg: red}
-    shape_and: purple_bold
-    shape_binary: purple_bold
-    shape_block: blue_bold
+    shape_and: purple
+    shape_binary: purple
+    shape_block: blue
     shape_bool: light_cyan
-    shape_closure: green_bold
+    shape_closure: green
     shape_custom: green
-    shape_datetime: cyan_bold
+    shape_datetime: cyan
     shape_directory: cyan
     shape_external: cyan
-    shape_externalarg: green_bold
+    shape_externalarg: green
+    shape_external_resolved: light_purple
     shape_filepath: cyan
-    shape_flag: blue_bold
-    shape_float: purple_bold
+    shape_flag: blue
+    shape_float: purple
     # shapes are used to change the cli syntax highlighting
     shape_garbage: { fg: white bg: red attr: b}
-    shape_globpattern: cyan_bold
-    shape_int: purple_bold
-    shape_internalcall: cyan_bold
-    shape_list: cyan_bold
+    shape_globpattern: cyan
+    shape_int: purple
+    shape_internalcall: cyan
+    shape_keyword: cyan
+    shape_list: cyan
     shape_literal: blue
     shape_match_pattern: green
     shape_matching_brackets: { attr: u }
     shape_nothing: light_cyan
     shape_operator: yellow
-    shape_or: purple_bold
-    shape_pipe: purple_bold
-    shape_range: yellow_bold
-    shape_record: cyan_bold
-    shape_redirection: purple_bold
-    shape_signature: green_bold
+    shape_or: purple
+    shape_pipe: purple
+    shape_range: yellow
+    shape_record: cyan
+    shape_redirection: purple
+    shape_signature: green
     shape_string: green
-    shape_string_interpolation: cyan_bold
-    shape_table: blue_bold
+    shape_string_interpolation: cyan
+    shape_table: blue
     shape_variable: purple
     shape_vardecl: purple
 }
 
 # External completer example
 # let carapace_completer = {|spans|
-#     carapace $spans.0 nushell $spans | from json
+#     carapace $spans.0 nushell ...$spans | from json
 # }
 
 let fish_completer = {|spans|
@@ -183,8 +185,6 @@ let external_completer = {|spans|
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
-    # highlight_resolved_externals: true
-
     show_banner: false # true or false to enable or disable the welcome banner at startup
 
     ls: {
@@ -207,6 +207,7 @@ $env.config = {
             truncating_suffix: "…" # A suffix used by the 'truncating' methodology
         }
         header_on_separator: false # show header text on separator/border line
+        # abbreviated_row_count: 10 # limit data rows from top and bottom after reaching a set point
     }
 
     error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
@@ -230,14 +231,9 @@ $env.config = {
         },
         table: {
             split_line: {fg: "#404040"},
-            selected_cell: {},
+            selected_cell: {bg: light_blue},
             selected_row: {},
             selected_column: {},
-            show_cursor: true,
-            line_head_top: true,
-            line_head_bottom: true,
-            line_shift: true,
-            line_index: true,
         },
     }
 
@@ -261,7 +257,7 @@ $env.config = {
     }
 
     filesize: {
-        metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
+        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
         format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
     }
 
@@ -281,6 +277,10 @@ $env.config = {
     edit_mode: vi # emacs, vi
     shell_integration: true # enables terminal shell integration. Off by default, as some terminals have issues with this.
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
+    use_kitty_protocol: true # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
+    highlight_resolved_externals: true # true enables highlighting of external commands in the repl resolved by which.
+
+    plugins: {} # Per-plugin configuration. See https://www.nushell.sh/contributor-book/plugins.html#configuration.
 
     hooks: {
         pre_prompt: [{ null }] # run before the prompt is shown
@@ -307,8 +307,43 @@ $env.config = {
             }
             style: {
                 text: default
-                selected_text: default_reverse
+                selected_text: {attr: r}
                 description_text: yellow
+                match_text: {attr: u}
+                selected_match_text: {attr: ur}
+            }
+        }
+        {
+            name: ide_completion_menu
+            only_buffer_difference: false
+            marker: "| "
+            type: {
+                layout: ide
+                min_completion_width: 0,
+                max_completion_width: 50,
+                # max_completion_height: 10, # will be limited by the available lines in the terminal
+                padding: 0,
+                border: true,
+                cursor_offset: 0,
+                description_mode: "prefer_right"
+                min_description_width: 0
+                max_description_width: 50
+                max_description_height: 10
+                description_offset: 1
+                # If true, the cursor pos will be corrected, so the suggestions match up with the typed text
+                #
+                # C:\> str
+                #      str join
+                #      str trim
+                #      str split
+                correct_cursor_pos: false
+            }
+            style: {
+                text: cyan
+                selected_text: {attr: r}
+                description_text: yellow
+                match_text: {attr: u}
+                selected_match_text: {attr: ur}
             }
         }
         {
@@ -410,6 +445,26 @@ $env.config = {
                     commandline -i 'sudo ';
                     commandline -e"
             }
+        }
+        {
+            name: ide_completion_menu
+            modifier: control
+            keycode: char_n
+            mode: [emacs vi_normal vi_insert]
+            event: {
+                until: [
+                    { send: menu name: ide_completion_menu }
+                    { send: menunext }
+                    { edit: complete }
+                ]
+            }
+        }
+        {
+            name: history_menu
+            modifier: control
+            keycode: char_r
+            mode: [emacs, vi_insert, vi_normal]
+            event: { send: menu name: history_menu }
         }
         {
             name: help_menu
@@ -853,6 +908,34 @@ $env.config = {
             keycode: char_c
             mode: emacs
             event: {edit: capitalizechar}
+        }
+        {
+            name: copy_selection
+            modifier: control_shift
+            keycode: char_c
+            mode: emacs
+            event: { edit: copyselection }
+        }
+        {
+            name: cut_selection
+            modifier: control_shift
+            keycode: char_x
+            mode: emacs
+            event: { edit: cutselection }
+        }
+        {
+            name: select_all
+            modifier: control_shift
+            keycode: char_a
+            mode: emacs
+            event: { edit: selectall }
+        }
+        {
+            name: paste
+            modifier: control_shift
+            keycode: char_v
+            mode: emacs
+            event: { edit: pastecutbufferbefore }
         }
     ]
 }

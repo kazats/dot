@@ -1,6 +1,6 @@
 # Nushell Environment Config File
 #
-# version = "0.85.0"
+# version = "0.90.1"
 
 def create_left_prompt [] {
 }
@@ -53,14 +53,24 @@ $env.PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
 
 let prompt_insert  = ansi -e { fg: black,   bg: blue }
 let prompt_normal  = ansi -e { fg: black,   bg: cyan }
+let trans_normal   = ansi -e { fg: blue,    bg: default }
 # let transient_prompt_insert = ansi -e { fg: blue, bg: default }
 $env.PROMPT_INDICATOR = {|| " ⟩ " }
 $env.PROMPT_INDICATOR_VI_INSERT = {|| $"($prompt_insert) ⟩ (ansi reset) " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| $"($prompt_normal) ⟩ (ansi reset) " }
 $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
-# $env.TRANSIENT_PROMPT_COMMAND = {|| $"($transient_prompt_insert) ⟩ ($prompt_default) " }
-# $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| $"($transient_prompt_insert) ⟩ ($prompt_default) " }
-# $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| $"($transient_prompt_insert) ⟩ ($prompt_default) " }
+
+# If you want previously entered commands to have a different prompt from the usual one,
+# you can uncomment one or more of the following lines.
+# This can be useful if you have a 2-line prompt and it's taking up a lot of space
+# because every command entered takes up 2 lines instead of 1. You can then uncomment
+# the line below so that previously entered commands show with a single `🚀`.
+# $env.TRANSIENT_PROMPT_COMMAND = {|| create_left_prompt }
+# $env.TRANSIENT_PROMPT_INDICATOR = {|| " ⟩ " }
+# $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| $"($trans_normal) ⟩ (ansi reset)" }
+# $env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| $"($trans_normal) ⟩ (ansi reset)" }
+# $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "::: " }
+# $env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| $"($trans_normal)(create_right_prompt)(ansi reset)" }
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
@@ -78,16 +88,17 @@ $env.ENV_CONVERSIONS = {
 }
 
 # Directories to search for scripts when calling source or use
+# The default for this is $nu.default-config-dir/scripts
 $env.NU_LIB_DIRS = [
-    # FIXME: This default is not implemented in rust code as of 2023-09-06.
     ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
 ]
 
 # Directories to search for plugin binaries when calling register
+# The default for this is $nu.default-config-dir/plugins
 $env.NU_PLUGIN_DIRS = [
-    # FIXME: This default is not implemented in rust code as of 2023-09-06.
     ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
 ]
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
+
