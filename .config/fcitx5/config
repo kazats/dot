@@ -34,7 +34,7 @@ DeactivateKeys=
 0=Tab
 
 [Hotkey/TogglePreedit]
-0=Control+Shift+P
+0=Control+Alt+Shift+P
 
 [Behavior]
 # Active By Default
@@ -63,4 +63,10 @@ EnabledAddons=
 DisabledAddons=
 # Preload input method to be used by default
 PreloadInputMethod=True
+# Allow input method in the password field
+AllowInputMethodForPassword=False
+# Show preedit text when typing password
+ShowPreeditForPassword=False
+# Interval of saving user data in minutes
+AutoSavePeriod=30
 
