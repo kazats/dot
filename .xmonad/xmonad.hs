@@ -127,7 +127,7 @@ myKeys XConfig
 
     -- , m  xK_q             ｜ ""
     , m  xK_w             ｜ vivaldi
-    -- , m  xK_e             ｜ ""
+    , m  xK_e             ｜ easyeffects
     , m  xK_r             ｜ ranger
     , m  xK_t             ｜ transmission
     , m  xK_o             ｜ ogatak
@@ -354,6 +354,7 @@ anki          = "anki -b ~/.anki"
 -- dmenu         = "dmenu-run"
 blueman       = "blueman-manager"
 dunstctl      = ("dunstctl " ++)
+easyeffects   = "easyeffects"
 gimp          = "gimp"
 nvim          = term "nvim" "nvim"
 katrain       = "prime-run katrain"
