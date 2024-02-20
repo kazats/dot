@@ -29,7 +29,7 @@ def create_right_prompt [] {
 
     let git_status = do { git status --porcelain } | complete
     let git = if ($git_status.exit_code == 0) {([
-        (ansi -e { fg: blue, bg: '#26233a' })
+        (ansi -e { fg: blue, bg: black })
         (char space)
         (git branch --show-current | str trim)
         (char space)
