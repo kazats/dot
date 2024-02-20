@@ -316,12 +316,12 @@ $env.config = {
         {
             name: ide_completion_menu
             only_buffer_difference: false
-            marker: "| "
+            marker: $"(ansi -e { fg: black,   bg: blue }) | (ansi reset) " # "| "
             type: {
                 layout: ide
                 min_completion_width: 0,
                 max_completion_width: 50,
-                # max_completion_height: 10, # will be limited by the available lines in the terminal
+                max_completion_height: 20, # will be limited by the available lines in the terminal
                 padding: 0,
                 border: true,
                 cursor_offset: 0,
@@ -382,13 +382,13 @@ $env.config = {
 
     keybindings: [
         {
-            name: completion_menu
+            name: ide_completion_menu
             modifier: none
             keycode: tab
             mode: [emacs vi_normal vi_insert]
             event: {
                 until: [
-                    { send: menu name: completion_menu }
+                    { send: menu name: ide_completion_menu }
                     { send: menunext }
                     { edit: complete }
                 ]
@@ -416,7 +416,7 @@ $env.config = {
                             ] | str join ''
                           }
                         | str join (char -i 0)
-                        | fzf --ansi --read0 --layout=reverse --height=40% --prompt=' ' -q (commandline)
+                        | fzf --scheme=history --ansi --read0 --layout=reverse --height=40% --prompt=' ' -q (commandline)
                         | decode utf-8
                         | str trim
                         | parse '{date}  {command}'
@@ -447,25 +447,25 @@ $env.config = {
             }
         }
         {
-            name: ide_completion_menu
+            name: completion_menu
             modifier: control
             keycode: char_n
             mode: [emacs vi_normal vi_insert]
             event: {
                 until: [
-                    { send: menu name: ide_completion_menu }
+                    { send: menu name: completion_menu }
                     { send: menunext }
                     { edit: complete }
                 ]
             }
         }
-        {
-            name: history_menu
-            modifier: control
-            keycode: char_r
-            mode: [emacs, vi_insert, vi_normal]
-            event: { send: menu name: history_menu }
-        }
+        # {
+        #     name: history_menu
+        #     modifier: control
+        #     keycode: char_r
+        #     mode: [emacs, vi_insert, vi_normal]
+        #     event: { send: menu name: history_menu }
+        # }
         {
             name: help_menu
             modifier: none
@@ -992,37 +992,48 @@ alias qq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
 alias pj  = pijul
 alias hx  = helix
 
-def --env k [] {
-    cd (walk --icons)
+def --env y [...args] {
+  let tmp = (mktemp -t "yazi-cwd.XXXXX")
+  yazi ...$args --cwd-file $tmp
+  let cwd = (open $tmp)
+  if $cwd != "" and $cwd != $env.PWD {
+    cd $cwd
+  }
+  rm -fp $tmp
 }
 
-def l [dir: string = "."] {
-    ls $dir | sort-by type name
+def --env k [] {
+  cd (walk --icons)
 }
-def la [dir: string = "."] {
-    ls -a $dir | sort-by type name
+
+def l [dir: path = "."] {
+  ls $dir | sort-by type name
 }
-def ll [dir: string = "."] {
-    ls -l $dir | sort-by type name
+def la [dir: path = "."] {
+  ls -a $dir | sort-by type name
 }
-def lla [dir: string = "."] {
-    ls -la $dir | sort-by type name
+def ll [dir: path = "."] {
+  ls -l $dir | sort-by type name
+}
+def lla [dir: path = "."] {
+  ls -la $dir | sort-by type name
 }
 
 def dh [] {
-  df -h |
-  from ssv -m 1 |
-  rename --block { str downcase } |
-  update size { into filesize } |
-  update used { into filesize } |
-  update avail { into filesize } |
-  update use% { parse '{x}%' | get x.0 | into int } |
-  sort-by filesystem
+  df -h
+  | str replace "Mounted on" "mounted_on"
+  | from ssv -m 1
+  | rename --block { str downcase }
+  | into filesize size
+  | into filesize used
+  | into filesize avail
+  | update use% { parse '{x}%' | get x.0 | into int }
+  | sort-by filesystem
 }
 
 alias ctl  = systemctl
 alias sctl = sudo systemctl
-alias y    = do { paru; fixkb }
+alias yy   = do { paru; fixkb }
 alias ys   = paru -S
 alias ycc  = paru -Scc
 alias p    = paruz
@@ -1056,8 +1067,8 @@ def mi [] {
 }
 
 alias icams = do {
-    cd ~/.local/opt/openvpn/icams
-    sudo openvpn icams.ovpn
+  cd ~/.local/opt/openvpn/icams
+  sudo openvpn icams.ovpn
 }
 alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
 alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
