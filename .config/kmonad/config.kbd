@@ -40,6 +40,8 @@
   \Ex  (tap-hold 200 \    (layer-toggle ext))
   cNm  (tap-hold 200 lctl (layer-toggle num))
 
+  del  C-del
+
   mpr  C-S-m
   mpp  C-S-,
   mne  C-S-.
