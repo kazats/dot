@@ -34,8 +34,8 @@ fi
 
 # xclipsync &
 
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
+# eval $(gnome-keyring-daemon --start)
+# export SSH_AUTH_SOCK
 
 setxkbmap -option compose:menu
 # autorandr -c &
