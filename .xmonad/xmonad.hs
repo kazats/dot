@@ -87,7 +87,7 @@ myManageHook = composeAll $ concatMap withMatch
 
     , shift "4" ｜ ["htop"]
     , shift "r" ｜ ["vmware", "VirtualBox Manager", "VirtualBox Machine"]
-    , shift "f" ｜ ["skype", "zoom", "cmus", "spotify", "vlc"]
+    , shift "f" ｜ ["easyeffects", "skype", "zoom", "cmus", "spotify", "vlc"]
 
     , dofloat   ｜ ["foxwq.exe", "lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
@@ -330,6 +330,7 @@ myStartupHook = do
        , htop
        , ranger
        , redshift
+       , easyeffects
        ]
 
 
