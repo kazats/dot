@@ -422,7 +422,7 @@ $env.config = {
                         | parse '{date}  {command}'
                         | do {
                               let inp = $in
-                              if ($inp | is-empty | not $in) {
+                              if ($inp | is-not-empty) {
                                   $inp
                                   | get -i command.0
                                   | default ''
@@ -503,6 +503,13 @@ $env.config = {
             name: escape
             modifier: none
             keycode: escape
+            mode: [emacs, vi_normal, vi_insert]
+            event: { send: esc }    # NOTE: does not appear to work
+        }
+        {
+            name: escape
+            modifier: control
+            keycode: 'char_['
             mode: [emacs, vi_normal, vi_insert]
             event: { send: esc }    # NOTE: does not appear to work
         }
@@ -703,6 +710,13 @@ $env.config = {
             name: delete_one_character_forward
             modifier: none
             keycode: delete
+            mode: [emacs, vi_insert]
+            event: {edit: delete}
+        }
+        {
+            name: delete_one_character_forward
+            modifier: control
+            keycode: 'char_,'
             mode: [emacs, vi_insert]
             event: {edit: delete}
         }
@@ -1074,3 +1088,4 @@ alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
 alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
 
 source ~/.config/nushell/zoxide.nu
+source ~/.config/nushell/scripts/custom-completions/git/git-completions.nu
