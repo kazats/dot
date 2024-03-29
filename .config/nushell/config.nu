@@ -403,7 +403,7 @@ $env.config = {
             event: {
                 send: ExecuteHostCommand
                 cmd:
-                    "commandline (
+                    "commandline edit (
                         history
                         | uniq-by command
                         | reverse
@@ -427,7 +427,7 @@ $env.config = {
                                   | get -i command.0
                                   | default ''
                               } else {
-                                  echo ''
+                                  ''
                               }
                           }
                     )"
@@ -1084,6 +1084,7 @@ alias icams = do {
   cd ~/.local/opt/openvpn/icams
   sudo openvpn icams.ovpn
 }
+alias fight = autossh -M 0 -t fighting-mochi "tmux -u new -As v"
 alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
 alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
 
