@@ -977,7 +977,7 @@ alias px  = chmod +x
 alias rf  = rm -rf
 alias cr  = cp -r
 alias mv  = mv -i
-alias md  = umkdir -v
+alias md  = mkdir -v
 def --env mdc [dir: path] {
     umkdir -v $dir
     cd $dir
