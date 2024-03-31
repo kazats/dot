@@ -1089,4 +1089,6 @@ alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
 alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
 
 source ~/.config/nushell/zoxide.nu
+source ~/.config/nushell/atuin.nu
+source ~/.config/nushell/comp/atuin.nu
 # source ~/.config/nushell/scripts/custom-completions/git/git-completions.nu
