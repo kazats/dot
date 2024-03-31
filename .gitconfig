@@ -1,0 +1,40 @@
+[user]
+  email = kazatsukazu@gmail.com
+  name  = Kazatsu Kazu
+[alias]
+  s     = status -sb
+  ss    = status
+  lg    = log --oneline
+  la    = log -1 HEAD --stat
+  las   = log -1 HEAD
+  d     = diff
+  dv    = difftool
+  m     = merge
+  mv    = mergetool
+  a     = add
+  t     = commit
+  tm    = commit -m
+  tam   = commit -am
+  p     = push
+  po    = push origin
+  l     = pull
+  b     = branch
+  c     = checkout
+  un    = reset HEAD --
+  r     = remote
+  rv    = remote -v
+  v     = !gitk
+[difftool "ndiff"]
+  cmd = nvim -d $LOCAL $REMOTE -c 'silent! Gitsigns toggle_signs'
+[difftool]
+  prompt = false
+[diff]
+  tool = ndiff
+[mergetool "nmerge"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool]
+  prompt = true
+[merge]
+  tool = nmerge
+[init]
+  defaultBranch = main
