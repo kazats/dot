@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-missing-signatures #-}
+{-# LANGUAGE RecordWildCards #-}
 import XMonad
 
 import qualified XMonad.StackSet as W
@@ -81,7 +83,7 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "w" ｜ ["main"]
     , shift "s" ｜ []
 
-    , shift "3" ｜ ["ranger", "Transmission-gtk"]
+    , shift "3" ｜ ["yazi", "ranger", "Transmission-gtk"]
     , shift "e" ｜ ["Xephyr"]
     , shift "d" ｜ ["anki"]
 
@@ -123,20 +125,16 @@ myKeys XConfig
     [ a  xK_grave         ｜ rofi "run"
     , a  xK_Return        ｜ termNew
     , as xK_Return        ｜ nvim
-    -- , as xK_r             ｜ autorandr
 
-    -- , m  xK_q             ｜ ""
     , m  xK_w             ｜ vivaldi
     , m  xK_e             ｜ easyeffects
     , m  xK_r             ｜ ranger
     , m  xK_t             ｜ transmission
+    , m  xK_y             ｜ yazi
     , m  xK_o             ｜ ogatak
     , m  xK_p             ｜ pavucontrol
 
     , m  xK_a             ｜ anki
-    -- , m  xK_s             ｜ skype
-    -- , m  xK_d             ｜ ""
-    -- , m  xK_f             ｜ ""
     , m  xK_g             ｜ gimp
     , m  xK_h             ｜ htop
     , m  xK_k             ｜ katrain
@@ -144,13 +142,10 @@ myKeys XConfig
 
     , m  xK_z             ｜ zoom
     , m  xK_x             ｜ openbox
-    -- , m  xK_c             ｜ ""
     , m  xK_v             ｜ vmware
     , m  xK_b             ｜ blueman
 
-    -- , n  eject            ｜ ""
     , n  xK_Print         ｜ scrot
-    -- , c  scroll           ｜ ""
     , a  xK_Pause         ｜ "systemctl suspend"
 
     , m  xK_space         ｜ dunstctl "close"
@@ -328,17 +323,14 @@ myStartupHook = do
        , fcitx
        , mainTerminal
        , htop
-       , ranger
+       , yazi
        , redshift
        , easyeffects
        ]
 
 
 -- PROGRAMS
--- xmonadRestart = "xmonad-restart"
-
 -- autocutsel    = "autocutsel -fork" ＆ "autocutsel -s PRIMARY -fork"
-autorandr     = "autorandr -c"
 fcitx         = "fcitx5"
 nitrogen      = "nitrogen --restore"
 htop          = term "htop" "htop -u v"
@@ -365,10 +357,10 @@ ogatak        = "ogatak"
 pavucontrol   = "pavucontrol"
 rofi          = ("rofi -m -4 -show " ++)
 scrot         = "scrot-mv"
-skype         = "skypeforlinux"
 transmission  = "transmission-gtk"
 vivaldi       = "vivaldi"
 vmware        = "vmware"
+yazi          = term "yazi" "nu -e y"
 zoom          = "zoom"
 
 volumeDec     = "control v -"
@@ -402,30 +394,28 @@ xdokey        = ("xdotool key " ++)
 
 
 data Term = Term
-    { termCmd  :: String
-    , classOpt :: String
-    , execOpt  :: String
+    { termCmd  :: !String
+    , classOpt :: !String
+    , execOpt  :: !String
     }
 
-term c e    = term' (Just c)  (Just e)
-termNew     = term' Nothing   Nothing
-termClass c = term' (Just c)  Nothing
-termExec e  = term' Nothing   (Just e)
+term cls cmd  = wezterm (Just cls) (Just cmd)
+termNew       = wezterm Nothing Nothing
+termClass cls = wezterm (Just cls) Nothing
+-- termExec e  = term' Nothing   (Just e)
 
-term' = term'' wezterm
+wezterm = termGeneric weztermConfig
 
-term'' :: Term -> Maybe String -> Maybe String -> String
-term'' (Term t cOpt eOpt) cStr eStr = do
-    let c = maybe [] (\x -> [cOpt, x]) cStr
-        e = maybe [] (\x -> [eOpt, x]) eStr
+termGeneric :: Term -> Maybe String -> Maybe String -> String
+termGeneric Term{..} clsStr cmdStr = do
+    let cls = maybe [] (\x -> [classOpt, x]) clsStr
+        cmd = maybe [] (\x -> [execOpt, x]) cmdStr
 
-    unwords $ [t] ++ c ++ e
+    unwords $ [termCmd] ++ cls ++ cmd
 
-wezterm   = Term "wezterm start --always-new-process" "--class" "--"
-alacritty = Term "alacritty" "--class" "-e"
-xst       = Term "xst"       "-n"      "-e"
+weztermConfig = Term "wezterm start --always-new-process" "--class" "--"
 
 
-a ＆ b   = unwords [a, "&&", b]
+-- a ＆ b   = unwords [a, "&&", b]
 -- par      = unwords . ("parallel :::" :) . map q
 -- q s      = concat ["\"", s, "\""]
