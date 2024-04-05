@@ -1006,16 +1006,6 @@ alias qq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
 alias pj  = pijul
 alias hx  = helix
 
-def --env y [...args] {
-  let tmp = (mktemp -t "yazi-cwd.XXXXX")
-  yazi ...$args --cwd-file $tmp
-  let cwd = (open $tmp)
-  if $cwd != "" and $cwd != $env.PWD {
-    cd $cwd
-  }
-  rm -fp $tmp
-}
-
 def --env k [] {
   cd (walk --icons)
 }
@@ -1092,3 +1082,13 @@ source ~/.config/nushell/zoxide.nu
 source ~/.config/nushell/atuin.nu
 source ~/.config/nushell/comp/atuin.nu
 # source ~/.config/nushell/scripts/custom-completions/git/git-completions.nu
+
+def --env y [...args] {
+  let tmp = (mktemp -t "yazi-cwd.XXXXX")
+  yazi ...$args --cwd-file $tmp
+  let cwd = (open $tmp)
+  if $cwd != "" and $cwd != $env.PWD {
+    z $cwd
+  }
+  rm -fp $tmp
+}
