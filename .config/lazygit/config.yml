@@ -1,0 +1,26 @@
+gui:
+  theme:
+    activeBorderColor:
+      - '#9ccfd8'
+      - bold
+    inactiveBorderColor:
+      - '#555169'
+    optionsTextColor:
+      - '#ebbcba'
+    selectedLineBgColor:
+      - '#26233a'
+    cherryPickedCommitBgColor:
+      - '#555169'
+    cherryPickedCommitFgColor:
+      - '#9ccfd8'
+    unstagedChangesColor:
+      - '#eb6f92'
+    defaultFgColor:
+      - '#6e6a86'
+    searchingActiveBorderColor:
+      - '#f6c177'
+
+  authorColors:
+    'Kazatsu Kazu': '#f6c177'
+    'fighting-mochi': '#eb6f92'
+    '*': '#6e6a86'
