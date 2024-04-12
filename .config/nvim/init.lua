@@ -203,28 +203,33 @@ require('lazy').setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
       signs = {
-        add = { hl = 'GitSignsAdd', text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+        add = {
+          hl = 'GitSignsAdd',
+          text = '+',
+          numhl = 'GitSignsAddNr',
+          linehl = 'GitSignsAddLn'
+        },
         change = {
           hl = 'GitSignsChange',
-          text = '┃',
+          text = '~',
           numhl = 'GitSignsChangeNr',
           linehl = 'GitSignsChangeLn',
         },
         delete = {
           hl = 'GitSignsDelete',
-          text = '┃',
+          text = '-',
           numhl = 'GitSignsDeleteNr',
           linehl = 'GitSignsDeleteLn',
         },
         topdelete = {
           hl = 'GitSignsDelete',
-          text = '┃',
+          text = '±',
           numhl = 'GitSignsDeleteNr',
           linehl = 'GitSignsDeleteLn',
         },
         changedelete = {
           hl = 'GitSignsChange',
-          text = '┃',
+          text = '≂',
           numhl = 'GitSignsChangeNr',
           linehl = 'GitSignsChangeLn',
         },
@@ -237,7 +242,7 @@ require('lazy').setup({
         interval = 1000,
         follow_files = true,
       },
-      attach_to_untracked = true,
+      attach_to_untracked = false,
       current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
       current_line_blame_opts = {
         virt_text = true,
