@@ -1000,9 +1000,9 @@ alias v   = nvim
 alias vd  = nvim -d
 alias sv  = sudo nvim
 alias gi  = git
-alias qi  = git $"--git-dir=($env.HOME)/.dot" $"--work-tree=($env.HOME)"
+alias qi  = git $'--git-dir=($env.HOME)/.dot' $'--work-tree=($env.HOME)'
 alias gg  = lazygit
-alias qq  = lazygit -g $"($env.HOME)/.dot" -w $"($env.HOME)"
+alias qq  = lazygit -g $'($env.HOME)/.dot' -w $'($env.HOME)'
 alias pj  = pijul
 alias hx  = helix
 
