@@ -1,8 +1,9 @@
 # Nushell Environment Config File
 #
-# version = "0.90.1"
+# version = "0.92.2"
 
 def create_left_prompt [] {
+    # [(ansi -e { fg: blue, bg: reset }) ''] | str join
 }
 
 def create_right_prompt [] {

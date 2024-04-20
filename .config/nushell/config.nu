@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = "0.90.1"
+# version = "0.92.2"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -51,6 +51,7 @@ let dark_theme = {
     shape_globpattern: cyan
     shape_int: purple
     shape_internalcall: cyan
+    shape_keyword: cyan
     shape_list: cyan
     shape_literal: blue
     shape_match_pattern: green
@@ -248,12 +249,13 @@ $env.config = {
         case_sensitive: false # set to true to enable case-sensitive completions
         quick: true    # set this to false to prevent auto-selecting completions when only one remains
         partial: true    # set this to false to prevent partial filling of the prompt
-        algorithm: "fuzzy"    # prefix or fuzzy
+        algorithm: "prefix"    # prefix or fuzzy
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
             completer: $external_completer # check 'carapace_completer' above as an example
         }
+        use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
 
     filesize: {
@@ -279,8 +281,24 @@ $env.config = {
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
     use_kitty_protocol: true # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
     highlight_resolved_externals: true # true enables highlighting of external commands in the repl resolved by which.
+    recursion_limit: 50 # the maximum number of times nushell allows recursion before stopping it
 
     plugins: {} # Per-plugin configuration. See https://www.nushell.sh/contributor-book/plugins.html#configuration.
+
+    plugin_gc: {
+        # Configuration for plugin garbage collection
+        default: {
+            enabled: true # true to enable stopping of inactive plugins
+            stop_after: 10sec # how long to wait after a plugin is inactive to stop it
+        }
+        plugins: {
+            # alternate configuration for specific plugins, by name, for example:
+            #
+            # gstat: {
+            #     enabled: false
+            # }
+        }
+    }
 
     hooks: {
         pre_prompt: [{ null }] # run before the prompt is shown
@@ -923,12 +941,20 @@ $env.config = {
             mode: emacs
             event: {edit: capitalizechar}
         }
+        # The following bindings with `*system` events require that Nushell has
+        # been compiled with the `system-clipboard` feature.
+        # This should be the case for Windows, macOS, and most Linux distributions
+        # Not available for example on Android (termux)
+        # If you want to use the system clipboard for visual selection or to
+        # paste directly, uncomment the respective lines and replace the version
+        # using the internal clipboard.
         {
             name: copy_selection
             modifier: control_shift
             keycode: char_c
             mode: emacs
             event: { edit: copyselection }
+            # event: { edit: copyselectionsystem }
         }
         {
             name: cut_selection
@@ -936,7 +962,15 @@ $env.config = {
             keycode: char_x
             mode: emacs
             event: { edit: cutselection }
+            # event: { edit: cutselectionsystem }
         }
+        # {
+        #     name: paste_system
+        #     modifier: control_shift
+        #     keycode: char_v
+        #     mode: emacs
+        #     event: { edit: pastesystem }
+        # }
         {
             name: select_all
             modifier: control_shift

@@ -75,8 +75,8 @@ $env.config = (
         $env.config.keybindings
         | append {
             name: atuin
-            modifier: control_shift
-            keycode: char_d
+            modifier: shift
+            keycode: up
             mode: [emacs, vi_normal, vi_insert]
             event: {
                 until: [
