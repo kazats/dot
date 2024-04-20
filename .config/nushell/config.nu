@@ -279,7 +279,7 @@ $env.config = {
     edit_mode: vi # emacs, vi
     shell_integration: true # enables terminal shell integration. Off by default, as some terminals have issues with this.
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
-    use_kitty_protocol: true # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
+    use_kitty_protocol: false # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
     highlight_resolved_externals: true # true enables highlighting of external commands in the repl resolved by which.
     recursion_limit: 50 # the maximum number of times nushell allows recursion before stopping it
 
