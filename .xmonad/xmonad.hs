@@ -15,9 +15,10 @@ import XMonad.Hooks.SetWMName     (setWMName)
 import XMonad.Hooks.UrgencyHook
 
 import XMonad.Layout.Fullscreen   (fullscreenManageHook)
-import XMonad.Layout.GridVariants (Orientation (..), SplitGrid (..))
 import XMonad.Layout.NoBorders    (smartBorders)
 import XMonad.Layout.SimplestFloat
+import XMonad.Layout.Tabbed
+-- import XMonad.Layout.GridVariants (Orientation (..), SplitGrid (..))
 -- import XMonad.Layout.PerWorkspace (onWorkspaces)
 import XMonad.Layout.Reflect      (reflectHoriz, reflectVert)
 
@@ -63,14 +64,18 @@ myLayout
     $ tiledF
 
     where
-    tiledF = tiled ||| full ||| simplestFloat -- ||| vGrid ||| hGrid
-    -- fullF  = full  ||| tiled ||| grid
+    tiledF = tiled ||| full ||| simplestFloat
 
     tiled  = reflectHoriz $ Tall 1 (5/100) (1/2)
-    vGrid  = reflectHoriz $ SplitGrid R 2 3 (3/4) (16/10) (5/100)
-    hGrid  = reflectVert vGrid
+    -- tabs   = tabbed shrinkText $ def {
+    --   fontName      = "Iosevka Term Light Extended",
+    --   activeColor   = "#6e6a86",
+    --   inactiveColor = "#191724"
+    -- }
+    -- vGrid  = reflectHoriz $ SplitGrid R 2 3 (3/4) (16/10) (5/100)
+    -- hGrid  = reflectVert vGrid
     -- hGrid  = SplitGrid L 2 1 (1/3) (5/4) (5/100)
-    full   = Full
+    full = Full
 
 
 myManageHook = composeAll $ concatMap withMatch
