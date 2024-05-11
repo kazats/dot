@@ -222,19 +222,19 @@ $env.config = {
     }
 
     explore: {
-        status_bar_background: {fg: "#1D1F21", bg: "#C4C9C6"},
-        command_bar_text: {fg: "#C4C9C6"},
-        highlight: {fg: "black", bg: "yellow"},
+        status_bar_background: { fg: white, bg: dark_gray },
+        command_bar_text: { fg: cyan },
+        highlight: { bg: dark_gray },
         status: {
-            error: {fg: "white", bg: "red"},
+            error: { fg: white, bg: red },
             warn: {}
             info: {}
         },
         table: {
-            split_line: {fg: "#404040"},
-            selected_cell: {bg: light_blue},
-            selected_row: {},
-            selected_column: {},
+            split_line: { fg: dark_gray },
+            selected_cell: { bg: dark_gray },
+            selected_row: { bg: black },
+            selected_column: { bg: black },
         },
     }
 
@@ -242,7 +242,7 @@ $env.config = {
         max_size: 100_000 # Session has to be reloaded for this to take effect
         sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
         file_format: "sqlite" # "sqlite" or "plaintext"
-        isolation: false # only available with sqlite file_format. true enables history isolation, false disables it. true will allow the history to be isolated to the current session using up/down arrows. false will allow the history to be shared across all sessions.
+        isolation: true # only available with sqlite file_format. true enables history isolation, false disables it. true will allow the history to be isolated to the current session using up/down arrows. false will allow the history to be shared across all sessions.
     }
 
     completions: {
@@ -1004,6 +1004,8 @@ def --env d [] {
     clear
 }
 
+alias e   = explore --index
+alias ep  = explore --index --peek
 alias c   = cd
 alias s   = sudo
 alias b   = bat
@@ -1095,6 +1097,8 @@ alias h   = ghci
 alias rh  = runhaskell
 alias ca  = cabal
 alias py  = python
+alias pi  = ipython
+alias pe  = overlay use bin/activate.nu
 alias jl  = julia
 alias fl  = flutter
 alias ha  = systemctl poweroff
