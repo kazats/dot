@@ -22,7 +22,7 @@ preview_hovered = { underline = true }
 
 # Find
 find_keyword  = { fg = "yellow" }
-find_position = { fg = "blue", bg = "reset" }
+find_position = { fg = "reset", bg = "reset" }
 
 # Marker
 marker_copied   = { fg = "lightgreen",  bg = "lightgreen" }
