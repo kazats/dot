@@ -19,8 +19,8 @@ local rose_pine = {
     background = tab_bg,
 
     active_tab = {
-      fg_color      = '#e0def4',
-      bg_color      = '#26233a',
+      fg_color      = tab_bg,
+      bg_color      = tab_fg,
       intensity     = 'Normal',
       underline     = 'None',
       italic        = false,
@@ -50,6 +50,37 @@ local rose_pine = {
 }
 
 
+local function tab_title(tab_info)
+  local title = tab_info.tab_title
+
+  -- if the tab title is explicitly set, take that
+  if title and #title > 0 then
+    return title
+  else
+    return tab_info.active_pane.title
+  end
+end
+
+
+wezterm.on(
+  'format-tab-title',
+  function(tab, tabs, panes, config, hover, max_width)
+    local title = tab_title(tab)
+    local max   = 21
+
+    if string.len(title) > max then
+      return {
+        { Text = ' ' .. string.sub(title, 1, max) .. '… ' }
+      }
+    else
+      return {
+        { Text = string.format(' %-22s ', title) }
+      }
+    end
+  end
+)
+
+
 return {
   font = wezterm.font_with_fallback {
     -- 'IBM Plex Mono',
@@ -73,6 +104,7 @@ return {
   enable_tab_bar                              = true,
   hide_tab_bar_if_only_one_tab                = true,
   use_fancy_tab_bar                           = false,
+  tab_max_width                               = 24,
   adjust_window_size_when_changing_font_size  = false,
   use_ime                                     = true,
   enable_kitty_keyboard                       = true,
@@ -107,50 +139,3 @@ return {
     }
   },
 }
-
--- local default = {
---   foreground      = "white",    -- [silver] The default text color
---   background      = "black",    -- [black]  The default background color
---   cursor_bg       = "white",    -- [#52ad70] Overrides the cell background color when the current cell is occupied by the cursor and the cursor style is set to Block
---   cursor_fg       = "black",    -- [black]   Overrides the text color when the current cell is occupied by the cursor
---   cursor_border   = "white",    -- [#52ad70] Specifies the border color of the cursor when the cursor style is set to Block, of the color of the vertical or horizontal bar when the cursor style is set to Bar or Underline.
---   selection_fg    = "black",    -- [black]   The foreground color of selected text
---   selection_bg    = "#d0d0d0",  -- [#fffacd] The background color of selected text
---   scrollbar_thumb = "#222222",  -- [#222222] The color of the scrollbar "thumb"; the portion that represents the current viewport
---   split           = "#444444",  -- [#444444] The color of the split lines between panes
---   ansi            = {'#000000', '#c75646', '#8eb33b', '#d0b03c', '#72b3cc', '#c8a0d1', '#218693', '#d0d0d0'}, --{"black", "maroon", "green", "olive",  "navy", "purple",  "teal", "silver"},
---   brights         = {'#5d5d5d', '#e09690', '#cdee69', '#ffe377', '#9cd9f0', '#fbb1f9', '#77dfd8', '#f7f7f7'}, --{"grey",  "red",    "lime",  "yellow", "blue", "fuchsia", "aqua", "white"},
---   -- indexed      = {[136]="#af8700"}, -- Arbitrary colors of the palette in the range from 16 to 255
---   tab_bar = {
---     background = tab_bg,
---
---     active_tab = {
---       bg_color      = '#000000',
---       fg_color      = '#d0d0d0',
---       intensity     = 'Normal', -- "Half" | "Normal" | "Bold"
---       underline     = 'None',   -- "None" | "Single" | "Double"
---       italic        = false,
---       strikethrough = false,
---     },
---
---     inactive_tab = {
---       bg_color = tab_bg,
---       fg_color = tab_fg,
---     },
---
---     inactive_tab_hover = {
---       bg_color = tab_bg,
---       fg_color = tab_fg,
---     },
---
---     new_tab = {
---       bg_color = tab_bg,
---       fg_color = tab_bg,
---     },
---
---     new_tab_hover = {
---       bg_color = tab_bg,
---       fg_color = tab_bg,
---     }
---   }
--- }
