@@ -23,4 +23,5 @@ gui:
   authorColors:
     'Kazatsu Kazu': '#f6c177'
     'fighting-mochi': '#eb6f92'
+    'lantien.hsu': '#eb6f92'
     '*': '#6e6a86'
