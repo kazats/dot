@@ -224,7 +224,7 @@ $env.config = {
     explore: {
         status_bar_background: { fg: white, bg: dark_gray },
         command_bar_text: { fg: cyan },
-        highlight: { bg: dark_gray },
+        highlight: { bg: yellow },
         status: {
             error: { fg: white, bg: red },
             warn: {}
