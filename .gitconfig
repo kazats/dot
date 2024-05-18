@@ -24,6 +24,10 @@
   r     = remote
   rv    = remote -v
   v     = !gitk
+[core]
+  pager = delta
+[interactive]
+  diffFilter
 [difftool "ndiff"]
   cmd = nvim -d $LOCAL $REMOTE -c 'silent! Gitsigns toggle_signs'
 [difftool]
