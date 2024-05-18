@@ -1019,6 +1019,8 @@ def --env mdc [dir: path] {
     cd $dir
 }
 alias lns = ln -s
+alias dl = delta
+alias dls = delta -s
 alias pp  = ping g.co
 alias mo  = udisksctl mount -b
 alias umo = udisksctl unmount -b
