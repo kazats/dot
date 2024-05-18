@@ -18,6 +18,7 @@ set -xg VISUAL            "nvim"
 set -xg TERMCMD           "wezterm"
 set -xg BROWSER           "vivaldi"
 set -xg MANPAGER          "nvim +Man\!"
+set -xg BAT_PAGER         "less -RFi -j.5 --incsearch"
 
 set -xg GTK_IM_MODULE     "fcitx"
 set -xg QT_IM_MODULE      "fcitx"
