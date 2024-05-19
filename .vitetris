@@ -1,18 +1,24 @@
-host=10.0.0.2:1337
-name=_enlightened
-softdrop=3
-rotate=1
-height=0
-level=9
 mode=1
-[player2]
-rotate=1
-height=0
 level=9
-[player1]
-rotate=3
 height=0
-level=5
+rotate=1
+softdrop=3
+name=_enlightened
+host=10.0.0.2:1337
+[term]
+drawing=0
+bg=0
+[wonlost]
+af=_enlightened Sooderso 13-2
+ae=Jadebuddha David 11-1
+aa=Jadebuddha ludoksn 117-29
+ac=Jadebuddha 95.90.21.78 0-2
+ab=Jadebuddha Hoeffl 30-1
+ad=Jadebuddha rrrreinhard 9-0
+ag=_enlightened sooderso 16-1
+ah=_enlightened david 3-0
+ai=_enlightened baueko 7-0
+aj=_enlightened hoeffl 15-2
 [stdin]
 left=j
 right=l
@@ -47,22 +53,16 @@ p2rot-a=u
 p2rot-b=o
 p2hdrop=`
 p2sdrop=k
-b=338
 rot-b=338
-[wonlost]
-aj=_enlightened hoeffl 15-2
-ai=_enlightened baueko 7-0
-ah=_enlightened david 3-0
-ag=_enlightened sooderso 16-1
-ad=Jadebuddha rrrreinhard 9-0
-ab=Jadebuddha Hoeffl 30-1
-ac=Jadebuddha 95.90.21.78 0-2
-aa=Jadebuddha ludoksn 117-29
-ae=Jadebuddha David 11-1
-af=_enlightened Sooderso 13-2
-[term]
-bg=0
-drawing=0
+b=338
+[player1]
+level=5
+height=0
+rotate=3
+[player2]
+level=9
+height=0
+rotate=1
 [hiscore]
 $m]HkäwD
 $JFpäKD
