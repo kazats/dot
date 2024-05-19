@@ -28,7 +28,7 @@ find_position = { fg = "reset", bg = "reset" }
 marker_copied   = { fg = "lightgreen",  bg = "lightgreen" }
 marker_cut      = { fg = "lightred",    bg = "lightred" }
 marker_marked   = { fg = "lightyellow", bg = "lightyellow" }
-marker_selected = { fg = "lightblue",   bg = "lightblue" }
+marker_selected = { fg = "yellow",      bg = "yellow" }
 
 # Tab
 tab_active   = { reversed = true }
