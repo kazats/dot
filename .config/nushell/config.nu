@@ -459,9 +459,9 @@ $env.config = {
             event: {
                 send: ExecuteHostCommand
                 cmd:
-                    "commandline -c '0';
-                    commandline -i 'sudo ';
-                    commandline -e"
+                    "commandline set-cursor 0;
+                    commandline edit -i 'sudo ';
+                    commandline set-cursor -e"
             }
         }
         {
