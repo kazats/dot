@@ -1,6 +1,6 @@
 # Nushell Environment Config File
 #
-# version = "0.92.2"
+# version = "0.94.2"
 
 def create_left_prompt [] {
     # [(ansi -e { fg: blue, bg: reset }) ''] | str join
@@ -18,7 +18,7 @@ def create_right_prompt [] {
     let home =  $nu.home-path
 
     let dir = ([
-        ($env.PWD | str substring 0..($home | str length) | str replace $home "~"),
+        ($env.PWD | str substring 0..<($home | str length) | str replace $home "~"),
         ($env.PWD | str substring ($home | str length)..)
     ] | str join)
 
