@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm';
+local act = wezterm.action
 
 local tab_fg  = '#6e6a86'
 local tab_bg  = '#191724'
@@ -136,6 +137,22 @@ return {
         copy_on_select = true,
         copy_to = 'ClipboardAndPrimarySelection',
       },
-    }
+    },
+    {
+      key = 'UpArrow',
+      mods = 'SHIFT|CTRL',
+      action = act.ScrollToPrompt(-1) },
+    {
+      key = 'DownArrow',
+      mods = 'SHIFT|CTRL',
+      action = act.ScrollToPrompt(1) },
   },
+
+  mouse_bindings = {
+    {
+      event = { Down = { button = 'Left', streak = 3 } },
+      action = act.SelectTextAtMouseCursor 'SemanticZone',
+      mods = 'NONE',
+    },
+  }
 }
