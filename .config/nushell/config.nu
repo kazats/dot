@@ -1114,6 +1114,7 @@ alias pmsi = pacman -Si
 alias pmqs = pacman -Qs
 alias pmqi = pacman -Qi
 alias pmqm = pacman -Qm
+alias bt   = bluetuith
 
 alias za  = zathura
 alias lo  = libreoffice
