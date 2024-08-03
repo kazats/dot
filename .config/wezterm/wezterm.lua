@@ -129,27 +129,52 @@ return {
   },
 
   keys = {
-    {
-      key = 'u',
-      mods = 'SHIFT|CTRL|ALT',
-      action = wezterm.action.CharSelect {
-        copy_on_select = true,
-        copy_to = 'ClipboardAndPrimarySelection',
-      },
-    },
-    {
-      key = 'UpArrow',
+    { key = 'UpArrow',
       mods = 'SHIFT|CTRL',
       action = act.ScrollToPrompt(-1) },
-    {
-      key = 'DownArrow',
+    { key = 'DownArrow',
       mods = 'SHIFT|CTRL',
       action = act.ScrollToPrompt(1) },
+
+
+    { key = 'h',
+      mods = 'CTRL|ALT',
+      action = act.ActivatePaneDirection('Left')
+    },
+    { key = 'l',
+      mods = 'CTRL|ALT',
+      action = act.ActivatePaneDirection('Right')
+    },
+    { key = 'k',
+      mods = 'CTRL|ALT',
+      action = act.ActivatePaneDirection('Up')
+    },
+    { key = 'j',
+      mods = 'CTRL|ALT',
+      action = act.ActivatePaneDirection('Down')
+    },
+    { key = '/',
+      mods = 'CTRL|ALT',
+      action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' })
+    },
+    { key = '-',
+      mods = 'CTRL|ALT',
+      action = act.SplitVertical({ domain = 'CurrentPaneDomain' })
+    },
+
+
+    { key = 'f',
+      mods = 'SHIFT|CTRL|ALT',
+      action = act.AttachDomain('fight')
+    },
+    { key = 'd',
+      mods = 'SHIFT|CTRL',
+      action = act.DetachDomain('CurrentPaneDomain')
+    },
   },
 
   mouse_bindings = {
-    {
-      event = { Down = { button = 'Left', streak = 3 } },
+    { event = { Down = { button = 'Left', streak = 3 } },
       action = act.SelectTextAtMouseCursor 'SemanticZone',
       mods = 'NONE',
     },
