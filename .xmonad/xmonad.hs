@@ -417,7 +417,8 @@ termGeneric Term{..} clsStr cmdStr = do
 
     unwords $ [termCmd] ++ cls ++ cmd
 
-weztermConfig = Term "wezterm start --always-new-process" "--class" "--"
+weztermConfig = Term "wezterm start" "--class" "--"
+-- weztermConfig = Term "wezterm start --always-new-process" "--class" "--"
 
 
 -- a ＆ b   = unwords [a, "&&", b]
