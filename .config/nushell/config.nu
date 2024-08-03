@@ -1140,7 +1140,7 @@ alias icams = do {
   cd ~/.local/opt/openvpn/icams
   sudo openvpn icams.ovpn
 }
-alias fight = autossh -M 0 -t fight "tmux -u new -As v"
+alias fight = mosh fight -- tmux -u new -As v
 alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
 alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
 
