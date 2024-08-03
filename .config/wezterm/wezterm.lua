@@ -115,19 +115,16 @@ return {
   -- webgpu_power_preference                     = 'HighPerformance'
 
   unix_domains = {
-    {
-      name = 'unix'
+    { name = 'unix'
     }
   },
 
   ssh_domains = {
-    {
-      name = 'sora',
+    { name = 'sora',
       remote_address = 'sora'
     },
-    {
-      name = 'mochi',
-      remote_address = 'mochi'
+    { name = 'fight',
+      remote_address = 'fight'
     },
   },
 
