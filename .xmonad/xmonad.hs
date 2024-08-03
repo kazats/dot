@@ -88,12 +88,12 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "s" ｜ []
 
     , shift "3" ｜ ["yazi", "ranger", "Transmission-gtk"]
-    , shift "e" ｜ ["Xephyr"]
+    , shift "e" ｜ ["Xephyr", "vlc"]
     , shift "d" ｜ ["anki"]
 
     , shift "4" ｜ ["htop"]
     , shift "r" ｜ ["vmware", "VirtualBox Manager", "VirtualBox Machine"]
-    , shift "f" ｜ ["easyeffects", "skype", "zoom", "cmus", "spotify", "vlc"]
+    , shift "f" ｜ ["easyeffects", "skype", "zoom", "cmus", "spotify"]
 
     , dofloat   ｜ ["foxwq.exe", "lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
