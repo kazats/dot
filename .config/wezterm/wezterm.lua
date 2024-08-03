@@ -86,10 +86,12 @@ return {
   font = wezterm.font_with_fallback {
     -- 'IBM Plex Mono',
     -- 'JetBrains Mono', --/ Fira Code / Iosevka / Cascadia Code
+    -- 'IosevkaTerm NF Light',
+    -- 'NotoSans Nerd Font',
     'Iosevka Term Light Extended',
     'Noto Sans Mono',
     'Noto Color Emoji',
-    'NotoSans Nerd Font',
+    'Symbols Nerd Font Mono',
     'IBM Plex Sans JP',
     'Noto Sans CJK JP DemiLight',
     'HanaMinA',
