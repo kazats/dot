@@ -45,7 +45,7 @@ extract = [
 	{ run = 'unar "%1"', desc = "Extract here", for = "windows" },
 ]
 play = [
-	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+	{ run = 'xdg-open "$@"', orphan = true, for = "unix" },
 	{ run = 'mpv "%1"', orphan = true, for = "windows" },
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
@@ -61,8 +61,9 @@ rules = [
 	{ mime = "audio/*",   use = [ "play", "reveal" ] },
 	{ mime = "inode/x-empty", use = [ "edit", "reveal" ] },
 
-	{ mime = "application/json", use = [ "edit", "reveal" ] },
-	{ mime = "*/javascript",     use = [ "edit", "reveal" ] },
+	{ mime = "application/json",     use = [ "edit", "reveal" ] },
+	{ mime = "*/javascript",         use = [ "edit", "reveal" ] },
+	{ mime = "application/x-subrip", use = [ "edit", "reveal" ] },
 
 	{ mime = "application/zip",                 use = [ "extract", "reveal" ] },
 	{ mime = "application/gzip",                use = [ "extract", "reveal" ] },
