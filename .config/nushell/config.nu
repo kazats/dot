@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = "0.95.0"
+# version = "0.96.1"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -31,7 +31,7 @@ let dark_theme = {
     list: white
     block: white
     hints: dark_gray
-    search_result: {bg: red fg: white}
+    search_result: { bg: red fg: white }
     shape_and: purple
     shape_binary: purple
     shape_block: blue
@@ -41,13 +41,13 @@ let dark_theme = {
     shape_datetime: cyan
     shape_directory: cyan
     shape_external: cyan
+    shape_externalarg: green_bold
     shape_external_resolved: light_yellow
-    shape_externalarg: green
     shape_filepath: cyan
     shape_flag: blue
     shape_float: purple
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
+    shape_garbage: { fg: white bg: red attr: b }
     shape_glob_interpolation: cyan
     shape_globpattern: cyan
     shape_int: purple
@@ -98,7 +98,7 @@ let light_theme = {
     list: dark_gray
     block: dark_gray
     hints: dark_gray
-    search_result: {fg: white bg: red}
+    search_result: { fg: white bg: red }
     shape_and: purple
     shape_binary: purple
     shape_block: blue
@@ -114,7 +114,8 @@ let light_theme = {
     shape_flag: blue
     shape_float: purple
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
+    shape_garbage: { fg: white bg: red attr: b }
+    shape_glob_interpolation: cyan
     shape_globpattern: cyan
     shape_int: purple
     shape_internalcall: cyan
@@ -271,7 +272,7 @@ $env.config = {
     use_grid_icons: true
     footer_mode: auto # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
-    buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
+    buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
     bracketed_paste: true # enable bracketed paste, currently useless on windows
     edit_mode: vi # emacs, vi
@@ -363,7 +364,7 @@ $env.config = {
             type: {
                 layout: ide
                 min_completion_width: 0,
-                max_completion_width: 50,
+                max_completion_width: 80,
                 max_completion_height: 20, # will be limited by the available lines in the terminal
                 padding: 0,
                 border: true,
@@ -761,7 +762,7 @@ $env.config = {
             modifier: control
             keycode: 'char_,'
             mode: [emacs, vi_insert]
-            event: {edit: delete}
+            event: { edit: delete }
         }
         {
             name: delete_one_character_forward
@@ -771,7 +772,7 @@ $env.config = {
             event: { edit: delete }
         }
         {
-            name: delete_one_character_forward
+            name: delete_one_character_backward
             modifier: control
             keycode: char_h
             mode: [emacs, vi_insert]
