@@ -67,7 +67,7 @@ wezterm.on(
   'format-tab-title',
   function(tab, tabs, panes, config, hover, max_width)
     local title = tab_title(tab)
-    local max   = 17
+    local max   = 29
 
     if string.len(title) > max then
       return {
@@ -75,7 +75,7 @@ wezterm.on(
       }
     else
       return {
-        { Text = string.format(' %-18s ', title) }
+        { Text = string.format(' %-30s ', title) }
       }
     end
   end
@@ -107,7 +107,7 @@ return {
   enable_tab_bar                              = true,
   hide_tab_bar_if_only_one_tab                = true,
   use_fancy_tab_bar                           = false,
-  tab_max_width                               = 24,
+  tab_max_width                               = 32,
   adjust_window_size_when_changing_font_size  = false,
   use_ime                                     = true,
   enable_kitty_keyboard                       = true,
