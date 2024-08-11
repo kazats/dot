@@ -27,15 +27,22 @@ require('lazy').setup({
   },
 
   {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
+    'Bekaboo/dropbar.nvim',
     dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {},
+      'nvim-telescope/telescope-fzf-native.nvim'
+    }
   },
+
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   name = "barbecue",
+  --   version = "*",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   opts = {},
+  -- },
 
   -- -- { 'folke/which-key.nvim', config = true },
   -- {
