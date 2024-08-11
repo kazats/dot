@@ -133,7 +133,7 @@ myKeys XConfig
     , m  xK_w             ｜ vivaldi
     , m  xK_e             ｜ easyeffects
     , m  xK_r             ｜ ranger
-    , m  xK_t             ｜ transmission
+    , m  xK_t             ｜ anytype
     , m  xK_y             ｜ yazi
     , m  xK_o             ｜ ogatak
     , m  xK_p             ｜ pavucontrol
@@ -335,6 +335,7 @@ myStartupHook = do
 
 -- PROGRAMS
 -- autocutsel    = "autocutsel -fork" ＆ "autocutsel -s PRIMARY -fork"
+anytype       = "anytype"
 fcitx         = "fcitx5"
 nitrogen      = "nitrogen --restore"
 htop          = term "htop" "htop -u v"
