@@ -142,10 +142,12 @@ require('lazy').setup({
           },
           mappings = {
             i = {
-              ['<C-u>'] = false,
-              ['<C-j>'] = require('telescope.actions').move_selection_next,
-              ['<C-k>'] = require('telescope.actions').move_selection_previous,
-              ['<C-s>'] = require('telescope.actions').select_horizontal,
+              -- ['<C-u>']   = false,
+              ['<C-j>']   = require('telescope.actions').move_selection_next,
+              ['<C-k>']   = require('telescope.actions').move_selection_previous,
+              ['<C-s>']   = require('telescope.actions').select_horizontal,
+              ['<C-q>']   = require('telescope.actions').smart_send_to_qflist + require('telescope.actions').open_qflist,
+              ['<C-S-q>'] = require('telescope.actions').smart_send_to_loclist + require('telescope.actions').open_qflist,
             },
             n = {
               ['cd'] = function(prompt_bufnr)
