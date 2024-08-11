@@ -59,28 +59,28 @@ keymap = [
 	{ on = [ "<C-r>" ],   run = "select_all --state=none",            desc = "Inverse selection of all files" },
 
 	# Operation
-	{ on = [ "o" ],         run = "open",                       desc = "Open the selected files" },
-	{ on = [ "O" ],         run = "open --interactive",         desc = "Open the selected files interactively" },
-	{ on = [ "<Enter>" ],   run = "open",                       desc = "Open the selected files" },
-	{ on = [ "<C-Enter>" ], run = "open --interactive",         desc = "Open the selected files interactively" },
-	{ on = [ "y" ],         run = "yank",                       desc = "Copy the selected files" },
-	{ on = [ "Y" ],         run = "unyank",                     desc = "Cancel the yank status of files" },
-	{ on = [ "x" ],         run = "yank --cut",                 desc = "Cut the selected files" },
-	{ on = [ "X" ],         run = "unyank",                     desc = "Cancel the yank status of files" },
-	{ on = [ "p" ],         run = "paste",                      desc = "Paste the files" },
-	{ on = [ "P" ],         run = "paste --force",              desc = "Paste the files (overwrite if the destination exists)" },
-	{ on = [ "-" ],         run = "link",                       desc = "Symlink the absolute path of files" },
-	{ on = [ "_" ],         run = "link --relative",            desc = "Symlink the relative path of files" },
-	{ on = [ "d" ],         run = "remove",                     desc = "Move the files to the trash" },
-	{ on = [ "D" ],         run = "remove --permanently",       desc = "Permanently delete the files" },
-	{ on = [ "a" ],         run = "create",                     desc = "Create a file or directory (ends with / for directories)" },
-	{ on = [ "r" ],         run = "rename --cursor=before_ext", desc = "Rename a file or directory" },
-	{ on = [ ";" ],         run = "shell",                      desc = "Run a shell command" },
-	{ on = [ ":" ],         run = "shell --block",              desc = "Run a shell command (block the UI until the command finishes)" },
-	{ on = [ "." ],         run = "hidden toggle",              desc = "Toggle the visibility of hidden files" },
-	{ on = [ "s" ],         run = "search fd",                  desc = "Search files by name using fd" },
-	{ on = [ "S" ],         run = "search rg",                  desc = "Search files by content using ripgrep" },
-	{ on = [ "<C-s>" ],     run = "search none",                desc = "Cancel the ongoing search" },
+	{ on = [ "o" ],         run = "open",                         desc = "Open the selected files" },
+	{ on = [ "O" ],         run = "open --interactive",           desc = "Open the selected files interactively" },
+	{ on = [ "<Enter>" ],   run = "open",                         desc = "Open the selected files" },
+	{ on = [ "<S-Enter>" ], run = "open --interactive",           desc = "Open the selected files interactively" },
+	{ on = [ "y" ],         run = "yank",                         desc = "Copy the selected files" },
+	{ on = [ "Y" ],         run = "unyank",                       desc = "Cancel the yank status of files" },
+	{ on = [ "x" ],         run = "yank --cut",                   desc = "Cut the selected files" },
+	{ on = [ "X" ],         run = "unyank",                       desc = "Cancel the yank status of files" },
+	{ on = [ "p" ],         run = "paste",                        desc = "Paste the files" },
+	{ on = [ "P" ],         run = "paste --force",                desc = "Paste the files (overwrite if the destination exists)" },
+	{ on = [ "-" ],         run = "link",                         desc = "Symlink the absolute path of files" },
+	{ on = [ "_" ],         run = "link --relative",              desc = "Symlink the relative path of files" },
+	{ on = [ "d" ],         run = "remove",                       desc = "Move the files to the trash" },
+	{ on = [ "D" ],         run = "remove --permanently",         desc = "Permanently delete the files" },
+	{ on = [ "a" ],         run = "create",                       desc = "Create a file or directory (ends with / for directories)" },
+	{ on = [ "r" ],         run = "rename --cursor=before_ext",   desc = "Rename a file or directory" },
+	{ on = [ ";" ],         run = "shell --interactive",          desc = "Run a shell command" },
+	{ on = [ ":" ],         run = "shell --interactive --block",  desc = "Run a shell command (block the UI until the command finishes)" },
+	{ on = [ "." ],         run = "hidden toggle",                desc = "Toggle the visibility of hidden files" },
+	{ on = [ "s" ],         run = "search fd",                    desc = "Search files by name using fd" },
+	{ on = [ "S" ],         run = "search rg",                    desc = "Search files by content using ripgrep" },
+	{ on = [ "<C-s>" ],     run = "search none",                  desc = "Cancel the ongoing search" },
 	{ on = [ "z" ],         run = "plugin zoxide",                desc = "Jump to a directory using zoxide" },
 	{ on = [ "Z" ],         run = "plugin fzf",                   desc = "Jump to a directory, or reveal a file using fzf" },
 
@@ -110,7 +110,7 @@ keymap = [
 	{ on = [ ",", "M" ], run = "sort modified --reverse --dir-first",     desc = "Sort by modified time (reverse)" },
 	{ on = [ ",", "c" ], run = "sort created --dir-first",                desc = "Sort by created time" },
 	{ on = [ ",", "C" ], run = "sort created --reverse --dir-first",      desc = "Sort by created time (reverse)" },
-	{ on = [ ",", "e" ], run = "sort extension --dir-first",         	   desc = "Sort by extension" },
+	{ on = [ ",", "e" ], run = "sort extension --dir-first",              desc = "Sort by extension" },
 	{ on = [ ",", "E" ], run = "sort extension --reverse --dir-first",    desc = "Sort by extension (reverse)" },
 	{ on = [ ",", "a" ], run = "sort alphabetical --dir-first",           desc = "Sort alphabetically" },
 	{ on = [ ",", "A" ], run = "sort alphabetical --reverse --dir-first", desc = "Sort alphabetically (reverse)" },
@@ -180,7 +180,7 @@ keymap = [
 keymap = [
 	{ on = [ "<Esc>" ], run = "close", desc = "Hide the task manager" },
 	{ on = [ "<C-[>" ], run = "close", desc = "Hide the task manager" },
-	{ on = [ "<C-q>" ], run = "close", desc = "Hide the task manager" },
+	{ on = [ "<C-c>" ], run = "close", desc = "Hide the task manager" },
 	{ on = [ "w" ],     run = "close", desc = "Hide the task manager" },
 
 	{ on = [ "k" ], run = "arrow -1", desc = "Move cursor up" },
@@ -200,7 +200,7 @@ keymap = [
 keymap = [
 	{ on = [ "<Esc>" ],   run = "close",          desc = "Cancel selection" },
 	{ on = [ "<C-[>" ],   run = "close",          desc = "Cancel selection" },
-	{ on = [ "<C-q>" ],   run = "close",          desc = "Cancel selection" },
+	{ on = [ "<C-c>" ],   run = "close",          desc = "Cancel selection" },
 	{ on = [ "<Enter>" ], run = "close --submit", desc = "Submit the selection" },
 
 	{ on = [ "k" ], run = "arrow -1", desc = "Move cursor up" },
@@ -221,7 +221,7 @@ keymap = [
 [input]
 
 keymap = [
-	{ on = [ "<C-q>" ],   run = "close",          desc = "Cancel input" },
+	{ on = [ "<C-c>" ],   run = "close",          desc = "Cancel input" },
 	{ on = [ "<Enter>" ], run = "close --submit", desc = "Submit the input" },
 	{ on = [ "<Esc>" ],   run = "escape",         desc = "Go back the normal mode, or cancel input" },
 	{ on = [ "<C-[>" ],   run = "escape",         desc = "Go back the normal mode, or cancel input" },
@@ -290,7 +290,7 @@ keymap = [
 [completion]
 
 keymap = [
-	{ on = [ "<C-q>" ],   run = "close",                                      desc = "Cancel completion" },
+	{ on = [ "<C-c>" ],   run = "close",                                      desc = "Cancel completion" },
 	{ on = [ "<Tab>" ],   run = "close --submit",                             desc = "Submit the completion" },
 	{ on = [ "<Enter>" ], run = [ "close --submit", "close_input --submit" ], desc = "Submit the completion and input" },
 
@@ -312,7 +312,7 @@ keymap = [
 	{ on = [ "<Esc>" ], run = "escape", desc = "Clear the filter, or hide the help" },
 	{ on = [ "<C-[>" ], run = "escape", desc = "Clear the filter, or hide the help" },
 	{ on = [ "q" ],     run = "close",  desc = "Exit the process" },
-	{ on = [ "<C-q>" ], run = "close",  desc = "Hide the help" },
+	{ on = [ "<C-c>" ], run = "close",  desc = "Hide the help" },
 
 	# Navigation
 	{ on = [ "k" ], run = "arrow -1", desc = "Move cursor up" },
