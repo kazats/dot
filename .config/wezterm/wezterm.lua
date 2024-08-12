@@ -82,6 +82,22 @@ wezterm.on(
 )
 
 
+wezterm.on(
+  'update-status',
+  function(window, pane)
+    -- local color_scheme = window:effective_config().resolved_palette
+    -- local bg = color_scheme.background
+    -- local fg = color_scheme.foreground
+
+    window:set_right_status(wezterm.format({
+      { Background = { Color = tab_bg } },
+      { Foreground = { Color = tab_fg } },
+      { Text = ' ' .. pane:get_domain_name() },
+    }))
+  end
+)
+
+
 return {
   font = wezterm.font_with_fallback {
     -- 'IBM Plex Mono',
