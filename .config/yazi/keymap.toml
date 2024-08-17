@@ -120,7 +120,7 @@ keymap = [
 	{ on = [ ",", "S" ], run = "sort size --reverse --dir-first",         desc = "Sort by size (reverse)" },
 
 	# Tabs
-	{ on = [ "<C-t>" ], run = "tab_create --current", desc = "Create a new tab using the current path" },
+	{ on = [ "t" ],     run = "tab_create --current", desc = "Create a new tab using the current path" },
 
   { on = [ "<C-1>" ], run = "tab_switch 0", desc = "Switch to the first tab" },
   { on = [ "<C-2>" ], run = "tab_switch 1", desc = "Switch to the second tab" },
@@ -139,7 +139,7 @@ keymap = [
 	{ on = [ "}" ], run = "tab_swap 1",  desc = "Swap the current tab with the next tab" },
 
 	# Tasks
-	{ on = [ "t" ], run = "tasks_show", desc = "Show the tasks manager" },
+	{ on = [ "<S-t>" ], run = "tasks_show", desc = "Show the tasks manager" },
 
 	# Goto
 	{ on = [ "g", "h" ],        run = "cd ~",               desc = "~" },
@@ -154,6 +154,7 @@ keymap = [
 	{ on = [ "g", "C" ],        run = "cd ~/.config",       desc = "~/.config" },
 	{ on = [ "g", "L" ],        run = "cd ~/.local",        desc = "~/.local" },
 	{ on = [ "g", "B" ],        run = "cd ~/.local/bin",    desc = "~/.local/bin" },
+	{ on = [ "g", "M" ],        run = "cd ~/.local/mnt",    desc = "~/.local/mnt" },
 	{ on = [ "g", "O" ],        run = "cd ~/.local/opt",    desc = "~/.local/opt" },
 	{ on = [ "g", "S" ],        run = "cd ~/.local/share",  desc = "~/.local/share" },
 
@@ -181,7 +182,7 @@ keymap = [
 	{ on = [ "<Esc>" ], run = "close", desc = "Hide the task manager" },
 	{ on = [ "<C-[>" ], run = "close", desc = "Hide the task manager" },
 	{ on = [ "<C-c>" ], run = "close", desc = "Hide the task manager" },
-	{ on = [ "w" ],     run = "close", desc = "Hide the task manager" },
+	{ on = [ "q" ],     run = "close", desc = "Hide the task manager" },
 
 	{ on = [ "k" ], run = "arrow -1", desc = "Move cursor up" },
 	{ on = [ "j" ], run = "arrow 1",  desc = "Move cursor down" },
