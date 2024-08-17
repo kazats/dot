@@ -115,7 +115,42 @@ require('lazy').setup({
   'tpope/vim-speeddating',
 
   'ludovicchabant/vim-gutentags',
-  'kevinhwang91/rnvimr',
+  -- 'kevinhwang91/rnvimr',
+
+  {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<C-a>",
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
+      },
+      {
+        "<leader>c",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory" ,
+      },
+      {
+        -- NOTE: this requires a version of yazi that includes
+        -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
+        '<leader>t',
+        "<cmd>Yazi toggle<cr>",
+        desc = "Resume the last yazi session",
+      },
+    },
+    opts = {
+      open_for_directories = true,
+
+      -- enable these if you are using the latest version of yazi
+      use_ya_for_events_reading = true,
+      use_yazi_client_id_flag = true,
+
+      keymaps = {
+        show_help = '<F1>',
+      },
+    },
+  },
 
   {
     'nvim-telescope/telescope.nvim',
@@ -1201,7 +1236,7 @@ maps(o_ns, {
       end,
     },
 
-    { '<C-a>',   cmd('RnvimrToggle') },
+    -- { '<C-a>',   cmd('RnvimrToggle') },
     { '<C-n>',   cmd('Neotree toggle') },
     { ll2('t'),  cmd('Twilight') },
 
