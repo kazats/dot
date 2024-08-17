@@ -130,15 +130,7 @@ return {
   -- front_end                                   = 'WebGpu',
   -- webgpu_power_preference                     = 'HighPerformance'
 
-  unix_domains = {
-    { name = 'unix'
-    }
-  },
-
   ssh_domains = {
-    { name = 'sora',
-      remote_address = 'sora'
-    },
     { name = 'fight',
       remote_address = 'fight'
     },
