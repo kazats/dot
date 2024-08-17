@@ -106,7 +106,7 @@ require('lazy').setup({
 
   { 'folke/zen-mode.nvim', config = true },
   { 'kylechui/nvim-surround', config = true },
-  { 'numToStr/Comment.nvim',  config = true },
+  -- { 'numToStr/Comment.nvim',  config = true },
 
   'tpope/vim-eunuch',
   'tpope/vim-repeat',
