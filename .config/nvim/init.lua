@@ -657,8 +657,11 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes'
 
-vim.wo.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable     = true
+vim.o.foldlevel      = 99
+vim.o.foldlevelstart = 99
+vim.o.foldmethod     = 'expr'
+vim.o.foldexpr       = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.g.scratch_insert_autohide = false
 vim.g.scratch_filetype = 'scratch'
