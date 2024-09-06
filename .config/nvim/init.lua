@@ -889,6 +889,7 @@ require('mason').setup({
 })
 require('mason-null-ls').setup({
   automatic_installation = false,
+  ensure_installed = {},
   handlers = {}
 })
 require('null-ls').setup({
@@ -903,6 +904,11 @@ require('null-ls').setup({
 
 local mason_lspconfig = require('mason-lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+lspconfig.gleam.setup({
+  on_attach = on_attach,
+  capabilities = capabilities
+})
 
 mason_lspconfig.setup()
 mason_lspconfig.setup_handlers({
