@@ -26,14 +26,13 @@ def create_right_prompt [] {
     let path_color = (if (is-admin) { ansi red } else { $color })
     let separator_color = (if (is-admin) { ansi light_red } else { ansi black })
     let path_segment = $"($path_color) ($dir)"
-    let path = $"($path_segment) " | str replace --all (char path_sep) $"($separator_color)/($path_color)"
+    let path = $" ($path_segment) " | str replace --all (char path_sep) $"($separator_color)/($path_color)"
 
     let git_status = do { git status --porcelain } | complete
     let git = if ($git_status.exit_code == 0) {([
         (ansi -e { fg: blue })
         (char space)
         (git branch --show-current | str trim)
-        (char space)
     ] | str join)
     }
 
