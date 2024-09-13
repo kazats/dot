@@ -162,7 +162,7 @@ keymap = [
 	{ on = [ "g", "<C-e>" ],    run = "cd /etc",            desc = "/etc" },
 	{ on = [ "g", "<C-m>" ],    run = "cd /mnt",            desc = "/mnt" },
 	{ on = [ "g", "<C-o>" ],    run = "cd /opt",            desc = "/opt" },
-	{ on = [ "g", "<C-r>" ],    run = "cd /run/user",       desc = "/run/user" },
+	{ on = [ "g", "<C-r>" ],    run = "cd /run",            desc = "/run" },
 	{ on = [ "g", "<C-t>" ],    run = "cd /tmp",            desc = "/tmp" },
 	{ on = [ "g", "<C-u>" ],    run = "cd /usr",            desc = "/usr" },
 	{ on = [ "g", "<C-b>" ],    run = "cd /usr/bin",        desc = "/usr/bin" },
