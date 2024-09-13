@@ -1100,6 +1100,12 @@ def dh [] {
   | sort-by filesystem
 }
 
+def lsblk [] {
+  jc lsblk
+  | from json
+  | into filesize size
+}
+
 alias ctl  = systemctl
 alias sctl = sudo systemctl
 alias yy   = do { paru; fixkb }
