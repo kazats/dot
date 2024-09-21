@@ -1159,9 +1159,9 @@ alias fight = mosh fight -- tmux -u new -As v
 alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
 alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
 
-source ~/.config/nushell/zoxide.nu
-source ~/.config/nushell/atuin.nu
-source ~/.config/nushell/comp/atuin.nu
+source ~/.config/nushell/plugins/zoxide.nu
+source ~/.config/nushell/plugins/atuin.nu
+source ~/.config/nushell/completions/atuin-completions.nu
 
 def --env y [...args] {
   let tmp = (mktemp -t "yazi-cwd.XXXXX")
