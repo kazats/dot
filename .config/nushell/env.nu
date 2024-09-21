@@ -1,21 +1,13 @@
 # Nushell Environment Config File
 #
-# version = "0.94.2"
+# version = "0.98"
 
 def create_left_prompt [] {
     # [(ansi -e { fg: blue, bg: reset }) ''] | str join
 }
 
 def create_right_prompt [] {
-    # create a right prompt in magenta with green separators and am/pm underlined
-    # let time_segment = ([
-    #     (ansi reset)
-    #     (ansi magenta)
-    #     (date now | format date '%x %X %p') # try to respect user's locale
-    # ] | str join | str replace --regex --all "([/:])" $"(ansi green)${1}(ansi magenta)" |
-    #     str replace --regex --all "([AP]M)" $"(ansi magenta_underline)${1}")
-
-    let home =  $nu.home-path
+    let home = $nu.home-path
 
     let dir = ([
         ($env.PWD | str substring 0..<($home | str length) | str replace $home "~"),
@@ -37,8 +29,11 @@ def create_right_prompt [] {
     }
 
     let last_exit_code = if ($env.LAST_EXIT_CODE != 0) {([
-        (ansi red)
+        (ansi -e { fg: black, bg: red})
+        (char space)
         ($env.LAST_EXIT_CODE)
+        (char space)
+        (ansi reset)
     ] | str join)
     } else { "" }
 
@@ -54,7 +49,6 @@ $env.PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
 let prompt_insert  = ansi -e { fg: black,   bg: blue }
 let prompt_normal  = ansi -e { fg: black,   bg: cyan }
 let trans_normal   = ansi -e { fg: blue,    bg: default }
-# let transient_prompt_insert = ansi -e { fg: blue, bg: default }
 $env.PROMPT_INDICATOR = {|| " ⟩ " }
 $env.PROMPT_INDICATOR_VI_INSERT = {|| $"($prompt_insert) ⟩ (ansi reset) " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| $"($prompt_normal) ⟩ (ansi reset) " }
@@ -65,12 +59,12 @@ $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
 # This can be useful if you have a 2-line prompt and it's taking up a lot of space
 # because every command entered takes up 2 lines instead of 1. You can then uncomment
 # the line below so that previously entered commands show with a single `🚀`.
-# $env.TRANSIENT_PROMPT_COMMAND = {|| create_left_prompt }
-# $env.TRANSIENT_PROMPT_INDICATOR = {|| " ⟩ " }
-# $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| $"($trans_normal) ⟩ (ansi reset)" }
-# $env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| $"($trans_normal) ⟩ (ansi reset)" }
-# $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "::: " }
-# $env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| $"($trans_normal)(create_right_prompt)(ansi reset)" }
+ $env.TRANSIENT_PROMPT_COMMAND = {|| create_left_prompt }
+ $env.TRANSIENT_PROMPT_INDICATOR = {|| " ⟩ " }
+ $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| $"($trans_normal)(do $env.PROMPT_COMMAND) ⟩  (ansi reset)" }
+ $env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| $"($trans_normal)(do $env.PROMPT_COMMAND) ⟩  (ansi reset)" }
+ $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "::: " }
+ $env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| $"($trans_normal)(create_right_prompt | ansi strip)(ansi reset)" }
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)

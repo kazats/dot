@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = "0.96.1"
+# version = "0.98"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -217,6 +217,14 @@ $env.config = {
 
     error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
 
+    # Whether an error message should be printed if an error of a certain kind is triggered.
+    display_errors: {
+        exit_code: false # assume the external command prints an error message
+        # Core dump errors are always printed, and SIGPIPE never triggers an error.
+        # The setting below controls message printing for termination by all other signals.
+        termination_signal: true
+    }
+
     # datetime_format determines what a datetime rendered in the shell would look like.
     # Behavior without this configuration point will be to "humanize" the datetime display,
     # showing something like "a day ago."
@@ -259,7 +267,7 @@ $env.config = {
     }
 
     filesize: {
-        metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
+        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
         format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
     }
 
@@ -270,7 +278,6 @@ $env.config = {
     }
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    use_grid_icons: true
     footer_mode: auto # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
@@ -1155,7 +1162,6 @@ alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
 source ~/.config/nushell/zoxide.nu
 source ~/.config/nushell/atuin.nu
 source ~/.config/nushell/comp/atuin.nu
-# source ~/.config/nushell/scripts/custom-completions/git/git-completions.nu
 
 def --env y [...args] {
   let tmp = (mktemp -t "yazi-cwd.XXXXX")

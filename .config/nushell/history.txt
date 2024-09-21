@@ -1,0 +1,422 @@
+v
+config nu
+seq 1 5
+seq 1 5 | where {|x| $x mod 2}
+seq 1 5 | where {|x| $x mod 2 == 0}
+ls
+ls | where type == dir
+ls | where type == dir | filter name
+ls | where type == dir | select name
+sys | get host
+sys 
+sys | get host
+sys | get host.sessions.name
+sys | get host.sessions.name | each {|x| ^echo $x}
+sys | get host.sessions.name | each {|x| echo $x}
+sys | get host.sessions.name | each {|x| ^echo $x}
+sys | get host.sessions.name | each {|x| echo $x}
+ls
+config nu
+ls
+config nu
+ls
+config nu
+ls
+config nu
+ls
+ls **/*
+z
+..
+-
+c -
+cd -
+prompt
+$env.PROMPT_COMMAND
+echo $env.PROMPT_COMMAND
+echo $env.EDITOR
+config nu
+su
+pms 
+sudo pacman -Syu
+false
+sudo pacman -Syu
+su
+su v
+cd p/
+cd lua/
+cd p/lua/
+sleep 5
+sleep 5s
+sleep
+sleep --help
+sleep 5sec
+cd p/lua/
+sleep 5sec
+cd p/lua/
+sleep 5sec
+history 
+sys
+path 
+$env.PATH
+ls
+d
+cd
+ls
+ls -a
+ls -d
+ls -d | sort-by size
+ls -d | sort-by size | reverse 
+sleep
+cd p/lua/
+sdflkj
+sdlfkjaweroi
+d
+ls -d | sort-by size | reverse 
+ls -d
+ls -d | sort-by size
+ls -d | sort-by name
+ls -d | sort-by type
+ls -d | sort-by modified
+ls -d | sort-by modified | reverse 
+ls -d | sort-by modified | reverse | select name
+ls -d | sort-by modified | reverse | select name,size
+ls -d | sort-by modified | reverse | select name, size
+ls -d | sort-by modified | reverse | select name size
+fd -e json
+json p/fl/joker/web/manifest.json
+p/fl/joker/web/manifest.json | from json
+read p/fl/joker/web/manifest.json | from json
+open p/fl/joker/web/manifest.json | from json
+open p/fl/joker/web/manifest.json
+open p/fl/joker/web/manifest.json | get name
+open p/fl/joker/web/manifest.json | get icons.0
+open p/fl/joker/web/manifest.json
+nvim p/fl/joker/web/manifest.json
+open p/fl/joker/web/manifest.json | each 
+open p/fl/joker/web/manifest.json | each {|x| echo x}
+open p/fl/joker/web/manifest.json | each {|x| echo $x}
+open p/fl/joker/web/manifest.json | each {|k,v| echo $k}
+open p/fl/joker/web/manifest.json | each {|k,v| echo $v}
+open p/fl/joker/web/manifest.json | each {|k,v| echo k.0}
+open p/fl/joker/web/manifest.json | each {|k,v| echo $k.0}
+open p/fl/joker/web/manifest.json | each {|k,v| echo $k.$name}
+open p/fl/joker/web/manifest.json | each {|k,v| echo $k.name}
+open p/fl/joker/web/manifest.json | each {|k,v| echo $k.index}
+open p/fl/joker/web/manifest.json | each {|k,v| echo $k.key}
+ls | enumerate | each {|i,x| echo $i}
+ls | enumerate | each {|i,x| echo $x}
+ls | enumerate | each {|i,x| echo $i.index}
+ls | enumerate | each {|i,x| echo $i.item}
+ls | each {|x| echo $x}
+ls | each {|x| echo $x.#<\n>}
+ls
+date now | date to-record 
+date now | date to-table 
+date now | date to-timezone "Europe/Berlin"
+date now | date to-timezone "Europe/London"
+"1,2,3" | split column ','
+"1,2,3" | split row ','
+[1,2,3] | update 1 9
+reduce -h 
+range Android/
+range -h 
+4..8
+reject -h 
+reject -h | bat
+start truth.txt
+$env.EDITOR
+let f = ls
+$f
+config env 
+1min + 1sec
+date now
+{'1':true}.'1'
+{'1':true}.1
+ls | get name
+ls | select name
+ls | table
+ls | table -e
+table -h
+cal
+cal --month 
+cal --full-year 
+cal --full-year 2023
+cal -h
+cal --full-year 2023 -9
+cal --full-year 2023 -m
+history 
+fzf
+whereis fzf
+man fzf
+sdfklj
+zoxide init nushell
+shell
+config nu
+ls .config/nushell/
+zoxide init nushell | save .config/nushell/zoxide.nu
+ls .config/nushell/
+config nu
+config env
+config env
+config nu
+z
+lazy make 
+z p/
+z
+z p/hs/control/
+z
+z co
+z
+v .config/nushell/zoxide.nu
+open .config/nushell/zoxide.nu
+edit .config/nushell/zoxide.nu
+start .config/nushell/zoxide.nu
+start
+start -h
+config nu
+nvim .config/nushell/zoxide.nu
+ci
+git branch
+c p/hs/control/Dzen/
+..
+ls
+colors
+ansi
+git init
+lazygit
+v .gitignore
+nvim .gitignore
+lazygit
+git status
+lazygit
+git rm *.hi *.o
+git rm -f *.hi *.o
+lazygit
+ls
+git ls
+git ls-files
+ls
+ls | sort-by type name
+ls | sort-by type name -l
+ls | sort-by type name -i
+ls -n
+ls | sort-by type name -n
+ls | sort-by type name -ni
+config nu
+git branch
+c co
+git branch
+git branch -h
+git branch -q
+git branch -h
+git branch -l
+git branch -h
+git branch --format -h
+git branch --format 
+man git branch
+git branch --format %fieldname
+git branch --format '%fieldname'
+man git branch
+git branch --show-current
+c co
+cd
+git branch --show-current
+(git branch --show-current)?
+if true { 1 }
+if false { 1 }
+ls
+c co
+trim
+tr
+str trim
+c co
+c
+git branch
+git branch | complete
+do { git branch } | complete
+c co
+ansi
+c co
+ansi -h
+c co
+c c
+false
+error
+c
+error
+c c
+f
+c c
+f
+ls
+f
+$env
+c c
+config env
+p
+aliases p
+aliases
+help aliases 
+g
+shells
+dexit
+paru
+paruz
+scope aliases 
+p
+scope aliases 
+g
+zoxide co
+c co
+config nu
+scope aliases 
+lazy
+carapace 
+carapace _carapace nushell 
+scope alias-completions
+scope aliases 
+asdf
+c co
+cd
+ci
+zoxi
+zoxide query 
+c c
+scope aliases 
+d
+cc
+ci
+scope aliases 
+ci
+scope aliases 
+cd && clear
+cd; clear
+cd and clear
+rm -h
+mv -h
+mkdir -h
+mkdir test/test
+tree
+r
+ranger
+d
+b
+s
+pp
+mo
+c
+l
+ex
+ls
+ls | grid
+ls | grid --color
+ls | grid -c
+tree -2
+tree -L 2
+ls -d
+ls -t
+ls -m
+ls -h
+nvim test.py
+py
+python
+h
+ghci
+[1,2,3] | each { $in + 1 }
+q s
+qs 
+q s
+q
+q s
+$env.HOME
+git --git-dir=$env.HOME/.dot --work-tree=$env.HOME
+git --git-dir=$env.HOME/.dot --work-tree=$env.HOME s
+^git --git-dir=$env.HOME/.dot --work-tree=$env.HOME s
+git --git-dir=$env.HOME/.dot --work-tree=$env.HOME s
+git --git-dir=($env.HOME)/.dot --work-tree=$env.HOME s
+git --git-dir=$'($env.HOME)'/.dot --work-tree=$env.HOME s
+git --git-dir=$"($env.HOME)"/.dot --work-tree=$env.HOME s
+git $"--git-dir=($env.HOME)/.dot --work-tree=$env.HOME" s
+git $"--git-dir=($env.HOME)/.dot --work-tree=($env.HOME)" s
+git $"--git-dir=($env.HOME)/.dot" $"--work-tree=($env.HOME)" s
+q s
+qq
+cl
+,
+.
+, ls
+ls | ,
+scope aliases 
+, { echo test }
+cl
+mochi
+wet mochi
+du
+du .
+du p
+du p | table
+dh -h
+blockdev -h
+dh
+icams
+moz
+t
+nu
+nu
+t
+vt
+ls { echo }
+ls | cl { echo }
+ls | cl { echo $in }
+ls
+ls | cl { $in }
+ls | cl { get name }
+ls | cl { select name }
+d
+y
+icams
+cr
+cp -h
+cr -h
+aliases
+aliases cr
+scope aliases 
+scope aliases | find cr
+cp -r
+cr
+nvim
+qq
+q add .config/nushell
+qq
+q s
+q ls-files
+v
+lq
+lq add .config/nushell
+qi add .config/nushell
+lq
+qi add .config/nushell
+lq
+qi rm --cached .config/nushell/history.txt
+lq
+test
+lq
+y
+dh
+y
+p
+ps
+ps | vivaldi
+ps | find vivaldi
+ps | find vivaldi | get mem
+ps | find vivaldi | get mem | reduce {|x,y| x+y}
+ps | find vivaldi | get mem | reduce {|x,y| $x + $y}
+reduce -h
+history
+config nu
+l
+ls
+{ a: 1 }
+ls
+{ a: 1 }
+ls
