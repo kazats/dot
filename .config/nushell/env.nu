@@ -42,9 +42,9 @@ def create_right_prompt [] {
 $env.PROMPT_COMMAND = {|| create_left_prompt }
 $env.PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
 
-let prompt_insert  = ansi -e { fg: black,   bg: blue }
-let prompt_normal  = ansi -e { fg: black,   bg: cyan }
-let trans_normal   = ansi -e { fg: blue,    bg: default }
+let prompt_insert  = ansi -e { fg: black bg: blue }
+let prompt_normal  = ansi -e { fg: black bg: cyan }
+let trans_normal   = ansi -e { fg: dark_gray bg: default }
 $env.PROMPT_INDICATOR = {|| " ⟩ " }
 $env.PROMPT_INDICATOR_VI_INSERT = {|| $"($prompt_insert) ⟩ (ansi reset) " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| $"($prompt_normal) ⟩ (ansi reset) " }
