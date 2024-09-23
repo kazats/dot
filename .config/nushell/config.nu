@@ -9,135 +9,67 @@
 let dark_theme = {
     # color for nushell primitives
     separator: black
-    leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
+    leading_trailing_space_bg: { bg: black } # no fg, no bg, attr none effectively turns this off
     header: dark_gray
-    empty: blue
+    empty: dark_gray
     # Closures can be used to choose colors for specific values.
     # The value (in this case, a bool) is piped into the closure.
     # eg) {|| if $in { 'light_cyan' } else { 'light_gray' } }
-    bool: light_cyan
-    int: white
+    bool: cyan
+    int: yellow
     filesize: cyan
-    duration: white
+    duration: purple
     date: purple
-    range: white
-    float: white
+    range: yellow
+    float: yellow
     string: white
-    nothing: white
-    binary: white
+    nothing: dark_gray
+    binary: purple
     cell-path: white
     row_index: dark_gray
-    record: white
-    list: white
-    block: white
+    record: { fg: dark_gray attr: i }
+    list: { fg: dark_gray attr: i }
+    block: { fg: dark_gray attr: i }
     hints: dark_gray
     search_result: { bg: red fg: white }
     shape_and: purple
     shape_binary: purple
-    shape_block: blue
-    shape_bool: light_cyan
-    shape_closure: green
-    shape_custom: green
+    shape_block: dark_gray
+    shape_bool: cyan
+    shape_closure: dark_gray
+    shape_custom: dark_gray
     shape_datetime: cyan
     shape_directory: cyan
-    shape_external: cyan
-    shape_externalarg: green
-    shape_external_resolved: light_yellow
-    shape_filepath: cyan
+    shape_external: blue
+    shape_externalarg: { fg: white attr: i }
+    shape_external_resolved: { fg: blue attr: i }
+    shape_filepath: { fg: cyan attr: i }
     shape_flag: blue
-    shape_float: purple
-    # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b }
-    shape_glob_interpolation: cyan
-    shape_globpattern: cyan
-    shape_int: purple
-    shape_internalcall: cyan
-    shape_keyword: cyan
-    shape_list: cyan
+    shape_float: yellow
+    shape_garbage: red
+    shape_glob_interpolation: purple
+    shape_globpattern: purple
+    shape_int: yellow
+    shape_internalcall: green
+    shape_keyword: green
+    shape_list: white
     shape_literal: blue
     shape_match_pattern: green
     shape_matching_brackets: { attr: u }
-    shape_nothing: light_cyan
-    shape_operator: yellow
+    shape_nothing: dark_gray
+    shape_operator: dark_gray
     shape_or: purple
-    shape_pipe: purple
+    shape_pipe: dark_gray
     shape_range: yellow
-    shape_record: cyan
-    shape_redirection: purple
-    shape_signature: green
-    shape_string: green
-    shape_string_interpolation: cyan
-    shape_table: blue
-    shape_variable: purple
-    shape_vardecl: purple
-    shape_raw_string: light_purple
-}
-
-let light_theme = {
-    # color for nushell primitives
-    separator: dark_gray
-    leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
-    header: green
-    empty: blue
-    # Closures can be used to choose colors for specific values.
-    # The value (in this case, a bool) is piped into the closure.
-    # eg) {|| if $in { 'dark_cyan' } else { 'dark_gray' } }
-    bool: dark_cyan
-    int: dark_gray
-    filesize: cyan
-    duration: dark_gray
-    date: purple
-    range: dark_gray
-    float: dark_gray
-    string: dark_gray
-    nothing: dark_gray
-    binary: dark_gray
-    cell-path: dark_gray
-    row_index: green
-    record: dark_gray
-    list: dark_gray
-    block: dark_gray
-    hints: dark_gray
-    search_result: { fg: white bg: red }
-    shape_and: purple
-    shape_binary: purple
-    shape_block: blue
-    shape_bool: light_cyan
-    shape_closure: green
-    shape_custom: green
-    shape_datetime: cyan
-    shape_directory: cyan
-    shape_external: cyan
-    shape_externalarg: green
-    shape_external_resolved: light_purple
-    shape_filepath: cyan
-    shape_flag: blue
-    shape_float: purple
-    # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b }
-    shape_glob_interpolation: cyan
-    shape_globpattern: cyan
-    shape_int: purple
-    shape_internalcall: cyan
-    shape_keyword: cyan
-    shape_list: cyan
-    shape_literal: blue
-    shape_match_pattern: green
-    shape_matching_brackets: { attr: u }
-    shape_nothing: light_cyan
-    shape_operator: yellow
-    shape_or: purple
-    shape_pipe: purple
-    shape_range: yellow
-    shape_record: cyan
-    shape_redirection: purple
-    shape_signature: green
-    shape_string: green
-    shape_string_interpolation: cyan
-    shape_table: blue
-    shape_variable: purple
-    shape_vardecl: purple
-    shape_raw_string: light_purple
+    shape_record: dark_gray
+    shape_redirection: dark_gray
+    shape_signature: dark_gray
+    shape_string: yellow
+    shape_string_interpolation: yellow
+    shape_table: dark_gray
+    shape_variable: { fg: white attr: i }
+    shape_vardecl: { fg: white attr: i }
+    shape_raw_string: yellow
 }
 
 # External completer example
@@ -234,8 +166,8 @@ $env.config = {
     }
 
     explore: {
-        status_bar_background: { fg: white, bg: dark_gray },
-        command_bar_text: { fg: cyan },
+        status_bar_background: { fg: dark_gray, bg: black },
+        command_bar_text: { fg: white },
         highlight: { bg: yellow },
         status: {
             error: { fg: white, bg: red },
@@ -278,7 +210,7 @@ $env.config = {
     }
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    footer_mode: auto # always, never, number_of_rows, auto
+    footer_mode: 48 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
@@ -368,34 +300,28 @@ $env.config = {
         {
             name: ide_completion_menu
             only_buffer_difference: false
-            marker: $"(ansi -e { fg: black,   bg: blue }) | (ansi reset) " # "| "
+            marker: $"(ansi -e { fg: black bg: blue }) | (ansi reset) " # "| "
             type: {
                 layout: ide
-                min_completion_width: 0,
-                max_completion_width: 80,
-                max_completion_height: 20, # will be limited by the available lines in the terminal
-                padding: 0,
-                border: true,
-                cursor_offset: 0,
+                min_completion_width: 0
+                max_completion_width: 80
+                max_completion_height: 80
+                padding: 0
+                border: false
+                cursor_offset: 0
                 description_mode: "prefer_right"
                 min_description_width: 0
                 max_description_width: 50
                 max_description_height: 10
                 description_offset: 1
-                # If true, the cursor pos will be corrected, so the suggestions match up with the typed text
-                #
-                # C:\> str
-                #      str join
-                #      str trim
-                #      str split
-                correct_cursor_pos: false
+                correct_cursor_pos: true
             }
             style: {
-                text: cyan
+                text: { fg: blue }
                 selected_text: { attr: r }
                 description_text: yellow
-                match_text: { attr: u }
-                selected_match_text: { attr: ur }
+                match_text: { fg: dark_gray }
+                selected_match_text: { fg: dark_gray attr: r }
             }
         }
         {
