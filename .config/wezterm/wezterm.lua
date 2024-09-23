@@ -92,7 +92,7 @@ wezterm.on(
     window:set_right_status(wezterm.format({
       { Background = { Color = tab_bg } },
       { Foreground = { Color = tab_fg } },
-      { Text = ' ' .. pane:get_domain_name() },
+      { Text = ' ' .. pane:get_domain_name() .. ' ' },
     }))
   end
 )
