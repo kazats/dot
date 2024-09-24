@@ -1,20 +1,81 @@
-# Nushell Config File
-#
 # version = "0.98"
 
-# For more information on defining custom themes, see
-# https://www.nushell.sh/book/coloring_and_theming.html
-# And here is the theme collection
-# https://github.com/nushell/nu_scripts/tree/main/themes
+let $abbrs = {
+    'clr':  'clear --keep-scrollback'
+    'e':    'explore --index'
+    'ep':   'explore --index --peek'
+    'c':    'cd'
+    's':    'sudo'
+    'b':    'bat'
+    'px':   'chmod +x'
+    'rf':   'rm -rf'
+    'cr':   'cp -r'
+    'mv':   'mv -i'
+    'md':   'mkdir -v'
+    'lns':  'ln -s'
+    'dl':   'delta'
+    'dls':  'delta -s'
+    'pp':   'ping g.co'
+    'mo':   'udisksctl mount -b'
+    'umo':  'udisksctl unmount -b'
+    'we':   'wezterm'
+    'o':    'mimeopen'
+    'r':    'ranger'
+    'tm':   'tmux'
+    'zl':   'zellij'
+    'zls':  'zellij a --create'
+    'v':    'nvim'
+    'vd':   'nvim -d'
+    'gi':   'git'
+    'gg':   'lazygit'
+    'qi':   $'git --git-dir=($env.HOME | path join .dot) --work-tree=($env.HOME)'
+    'qq':   $'lazygit -g ($env.HOME | path join .dot) -w ($env.HOME)'
+    'pj':   'pijul'
+
+    'ctl':  'systemctl'
+    'sctl': 'sudo systemctl'
+    'yy':   'paru; fixkb'
+    'ys':   'paru -S'
+    'ycc':  'paru -Scc'
+    'p':    'parui'
+    'pm':   'sudo pacman'
+    'pms':  'sudo pacman -S'
+    'pmr':  'sudo pacman -R'
+    'pmrs': 'sudo pacman -Rs'
+    'pmu':  'sudo pacman -U'
+    'pmss': 'pacman -Ss'
+    'pmsi': 'pacman -Si'
+    'pmqs': 'pacman -Qs'
+    'pmqi': 'pacman -Qi'
+    'pmqm': 'pacman -Qm'
+    'bt':   'bluetuith'
+
+    'za':   'zathura'
+    'lo':   'libreoffice'
+    'ap':   'apack'
+    'au':   'aunpack'
+    'vt':   'clear --keep-scrollback; vitetris'
+    'h':    'ghci'
+    'rh':   'runhaskell'
+    'ca':   'cabal'
+    'py':   'python'
+    'pi':   'ipython'
+    'pe':   'overlay use .venv/bin/activate.nu'
+    'jl':   'julia'
+    'fl':   'flutter'
+    'ha':   'systemctl poweroff'
+    're':   'systemctl reboot'
+    'moz':  '/usr/lib/mozc/mozc_tool --mode=config_dialog'
+} | transpose | rename abbreviation expansion
+
 let dark_theme = {
-    # color for nushell primitives
-    separator: black
-    leading_trailing_space_bg: { bg: black } # no fg, no bg, attr none effectively turns this off
-    header: dark_gray
-    empty: dark_gray
     # Closures can be used to choose colors for specific values.
     # The value (in this case, a bool) is piped into the closure.
     # eg) {|| if $in { 'light_cyan' } else { 'light_gray' } }
+    separator: black
+    leading_trailing_space_bg: { bg: black }
+    header: dark_gray
+    empty: dark_gray
     bool: cyan
     int: yellow
     filesize: cyan
@@ -37,22 +98,22 @@ let dark_theme = {
     shape_block: dark_gray
     shape_bool: cyan
     shape_closure: dark_gray
-    shape_custom: dark_gray
+    shape_custom: white
     shape_datetime: cyan
     shape_directory: cyan
     shape_external: blue
-    shape_externalarg: { fg: white attr: i }
+    shape_externalarg: white
     shape_external_resolved: { fg: blue attr: i }
-    shape_filepath: { fg: cyan attr: i }
+    shape_filepath: cyan
     shape_flag: blue
     shape_float: yellow
     shape_garbage: red
     shape_glob_interpolation: purple
-    shape_globpattern: purple
+    shape_globpattern: cyan
     shape_int: yellow
-    shape_internalcall: green
+    shape_internalcall: { fg: green attr: i }
     shape_keyword: green
-    shape_list: white
+    shape_list: dark_gray
     shape_literal: blue
     shape_match_pattern: green
     shape_matching_brackets: { attr: u }
@@ -94,39 +155,54 @@ let zoxide_completer = {|spans|
 }
 
 let external_completer = {|spans|
-    let expanded_alias = scope aliases
-        | where name == $spans.0
-        | get -i 0.expansion
+    let spans_orig = $spans
 
-    let spans = if $expanded_alias != null {
-        $spans
-        | skip 1
-        | prepend ($expanded_alias | split row ' ')
+    let spans_skip_sudo = if $spans.0 == sudo and ($spans | length) != 2 {
+        $spans | skip
     } else {
         $spans
     }
 
+    let expanded_alias = scope aliases
+        | where name == $spans_skip_sudo.0
+        | get -i 0.expansion
+
+    let spans = if $expanded_alias != null {
+        $spans_skip_sudo
+        | skip 1
+        | prepend ($expanded_alias | split row ' ' | take 1)
+        #| append ''
+    } else {
+        $spans
+    }
+
+    #{ spans_orig: $spans_orig
+    #  spans_skip_sudo: $spans_skip_sudo
+    #  expanded_alias: $expanded_alias
+    #  spans: $spans
+    #} | to nuon | save -f ~/test/spans.nuon
+
     match $spans.0 {
-        __zoxide_z  => $zoxide_completer
-        pacman      => $fish_completer
-        systemctl   => $fish_completer
-        git         => $fish_completer
-        pijul       => $fish_completer
-        udisksctl   => $fish_completer
-        ghc         => $fish_completer
-        runhaskell  => $fish_completer
-        cabal       => $fish_completer
-        _           => $carapace_completer
+        __zoxide_z => $zoxide_completer
+        #pacman     => $fish_completer
+        #systemctl  => $fish_completer
+        #git        => $fish_completer
+        zellij     => $fish_completer
+        pijul      => $fish_completer
+        udisksctl  => $fish_completer
+        ghc        => $fish_completer
+        runhaskell => $fish_completer
+        cabal      => $fish_completer
+        _          => $carapace_completer
     } | do $in $spans
 }
 
-# The default config record. This is where much of your global configuration is setup.
 $env.config = {
-    show_banner: false # true or false to enable or disable the welcome banner at startup
+    show_banner: false
 
     ls: {
-        use_ls_colors: true # use the LS_COLORS environment variable to colorize output
-        clickable_links: true # enable or disable clickable links. Your terminal has to support links.
+        use_ls_colors: true
+        clickable_links: true
     }
 
     rm: {
@@ -135,7 +211,7 @@ $env.config = {
 
     table: {
         mode: compact # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
-        index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
+        index_mode: always # "always", "never", "auto" = show indexes when a table has "index" column
         show_empty: true # show 'empty list' and 'empty record' placeholders for command output
         padding: { left: 1, right: 1 } # a left right padding of each column in a table
         trim: {
@@ -149,7 +225,6 @@ $env.config = {
 
     error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
 
-    # Whether an error message should be printed if an error of a certain kind is triggered.
     display_errors: {
         exit_code: false # assume the external command prints an error message
         # Core dump errors are always printed, and SIGPIPE never triggers an error.
@@ -210,7 +285,7 @@ $env.config = {
     }
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    footer_mode: 48 # always, never, number_of_rows, auto
+    footer_mode: always # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
@@ -303,7 +378,7 @@ $env.config = {
             marker: $"(ansi -e { fg: black bg: blue }) | (ansi reset) " # "| "
             type: {
                 layout: ide
-                min_completion_width: 0
+                min_completion_width: 8
                 max_completion_width: 80
                 max_completion_height: 80
                 padding: 0
@@ -311,7 +386,7 @@ $env.config = {
                 cursor_offset: 0
                 description_mode: "prefer_right"
                 min_description_width: 0
-                max_description_width: 50
+                max_description_width: 80
                 max_description_height: 10
                 description_offset: 1
                 correct_cursor_pos: true
@@ -341,7 +416,7 @@ $env.config = {
         {
             name: help_menu
             only_buffer_difference: true
-            marker: $"(ansi -e { fg: black,   bg: blue }) ? (ansi reset) " # "| "
+            marker: $"(ansi -e { fg: black bg: blue }) ? (ansi reset) " # "| "
             type: {
                 layout: description
                 columns: 4
@@ -356,9 +431,125 @@ $env.config = {
                 description_text: yellow
             }
         }
+        {
+            name: alias_menu
+            only_buffer_difference: false
+            marker: $"(ansi -e { fg: black bg: blue }) | (ansi reset) "
+            type: {
+                layout: ide
+                min_completion_width: 0
+                max_completion_width: 80
+                max_completion_height: 80
+                padding: 0
+                border: false
+                cursor_offset: 0
+                description_mode: "prefer_right"
+                min_description_width: 0
+                max_description_width: 50
+                max_description_height: 10
+                description_offset: 1
+                correct_cursor_pos: true
+            }
+            style: {
+                text: { fg: blue attr: i }
+                selected_text: { fg: black bg: blue }
+                description_text: yellow
+                match_text: {}
+                selected_match_text: { fg: black bg: blue }
+            }
+            source: { |buffer, position|
+                scope aliases
+                | where name == $buffer
+                | each {|it| { value: $it.expansion } }
+            }
+        }
+        {
+            name: abbr_menu
+            only_buffer_difference: false
+            marker: $"(ansi -e { fg: black,   bg: blue }) | (ansi reset) "
+            type: {
+                layout: ide
+                min_completion_width: 0
+                max_completion_width: 80
+                max_completion_height: 80
+                padding: 0
+                border: false
+                cursor_offset: 0
+                description_mode: "prefer_right"
+                min_description_width: 0
+                max_description_width: 50
+                max_description_height: 10
+                description_offset: 1
+                correct_cursor_pos: true
+            }
+            style: {
+                text: { fg: blue attr: i }
+                selected_text: { fg: black bg: blue }
+                description_text: yellow
+                match_text: {}
+                selected_match_text: { fg: black bg: blue }
+            }
+            source: { |buffer, position|
+                #let match = scope aliases | where name == $buffer
+                let match = $abbrs
+                  | where abbreviation == $buffer
+
+                if ($match | is-not-empty) {
+                  { value: $match.expansion.0 }
+                } else {
+                  { value: $buffer }
+                }
+            }
+        }
     ]
 
     keybindings: [
+        #{
+        #    name: fuzzy_dir
+        #    modifier: control
+        #    keycode: char_f
+        #    mode: [emacs, vi_normal, vi_insert]
+        #    event: {
+        #        send: executehostcommand
+        #        cmd: "commandline edit --append (
+        #            ls **/*
+        #            | where type == dir
+        #            | get name
+        #            | input list --fuzzy
+        #                $'Please choose a (ansi magenta)directory(ansi reset) to (ansi cyan_underline)insert(ansi reset):'
+        #        )"
+        #    }
+        #}
+        {
+            name: abbr_menu
+            modifier: control
+            keycode: char_j
+            mode: [emacs, vi_normal, vi_insert]
+            event: [
+                { send: menu name: abbr_menu }
+                { send: enter }
+            ]
+        }
+        {
+            name: abbr_menu
+            modifier: none
+            keycode: space
+            mode: [emacs, vi_normal, vi_insert]
+            event: [
+                { send: menu name: abbr_menu }
+                { edit: insertchar value: ' ' }
+            ]
+        }
+        {
+            name: alias_menu
+            modifier: control
+            keycode: space
+            mode: [vi_normal, vi_insert]
+            event: [
+                { send: menu name: alias_menu }
+                { edit: insertchar, value: ' ' }
+            ]
+        }
         {
             name: ide_completion_menu
             modifier: none
@@ -950,76 +1141,33 @@ $env.config = {
 
 def --env cl [bl: closure] {
     let inp = $in
-    clear
+    clear --keep-scrollback
     $inp | do $bl
 }
 
 def --env cla [bl: closure] {
     $in | do $bl
-    clear
+    clear --keep-scrollback
 }
 
 def --env d [] {
     cd
-    clear
+    clear --keep-scrollback
 }
 
-alias e   = explore --index
-alias ep  = explore --index --peek
-alias c   = cd
-alias s   = sudo
-alias b   = bat
-alias px  = chmod +x
-alias rf  = rm -rf
-alias cr  = cp -r
-alias mv  = mv -i
-alias md  = mkdir -v
 def --env mdc [dir: path] {
-    umkdir -v $dir
+    mkdir -v $dir
     cd $dir
 }
-alias lns = ln -s
-alias dl = delta
-alias dls = delta -s
-alias pp  = ping g.co
-alias mo  = udisksctl mount -b
-alias umo = udisksctl unmount -b
-
-alias we  = wezterm
-alias wes = wezterm ssh
-alias wec = wezterm connect
-alias wet = wezterm cli spawn --domain-name
-alias o   = mimeopen
-alias r   = ranger
-alias tm  = tmux
-alias zi  = zellij
-alias zis = zellij a --create
-alias v   = nvim
-alias vd  = nvim -d
-alias sv  = sudo nvim
-alias gi  = git
-alias qi  = git $'--git-dir=($env.HOME)/.dot' $'--work-tree=($env.HOME)'
-alias gg  = lazygit
-alias qq  = lazygit -g $'($env.HOME)/.dot' -w $'($env.HOME)'
-alias pj  = pijul
-alias hx  = helix
 
 def --env k [] {
   cd (walk --icons)
 }
 
-def l [dir: path = "."] {
-  ls $dir | sort-by type name
-}
-def la [dir: path = "."] {
-  ls -a $dir | sort-by type name
-}
-def ll [dir: path = "."] {
-  ls -l $dir | sort-by type name
-}
-def lla [dir: path = "."] {
-  ls -la $dir | sort-by type name
-}
+def l   [dir: path = "."] { ls     $dir | sort-by type name }
+def la  [dir: path = "."] { ls -a  $dir | sort-by type name }
+def ll  [dir: path = "."] { ls -l  $dir | sort-by type name }
+def lla [dir: path = "."] { ls -la $dir | sort-by type name }
 
 def dh [] {
   df -h
@@ -1039,51 +1187,20 @@ def lsblk [] {
   | into filesize size
 }
 
-alias ctl  = systemctl
-alias sctl = sudo systemctl
-alias yy   = do { paru; fixkb }
-alias ys   = paru -S
-alias ycc  = paru -Scc
-alias p    = paruz
-alias pm   = sudo pacman
-alias pms  = sudo pacman -S
-alias pmr  = sudo pacman -R
-alias pmrs = sudo pacman -Rs
-alias pmu  = sudo pacman -U
-alias pmss = pacman -Ss
-alias pmsi = pacman -Si
-alias pmqs = pacman -Qs
-alias pmqi = pacman -Qi
-alias pmqm = pacman -Qm
-alias bt   = bluetuith
+def 'nu-complete nop' [] { [] }
 
-alias za  = zathura
-alias lo  = libreoffice
-alias ap  = apack
-alias au  = aunpack
-alias vt  = cl { vitetris }
-alias h   = ghci
-alias rh  = runhaskell
-alias ca  = cabal
-alias py  = python
-alias pi  = ipython
-alias pe  = overlay use .venv/bin/activate.nu
-alias jl  = julia
-alias fl  = flutter
-alias ha  = systemctl poweroff
-alias re  = systemctl reboot
-alias moz = /usr/lib/mozc/mozc_tool --mode=config_dialog
-def mi [] {
-  cla { mimi }
+def 'nu-complete m' [] {
+  do $carapace_completer [ssh '']
 }
 
-alias icams = do {
+def m [host: string@'nu-complete m', session: string@'nu-complete nop' = 'v'] {
+  mosh $host -- tmux -u new -As $session
+}
+
+def icams [] {
   cd ~/.local/opt/openvpn/icams
   sudo openvpn icams.ovpn
 }
-alias fight = mosh fight -- tmux -u new -As v
-alias mochi = autossh -M 0 -t mochi "tmux -u new -As v"
-alias fram  = autossh -M 0 -t fram "tmux -u new -As v"
 
 source ~/.config/nushell/plugins/zoxide.nu
 source ~/.config/nushell/plugins/atuin.nu
@@ -1098,3 +1215,5 @@ def --env y [...args] {
   }
   rm -fp $tmp
 }
+
+use git-completions.nu *
