@@ -55,7 +55,6 @@ let $abbrs = {
     'ap':   'apack'
     'au':   'aunpack'
     'vt':   'clear --keep-scrollback; vitetris'
-    'h':    'ghci'
     'rh':   'runhaskell'
     'ca':   'cabal'
     'py':   'python'
@@ -67,6 +66,10 @@ let $abbrs = {
     're':   'systemctl reboot'
     'moz':  '/usr/lib/mozc/mozc_tool --mode=config_dialog'
 } | transpose | rename abbreviation expansion
+
+alias e = explore --index
+alias p = parui
+alias v = nvim
 
 let dark_theme = {
     # Closures can be used to choose colors for specific values.
