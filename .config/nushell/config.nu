@@ -23,7 +23,7 @@ let $abbrs = {
     'r':    'ranger'
     'tm':   'tmux'
     'zl':   'zellij'
-    'zls':  'zellij a --create'
+    'zla':  'zellij a --create'
     'v':    'nvim'
     'vd':   'nvim -d'
     'gi':   'git'
