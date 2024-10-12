@@ -74,47 +74,52 @@ require('lazy').setup({
   -- },
   -- { "rcarriga/nvim-notify" },
 
-  { 'folke/neodev.nvim', config = true },
   {
     'folke/trouble.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = true,
   },
-  {
-    'folke/twilight.nvim',
-    opts = {
-      dimming = {
-        alpha = 0.25, -- amount of dimming
-        -- we try to get the foreground from the highlight groups or fallback color
-        color = { 'Normal', '#ffffff' },
-        term_bg = '#000000', -- if guibg=NONE, this will be used to calculate text color
-        inactive = true, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
-      },
-      context = 0, -- amount of lines we will try to show around the current line
-      treesitter = true, -- use treesitter when available for the filetype
-      -- treesitter is used to automatically expand the visible text,
-      -- but you can further control the types of nodes that should always be fully expanded
-      expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
-        'function',
-        'method',
-        'table',
-        'if_statement',
-      },
-      exclude = {}, -- exclude these filetypes
-    },
-  },
 
-  { 'folke/zen-mode.nvim', config = true },
+  -- {
+  --   'folke/twilight.nvim',
+  --   opts = {
+  --     dimming = {
+  --       alpha = 0.25, -- amount of dimming
+  --       -- we try to get the foreground from the highlight groups or fallback color
+  --       color = { 'Normal', '#ffffff' },
+  --       term_bg = '#000000', -- if guibg=NONE, this will be used to calculate text color
+  --       inactive = true, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+  --     },
+  --     context = 0, -- amount of lines we will try to show around the current line
+  --     treesitter = true, -- use treesitter when available for the filetype
+  --     -- treesitter is used to automatically expand the visible text,
+  --     -- but you can further control the types of nodes that should always be fully expanded
+  --     expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+  --       'function',
+  --       'method',
+  --       'table',
+  --       'if_statement',
+  --     },
+  --     exclude = {}, -- exclude these filetypes
+  --   },
+  -- },
+
+  -- { 'folke/zen-mode.nvim', config = true },
+  {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+  },
   { 'kylechui/nvim-surround', config = true },
-  -- { 'numToStr/Comment.nvim',  config = true },
 
   'tpope/vim-eunuch',
   'tpope/vim-repeat',
   'tpope/vim-unimpaired',
-  'tpope/vim-fugitive',
   'tpope/vim-speeddating',
+  -- 'tpope/vim-fugitive',
 
-  'ludovicchabant/vim-gutentags',
+  -- 'ludovicchabant/vim-gutentags',
   -- 'kevinhwang91/rnvimr',
 
   {
@@ -238,7 +243,7 @@ require('lazy').setup({
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('ui-select')
       require('telescope').load_extension('media_files')
-      require('telescope').load_extension('flutter')
+      -- require('telescope').load_extension('flutter')
     end,
   },
 
@@ -366,20 +371,12 @@ require('lazy').setup({
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'nvim-treesitter/nvim-treesitter-context',
-      'JoosepAlviste/nvim-ts-context-commentstring',
+      -- 'JoosepAlviste/nvim-ts-context-commentstring',
       'drybalka/tree-climber.nvim',
       {
         'andymass/vim-matchup',
-        init = function()
-          vim.g.matchup_matchparen_offscreen = { method = 'popup' }
-        end,
         config = function()
-          require('nvim-treesitter.configs').setup({
-            matchup = {
-              enable = true,
-              disable = {},
-            },
-          })
+          vim.g.matchup_matchparen_offscreen = { method = 'popup' }
         end,
       },
     },
@@ -397,8 +394,9 @@ require('lazy').setup({
 
   {
     'mrcjkb/haskell-tools.nvim',
-    version = '^3',
-    ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+    version = '^4',
+    lazy = false,
+    -- ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
   },
 
   {
@@ -485,7 +483,7 @@ require('lazy').setup({
 
   'saadparwaiz1/cmp_luasnip',
   'rafamadriz/friendly-snippets',
-  'Nash0x7E2/awesome-flutter-snippets',
+  -- 'Nash0x7E2/awesome-flutter-snippets',
 
   -- {
   --   'ggandor/leap.nvim',
@@ -558,57 +556,34 @@ require('lazy').setup({
   },
 
   { 'windwp/nvim-autopairs', config = true },
+
   {
     'rrethy/vim-illuminate',
-    -- enabled = false,
     config = function()
-      -- default configuration
       require('illuminate').configure({
-        -- providers: provider used to get references in the buffer, ordered by priority
         providers = {
           'lsp',
           'treesitter',
           'regex',
         },
-        -- delay: delay in milliseconds
         delay = 100,
-        -- filetype_overrides: filetype specific overrides.
-        -- The keys are strings to represent the filetype while the values are tables that
-        -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
         filetype_overrides = {},
-        -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
         filetypes_denylist = {
           'dirbuf',
           'dirvish',
           'fugitive',
         },
-        -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
         filetypes_allowlist = {},
-        -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
-        -- See `:help mode()` for possible values
         modes_denylist = {},
-        -- modes_allowlist: modes to illuminate, this is overriden by modes_denylist
-        -- See `:help mode()` for possible values
         modes_allowlist = {},
-        -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
-        -- Only applies to the 'regex' provider
-        -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
         providers_regex_syntax_denylist = {},
-        -- providers_regex_syntax_allowlist: syntax to illuminate, this is overriden by providers_regex_syntax_denylist
-        -- Only applies to the 'regex' provider
-        -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
         providers_regex_syntax_allowlist = {},
-        -- under_cursor: whether or not to illuminate under the cursor
         under_cursor = true,
-        -- large_file_cutoff: number of lines at which to use large_file_config
-        -- The `under_cursor` option is disabled when this cutoff is hit
         large_file_cutoff = nil,
-        -- large_file_config: config to use for large files (based on large_file_cutoff).
-        -- Supports the same keys passed to .configure
-        -- If nil, vim-illuminate will be disabled for large files.
         large_file_overrides = nil,
-        -- min_count_to_highlight: minimum number of matches required to perform highlighting
         min_count_to_highlight = 2,
+        should_enable = function(_) return true end,
+        case_insensitive_regex = false
       })
     end,
   },
@@ -620,15 +595,15 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'dccsillag/magma-nvim',
-    build = ':UpdateRemotePlugins',
-  },
+  -- {
+  --   'dccsillag/magma-nvim',
+  --   build = ':UpdateRemotePlugins',
+  -- },
 
-  {
-    'akinsho/flutter-tools.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
-  },
+  -- {
+  --   'akinsho/flutter-tools.nvim',
+  --   dependencies = 'nvim-lua/plenary.nvim',
+  -- },
 
   {
     'echasnovski/mini.indentscope',
@@ -675,6 +650,7 @@ require('lazy').setup({
   -- --   end
   -- -- }
   },
+
   {
     ui = {
       border = 'single'
@@ -718,14 +694,6 @@ vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true,
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "move highlighted text down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlighted text up" })
-
--- Highlight on yank
--- vim.cmd [[
---   augroup YankHighlight
---     autocmd!
---     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
---   augroup end
--- ]]
 
 --Map blankline
 -- vim.g.indent_blankline_char = '┊' --┊┆│
@@ -938,19 +906,19 @@ mason_lspconfig.setup_handlers({
           },
         },
       })
-    elseif server_name == 'hls' then
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          haskell = {
-            formattingProvider = "fourmolu",
-            -- plugin = {
-            --   ghcideCodeActionsTypeSignatures = true
-            -- }
-          },
-        },
-      })
+    -- elseif server_name == 'hls' then
+    --   lspconfig[server_name].setup({
+    --     on_attach = on_attach,
+    --     capabilities = capabilities,
+    --     settings = {
+    --       haskell = {
+    --         formattingProvider = "fourmolu",
+    --         -- plugin = {
+    --         --   ghcideCodeActionsTypeSignatures = true
+    --         -- }
+    --       },
+    --     },
+    --   })
     elseif server_name == 'julials' then
       lspconfig[server_name].setup({
         on_attach = on_attach,
@@ -969,70 +937,70 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
-require('flutter-tools').setup({
-  ui = {
-    -- the border type to use for all floating windows, the same options/formats
-    -- used for ":h nvim_open_win" e.g. "single" | "shadow" | {<table-of-eight-chars>}
-    border = 'single',
-    -- This determines whether notifications are show with `vim.notify` or with the plugin's custom UI
-    -- please note that this option is eventually going to be deprecated and users will need to
-    -- depend on plugins like `nvim-notify` instead.
-    -- notification_style = 'native' | 'plugin',
-    notification_style = 'plugin'
-  },
-  decorations = {
-    statusline = {
-      -- set to true to be able use the 'flutter_tools_decorations.app_version' in your statusline
-      -- this will show the current version of the flutter app from the pubspec.yaml file
-      app_version = false,
-      -- set to true to be able use the 'flutter_tools_decorations.device' in your statusline
-      -- this will show the currently running device if an application was started with a specific
-      -- device
-      device = false,
-    },
-  },
-  widget_guides = {
-    enabled = true,
-  },
-  closing_tags = {
-    highlight = 'Comment', -- highlight for the closing tag
-    prefix = '/', -- character to use for close tag e.g. > Widget
-    enabled = true, -- set to false to disable
-  },
-  dev_log = {
-    enabled = true,
-    open_cmd = 'tabedit', -- command to use to open the log buffer
-  },
-  dev_tools = {
-    autostart = false, -- autostart devtools server if not detected
-    auto_open_browser = false, -- Automatically opens devtools in the browser
-  },
-  outline = {
-    open_cmd = '30vnew', -- command to use to open the outline buffer
-    auto_open = false, -- if true this will open the outline automatically when it is first populated
-  },
-  lsp = {
-    color = { -- show the derived colours for dart variables
-      enabled = false, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-      background = false, -- highlight the background
-      background_color = nil, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
-      foreground = false, -- highlight the foreground
-      virtual_text = true, -- show the highlight using virtual text
-      virtual_text_str = '■', -- the virtual text character to highlight
-    },
-    on_attach = on_attach,
-    capabilities = capabilities, -- e.g. lsp_status capabilities
-    -- see the link below for details on each option:
-    -- https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md#client-workspace-configuration
-    settings = {
-      showTodos = true,
-      completeFunctionCalls = true,
-      -- analysisExcludedFolders = {"<path-to-flutter-sdk-packages>"},
-      renameFilesWithClasses = 'prompt', -- "always"
-      enableSnippets = true,
-    },
-  },
-})
+-- require('flutter-tools').setup({
+--   ui = {
+--     -- the border type to use for all floating windows, the same options/formats
+--     -- used for ":h nvim_open_win" e.g. "single" | "shadow" | {<table-of-eight-chars>}
+--     border = 'single',
+--     -- This determines whether notifications are show with `vim.notify` or with the plugin's custom UI
+--     -- please note that this option is eventually going to be deprecated and users will need to
+--     -- depend on plugins like `nvim-notify` instead.
+--     -- notification_style = 'native' | 'plugin',
+--     notification_style = 'plugin'
+--   },
+--   decorations = {
+--     statusline = {
+--       -- set to true to be able use the 'flutter_tools_decorations.app_version' in your statusline
+--       -- this will show the current version of the flutter app from the pubspec.yaml file
+--       app_version = false,
+--       -- set to true to be able use the 'flutter_tools_decorations.device' in your statusline
+--       -- this will show the currently running device if an application was started with a specific
+--       -- device
+--       device = false,
+--     },
+--   },
+--   widget_guides = {
+--     enabled = true,
+--   },
+--   closing_tags = {
+--     highlight = 'Comment', -- highlight for the closing tag
+--     prefix = '/', -- character to use for close tag e.g. > Widget
+--     enabled = true, -- set to false to disable
+--   },
+--   dev_log = {
+--     enabled = true,
+--     open_cmd = 'tabedit', -- command to use to open the log buffer
+--   },
+--   dev_tools = {
+--     autostart = false, -- autostart devtools server if not detected
+--     auto_open_browser = false, -- Automatically opens devtools in the browser
+--   },
+--   outline = {
+--     open_cmd = '30vnew', -- command to use to open the outline buffer
+--     auto_open = false, -- if true this will open the outline automatically when it is first populated
+--   },
+--   lsp = {
+--     color = { -- show the derived colours for dart variables
+--       enabled = false, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
+--       background = false, -- highlight the background
+--       background_color = nil, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
+--       foreground = false, -- highlight the foreground
+--       virtual_text = true, -- show the highlight using virtual text
+--       virtual_text_str = '■', -- the virtual text character to highlight
+--     },
+--     on_attach = on_attach,
+--     capabilities = capabilities, -- e.g. lsp_status capabilities
+--     -- see the link below for details on each option:
+--     -- https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md#client-workspace-configuration
+--     settings = {
+--       showTodos = true,
+--       completeFunctionCalls = true,
+--       -- analysisExcludedFolders = {"<path-to-flutter-sdk-packages>"},
+--       renameFilesWithClasses = 'prompt', -- "always"
+--       enableSnippets = true,
+--     },
+--   },
+-- })
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -1248,12 +1216,12 @@ maps(o_ns, {
         ts.commands()
       end,
     },
-    {
-      l2('l'),
-      function()
-        tsex.flutter.commands()
-      end,
-    },
+    -- {
+    --   l2('l'),
+    --   function()
+    --     tsex.flutter.commands()
+    --   end,
+    -- },
 
     -- { '<C-a>',   cmd('RnvimrToggle') },
     { '<C-n>',   cmd('Neotree toggle') },
@@ -1430,13 +1398,6 @@ maps(o_ns, {
   },
 })
 
--- map('n', ll2 'i', cmd 'MagmaInit',                o_s)
--- map('n', ll  'o', '<cmd>MagmaEvaluateOperator<cr>',   { noremap = true, silent = true, expr = true})
--- map('n', ll  'm', cmd 'MagmaEvaluateLine',        o_s)
--- map('x', ll  'm', cmd '<C-u>MagmaEvaluateVisual', o_s)
--- map('n', ll  'r', cmd 'MagmaReevaluateCell',      o_s)
--- map('n', ll2 'm', cmd 'MagmaDelete',              o_s)
-
 vim.cmd([[
     set foldnestmax=3
     set foldlevel=10
@@ -1496,10 +1457,6 @@ vim.cmd([[
     " set complete+=kspell
 
 
-    iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-
     let mapleader      = ','
     let maplocalleader = '\'
 
@@ -1507,12 +1464,12 @@ vim.cmd([[
     " nmap     <LocalLeader>n              <Plug>JupyterExecute
     " nmap     <LocalLeader><localleader>n <Plug>JupyterExecuteAll
 
-    nnoremap <silent>       <LocalLeader><LocalLeader>i :MagmaInit<CR>
-    nnoremap <expr><silent> <LocalLeader>o              nvim_exec('MagmaEvaluateOperator', v:true)
-    nnoremap <silent>       <LocalLeader>m              :MagmaEvaluateLine<CR>
-    xnoremap <silent>       <LocalLeader>m              :<C-u>MagmaEvaluateVisual<CR>
-    nnoremap <silent>       <LocalLeader>r              :MagmaReevaluateCell<CR>
-    nnoremap <silent>       <LocalLeader><LocalLeader>m :MagmaDelete<CR>
+    "nnoremap <silent>       <LocalLeader><LocalLeader>i :MagmaInit<CR>
+    "nnoremap <expr><silent> <LocalLeader>o              nvim_exec('MagmaEvaluateOperator', v:true)
+    "nnoremap <silent>       <LocalLeader>m              :MagmaEvaluateLine<CR>
+    "xnoremap <silent>       <LocalLeader>m              :<C-u>MagmaEvaluateVisual<CR>
+    "nnoremap <silent>       <LocalLeader>r              :MagmaReevaluateCell<CR>
+    "nnoremap <silent>       <LocalLeader><LocalLeader>m :MagmaDelete<CR>
 
     " nnoremap <LocalLeader><LocalLeader>q gqip
     " nnoremap <LocalLeader><LocalLeader>ft Vatzf
@@ -1543,17 +1500,6 @@ vim.cmd([[
     " nmap s              <Plug>(easymotion-overwin-f)
     " map  <LocalLeader>j <Plug>(easymotion-j)
     " map  <LocalLeader>k <Plug>(easymotion-k)
-
-    " map /  <Plug>(incsearch-forward)
-    " map ?  <Plug>(incsearch-backward)
-    " map g/ <Plug>(incsearch-stay)
-    " let g:incsearch#auto_nohlsearch = 1
-    " map n  <Plug>(incsearch-nohl-n)
-    " map N  <Plug>(incsearch-nohl-N)
-    " map *  <Plug>(incsearch-nohl-*)
-    " map #  <Plug>(incsearch-nohl-#)
-    " map g* <Plug>(incsearch-nohl-g*)
-    " map g# <Plug>(incsearch-nohl-g#)
 
     nnoremap <silent> <C-c> :ColorizerToggle<cr>
 
