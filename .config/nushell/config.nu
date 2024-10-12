@@ -95,7 +95,7 @@ let dark_theme = {
     list: { fg: dark_gray attr: i }
     block: { fg: dark_gray attr: i }
     hints: dark_gray
-    search_result: { bg: red fg: white }
+    search_result: { bg: yellow fg: black }
     shape_and: purple
     shape_binary: purple
     shape_block: dark_gray

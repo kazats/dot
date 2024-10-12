@@ -1,0 +1,1 @@
+/home/v/.config/nushell/scripts/custom-completions/git/git-completions.nu
