@@ -67,9 +67,10 @@ let $abbrs = {
     'moz':  '/usr/lib/mozc/mozc_tool --mode=config_dialog'
 } | transpose | rename abbreviation expansion
 
-alias e = explore --index
-alias p = parui
-alias v = nvim
+alias e  = explore --index
+alias p  = parui
+alias v  = nvim
+alias gg = lazygit
 
 let dark_theme = {
     # Closures can be used to choose colors for specific values.
@@ -527,7 +528,7 @@ $env.config = {
             name: abbr_menu
             modifier: control
             keycode: char_j
-            mode: [emacs, vi_normal, vi_insert]
+            mode: [emacs, vi_insert]
             event: [
                 { send: menu name: abbr_menu }
                 { send: enter }
@@ -537,7 +538,7 @@ $env.config = {
             name: abbr_menu
             modifier: none
             keycode: space
-            mode: [emacs, vi_normal, vi_insert]
+            mode: [emacs, vi_insert]
             event: [
                 { send: menu name: abbr_menu }
                 { edit: insertchar value: ' ' }
