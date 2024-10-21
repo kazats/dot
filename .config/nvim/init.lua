@@ -26,6 +26,8 @@ require('lazy').setup({
     end,
   },
 
+  'lambdalisue/vim-suda',
+
   {
     'Bekaboo/dropbar.nvim',
     dependencies = {
