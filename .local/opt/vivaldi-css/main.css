@@ -3,6 +3,8 @@
   font-feature-settings: 'liga' 1, 'calt' 1;
 }
 
-#tabs-tabbar-container * {
+#tabs-tabbar-container *,
+.UrlField, .OmniDropdown,
+.ClockButton > button {
   font-size: 0.9rem;
 }
