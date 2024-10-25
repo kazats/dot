@@ -1,0 +1,8 @@
+* {
+  font-family: 'Inter Light', 'IBM Plex Sans JP';
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+#tabs-tabbar-container * {
+  font-size: 0.9rem;
+}
