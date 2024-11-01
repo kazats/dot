@@ -106,7 +106,7 @@ let dark_theme = {
     shape_datetime: cyan
     shape_directory: cyan
     shape_external: blue
-    shape_externalarg: white
+    shape_externalarg: cyan
     shape_external_resolved: { fg: blue attr: i }
     shape_filepath: cyan
     shape_flag: blue
