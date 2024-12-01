@@ -635,6 +635,11 @@ require('lazy').setup({
   },
 
   {
+    'echasnovski/mini.ai',
+    version = '*'
+  },
+
+  {
     'LhKipp/nvim-nu',
     build = ':TSInstall nu',
     config = function()
