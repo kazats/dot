@@ -83,7 +83,7 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "q" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
     , shift "a" ｜ []
 
-    , shift "2" ｜ []
+    , shift "2" ｜ ["anytype"]
     , shift "w" ｜ ["main"]
     , shift "s" ｜ []
 
