@@ -59,7 +59,7 @@ let $abbrs = {
     'ca':   'cabal'
     'py':   'python'
     'pi':   'ipython'
-    'pe':   'overlay use .venv/bin/activate.nu'
+    'pe':   'overlay use venv/bin/activate.nu'
     'jl':   'julia'
     'fl':   'flutter'
     'ha':   'systemctl poweroff'
@@ -102,7 +102,7 @@ let dark_theme = {
     shape_block: dark_gray
     shape_bool: cyan
     shape_closure: dark_gray
-    shape_custom: white
+    shape_custom: cyan
     shape_datetime: cyan
     shape_directory: cyan
     shape_external: blue
@@ -289,7 +289,7 @@ $env.config = {
     }
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    footer_mode: always # always, never, number_of_rows, auto
+    footer_mode: 20 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
@@ -1221,3 +1221,4 @@ def --env y [...args] {
 }
 
 use git-completions.nu *
+use modules/virtual_environments/nu_conda_2/conda.nu
