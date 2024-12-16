@@ -1,4 +1,5 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+---@diagnostic disable-next-line: undefined-field
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
@@ -33,6 +34,17 @@ require('lazy').setup({
     dependencies = {
       'nvim-telescope/telescope-fzf-native.nvim'
     }
+  },
+
+  {
+      "rachartier/tiny-inline-diagnostic.nvim",
+      event = "VeryLazy", -- Or `LspAttach`
+      priority = 1000, -- needs to be loaded in first
+      config = function()
+          require('tiny-inline-diagnostic').setup({
+        preset = 'simple'
+      })
+      end
   },
 
   -- {
@@ -134,7 +146,7 @@ require('lazy').setup({
         desc = "Open yazi at the current file",
       },
       {
-        "<leader>c",
+        "<leader>cw",
         "<cmd>Yazi cwd<cr>",
         desc = "Open the file manager in nvim's working directory" ,
       },
@@ -375,6 +387,7 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-context',
       -- 'JoosepAlviste/nvim-ts-context-commentstring',
       'drybalka/tree-climber.nvim',
+      'nushell/tree-sitter-nu',
       {
         'andymass/vim-matchup',
         config = function()
@@ -389,7 +402,7 @@ require('lazy').setup({
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
       'neovim/nvim-lspconfig',
-      'jose-elias-alvarez/null-ls.nvim',
+      'nvimtools/none-ls.nvim',
       'jay-babu/mason-null-ls.nvim',
     },
   },
@@ -639,13 +652,6 @@ require('lazy').setup({
     version = '*'
   },
 
-  {
-    'LhKipp/nvim-nu',
-    build = ':TSInstall nu',
-    config = function()
-      require('nu').setup()
-    end
-  }
 
   -- -- 'lukas-reineke/indent-blankline.nvim'
   -- -- 'nvim-treesitter/nvim-treesitter-refactor'
@@ -739,6 +745,16 @@ require('nvim-treesitter.configs').setup({
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
         ['ic'] = '@class.inner',
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["aC"] = "@conditional.outer",
+        ["iC"] = "@conditional.inner",
+        ["iS"] = "@statement.inner",
+        ["aS"] = "@statement.outer",
+
+        -- nu
+        ["aP"] = "@pipeline.outer",
+        ["iP"] = "@pipeline.inner",
       },
       selection_modes = {
         ['@parameter.outer'] = 'v', -- charwise
@@ -932,7 +948,7 @@ mason_lspconfig.setup_handlers({
         capabilities = capabilities,
         root_dir = function(fname)
           local util = require('lspconfig.util')
-          return util.root_pattern 'Project.toml'(fname) or util.find_git_ancestor(fname) or util.path.dirname(fname)
+          return util.root_pattern 'Project.toml'(fname) or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1]) or vim.fs.dirname(fname)
         end
       })
     else
@@ -1324,54 +1340,63 @@ maps(o_ns, {
     {
       '<F5>',
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.continue({})
       end,
     },
     {
       '<F10>',
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.step_over()
       end,
     },
     {
       '<F11>',
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.step_into()
       end,
     },
     {
       '<F12>',
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.step_out()
       end,
     },
     {
       l('db'),
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.toggle_breakpoint()
       end,
     },
     {
       l('dB'),
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.set_breakpoint(vim.fn.input({ 'Breakpoint condition: ' }))
       end,
     },
     {
       l('dlp'),
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.set_breakpoint(nil, nil, vim.fn.input({ 'Log point message: ' }))
       end,
     },
     {
       l('dr'),
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.repl.open()
       end,
     },
     {
       l('dl'),
       function()
+---@diagnostic disable-next-line: undefined-field
         dap.run_last()
       end,
     },
