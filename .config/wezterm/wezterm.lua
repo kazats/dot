@@ -127,6 +127,7 @@ return {
   adjust_window_size_when_changing_font_size  = false,
   use_ime                                     = true,
   enable_kitty_keyboard                       = true,
+  max_fps                                     = 240,
   -- front_end                                   = 'WebGpu',
   -- webgpu_power_preference                     = 'HighPerformance'
 
