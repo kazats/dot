@@ -21,7 +21,7 @@ bindkey -v
 autoload -Uz compinit
 compinit
 unset GREP_OPTIONS
-HISTFILE=~/.histfile
+HISTFILE="$XDG_STATE_HOME"/zsh/history
 HISTSIZE=1000
 SAVEHIST=1000
 KEYTIMEOUT=1
