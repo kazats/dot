@@ -120,10 +120,11 @@ $env.SHH_DIR            = $env.XDG_CONFIG_HOME | path join shh
 $env.IRBRC              = $env.XDG_CONFIG_HOME | path join irb irbrc
 $env.PARALLEL_HOME      = $env.XDG_CONFIG_HOME | path join parallel
 $env.MPLAYER_HOME       = $env.XDG_CONFIG_HOME | path join mplayer
+$env.ZDOTDIR            = $env.XDG_CONFIG_HOME | path join zsh
 $env.ANDROID_HOME       = $env.XDG_DATA_HOME   | path join Android Sdk
 $env.WINEPREFIX         = $env.XDG_DATA_HOME   | path join wine
 $env.LEIN_HOME          = $env.XDG_DATA_HOME   | path join lein
-$env.CARGO_HOME         = $env.XDG_DATA_HOME  | path join cargo
+$env.CARGO_HOME         = $env.XDG_DATA_HOME   | path join cargo
 $env.JULIA_DEPOT_PATH   = [
   ($env.XDG_DATA_HOME | path join julia)
   ($env | get -i JULIA_DEPOT_PATH | default '')] | str join :
