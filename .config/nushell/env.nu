@@ -93,6 +93,7 @@ use ~/.config/nushell/plugins/bash-env-nushell/bash-env.nu
 bash-env /etc/profile | load-env
 
 $env.XDG_CONFIG_DIR = $env.HOME | path join .config
+$env.XDG_STATE_HOME = $env.HOME | path join .local state
 
 $env.DE                = 'gnome'
 $env.LANG              = 'en_US.UTF-8'
