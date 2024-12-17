@@ -92,8 +92,10 @@ $env.PATH = $env.PATH | split row (char esep) | prepend [
 use ~/.config/nushell/plugins/bash-env-nushell/bash-env.nu
 bash-env /etc/profile | load-env
 
-$env.XDG_CONFIG_DIR = $env.HOME | path join .config
-$env.XDG_STATE_HOME = $env.HOME | path join .local state
+$env.XDG_CONFIG_HOME = $env.HOME | path join .config
+$env.XDG_CACHE_HOME  = $env.HOME | path join .cache
+$env.XDG_DATA_HOME   = $env.HOME | path join .local share
+$env.XDG_STATE_HOME  = $env.HOME | path join .local state
 
 $env.DE                = 'gnome'
 $env.LANG              = 'en_US.UTF-8'
@@ -107,21 +109,35 @@ $env.LS_COLORS         = 'rs=0:di=00;34:ln=00;36:mh=00:pi=40;33:so=00;35:do=00;3
 $env.SSH_AUTH_SOCK     = $env.XDG_RUNTIME_DIR | path join gcr ssh
 $env.CRYPTOGRAPHY_OPENSSL_NO_LEGACY = 1
 
-$env.GTK_IM_MODULE     = 'fcitx'
-$env.QT_IM_MODULE      = 'fcitx'
-$env.GLFW_IM_MODULE    = 'ibus'
-$env.XMODIFIERS        = '@im=fcitx'
+$env.GTK_IM_MODULE  = 'fcitx'
+$env.QT_IM_MODULE   = 'fcitx'
+$env.GLFW_IM_MODULE = 'ibus'
+$env.XMODIFIERS     = '@im=fcitx'
 
-$env.CHROME_EXECUTABLE = '/usr/bin/google-chrome-stable'
-$env.ANDROID_HOME      = $env.HOME | path join Android Sdk
-$env.GOPATH            = $env.HOME | path join .local opt go
-$env.PYP_CONFIG_PATH   = $env.XDG_CONFIG_DIR | path join pyp config.py
-$env.SHH_DIR           = $env.XDG_CONFIG_DIR | path join shh
-$env.NO_AT_BRIDGE      = '1'
-$env.SAL_USE_VCLPLUGIN = 'gtk3'
-$env.QT_STYLE_OVERRIDE = "GTK+"
-$env._JAVA_OPTIONS     = '-Dawt.useSystemAAFontSettings=on'
-$env.FZF_DEFAULT_OPTS  = [
+$env.CHROME_EXECUTABLE  = '/usr/bin/google-chrome-stable'
+$env.PYP_CONFIG_PATH    = $env.XDG_CONFIG_HOME | path join pyp config.py
+$env.SHH_DIR            = $env.XDG_CONFIG_HOME | path join shh
+$env.IRBRC              = $env.XDG_CONFIG_HOME | path join irb irbrc
+$env.PARALLEL_HOME      = $env.XDG_CONFIG_HOME | path join parallel
+$env.MPLAYER_HOME       = $env.XDG_CONFIG_HOME | path join mplayer
+$env.ANDROID_HOME       = $env.XDG_DATA_HOME   | path join Android Sdk
+$env.WINEPREFIX         = $env.XDG_DATA_HOME   | path join wine
+$env.LEIN_HOME          = $env.XDG_DATA_HOME   | path join lein
+$env.CARGO_HOME         = $env.XDG_DATA_HOME  | path join cargo
+$env.JULIA_DEPOT_PATH   = [
+  ($env.XDG_DATA_HOME | path join julia)
+  ($env | get -i JULIA_DEPOT_PATH | default '')] | str join :
+$env.SQLITE_HISTORY     = $env.XDG_CACHE_HOME | path join sqlite_history
+$env.NO_AT_BRIDGE       = 1
+$env.SAL_USE_VCLPLUGIN  = 'gtk3'
+$env.QT_STYLE_OVERRIDE  = "GTK+"
+$env._JAVA_OPTIONS      = '-Dawt.useSystemAAFontSettings=on'
+$env.GHCUP_USE_XDG_DIRS = 1
+$env.STACK_XDG          = 1
+$env.BUNDLE_USER_CONFIG = $env.XDG_CONFIG_HOME | path join bundle
+$env.BUNDLE_USER_CACHE  = $env.XDG_CACHE_HOME | path join bundle
+$env.BUNDLE_USER_PLUGIN = $env.XDG_DATA_HOME | path join bundle
+$env.FZF_DEFAULT_OPTS   = [
   "--cycle --height=50% --border=none --margin=0,1,0,0"
   "--preview-window=border-none,nowrap"
   "--prompt=''" "--pointer=' ⟩'" "--marker=' ┃'"
@@ -132,8 +148,8 @@ $env.FZF_DEFAULT_OPTS  = [
   "--color=gutter:#191724,query:#c4a7e7:regular"
 ] | str join (char space)
 
-#$env.LIBVA_DRIVER_NAME   = "radeonsi"
-#$env.VDPAU_DRIVER        = "nvidia"
-#$env.LIBVA_DRIVER_NAME   = "vdpau"
-#$env.XDG_DATA_DIRS       =  /usr/local/share /usr/share
-#$env.XDG_SCREENSHOTS_DIR = ~/m/p/scr
+# $env.GOPATH            = $env.HOME | path join .local opt go
+# $env.LIBVA_DRIVER_NAME   = "radeonsi"
+# $env.VDPAU_DRIVER        = "nvidia"
+# $env.LIBVA_DRIVER_NAME   = "vdpau"
+# $env.XDG_SCREENSHOTS_DIR = ~/m/p/scr
