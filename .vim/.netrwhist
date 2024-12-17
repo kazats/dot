@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='/etc/NetworkManager/dispatcher.d/no-wait.d'
-let g:netrw_dirhist_2='/etc/NetworkManager/dispatcher.d'
-let g:netrw_dirhist_1='/etc/NetworkManager/conf.d'
