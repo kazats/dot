@@ -7,6 +7,7 @@
 
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
 
 source /home/v/.config/broot/launcher/bash/br
 
