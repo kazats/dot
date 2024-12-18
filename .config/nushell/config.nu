@@ -1,4 +1,4 @@
-# version = "0.98"
+# version = "0.100"
 
 let $abbrs = {
     'clr':  'clear --keep-scrollback'
