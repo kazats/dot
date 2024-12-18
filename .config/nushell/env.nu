@@ -19,11 +19,21 @@ def create_right_prompt [] {
     let path_segment = $"($path_color) ($dir)"
     let path = $" ($path_segment) " | str replace --all (char path_sep) $"($separator_color)/($path_color)"
 
-    let git_status = do { git status --porcelain } | complete
-    let git = if ($git_status.exit_code == 0) {([
-        (ansi -e { fg: blue })
+    let git_status = gstat
+    def changes_sum [] -> int {
+        transpose key value
+        | filter {|l| ($l.value | describe) == int }
+        | get value
+        | reduce {|x,acc| $x + $acc }
+    }
+    let git = if ($git_status.branch != no_branch) {([
+        (if (($git_status | changes_sum) > 0) {
+            ansi -e { fg: yellow }
+        } else {
+            ansi -e { fg: blue }
+        })
         (char space)
-        (git branch --show-current | str trim)
+        $git_status.branch
     ] | str join)
     }
 
