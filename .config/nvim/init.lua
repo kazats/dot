@@ -1140,7 +1140,7 @@ maps(o_ns, {
     { l('z'),    cmd('qa') },
     { l('Z'),    cmd('qa!') },
     { l2('b'),   cmd('bd') },
-    { l('B'),    cmd('bd!') },
+    { l2('B'),   cmd('bd!') },
 
     { '<S-tab>', '<C-w><c-w>' },
     { l('h'),    '<C-w>h' },
