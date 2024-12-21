@@ -1191,6 +1191,10 @@ def lsblk [] {
   | into filesize size
 }
 
+def clip [] {
+  ^xclip -selection clipboard
+}
+
 def 'nu-complete nop' [] { [] }
 
 def 'nu-complete m' [] {
