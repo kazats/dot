@@ -20,7 +20,7 @@ def create_right_prompt [] {
     let path = $" ($path_segment) " | str replace --all (char path_sep) $"($separator_color)/($path_color)"
 
     let git_status = gstat
-    def changes_sum [] -> int {
+    def changes_sum []: any -> int {
         transpose key value
         | filter {|l| ($l.value | describe) == int }
         | get value
