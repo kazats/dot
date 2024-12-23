@@ -38,7 +38,7 @@
   sSh  (tap-hold 200 spc  shft)
   rCm  (tap-hold 200 cmps ralt)
   \Ex  (tap-hold 200 \    (layer-toggle ext))
-  cNm  (tap-hold 200 lctl (layer-toggle num))
+  cNm  (tap-hold 200 |    (layer-toggle num))
 
   del  C-del
 
