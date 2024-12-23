@@ -279,15 +279,15 @@ myMouse XConfig {} = M.fromList $
     -- , n 7  ｜ const nextWS
     -- , n 10 ｜ const toggleWS
     ]
-    ++ playback
+    -- ++ playback
     ++ volume
 
     where
-    playback = [ c btn ｜ const . spawn $ xdokey cmd | (btn, cmd) <-
-        [ (button1, "m")
-        , (button2, "comma")
-        , (button3, "period")
-        ] ]
+    -- playback = [ c btn ｜ const . spawn $ xdokey cmd | (btn, cmd) <-
+    --     [ (button1, "m")
+    --     , (button2, "comma")
+    --     , (button3, "period")
+    --     ] ]
     volume = [ m btn ｜ const $ spawn cmd | (btn, cmd) <-
         [ (button4, volumeInc)
         , (button2, volumeToggle)
