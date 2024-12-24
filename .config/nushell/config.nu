@@ -65,6 +65,8 @@ let $abbrs = {
     'ha':   'systemctl poweroff'
     're':   'systemctl reboot'
     'moz':  '/usr/lib/mozc/mozc_tool --mode=config_dialog'
+
+    'po':   'polars'
 } | transpose | rename abbreviation expansion
 
 alias e  = explore --index
