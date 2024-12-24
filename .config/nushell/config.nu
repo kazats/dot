@@ -1212,6 +1212,13 @@ def icams [] {
   sudo openvpn icams.ovpn
 }
 
+def 'polars duplicates-by' [select_expr] {
+  let df = $in
+  let mask = $df | polars select $select_expr | polars is-duplicated
+
+  $df | polars filter-with $mask
+}
+
 source ~/.config/nushell/plugins/zoxide.nu
 source ~/.config/nushell/plugins/atuin.nu
 source ~/.config/nushell/completions/atuin-completions.nu
