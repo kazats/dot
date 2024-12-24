@@ -495,13 +495,17 @@ $env.config = {
                 match_text: {}
                 selected_match_text: { fg: black bg: blue }
             }
-            source: { |buffer, position|
+            source: {|buffer, position|
+                let segs = $buffer | split row -r '\s+'
+                let segs_dropped = $segs | drop
+                let last_seg = $segs | last
+
                 #let match = scope aliases | where name == $buffer
-                let match = $abbrs
-                  | where abbreviation == $buffer
+                let match = $abbrs | where abbreviation == $last_seg
 
                 if ($match | is-not-empty) {
-                  { value: $match.expansion.0 }
+                  # { value: $match.expansion.0 }
+                  { value: ($segs_dropped | append $match.expansion.0 | str join ' ') }
                 } else {
                   { value: $buffer }
                 }
