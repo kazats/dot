@@ -323,7 +323,7 @@ myStartupHook = do
     mapM_ spawnOnce
        [ xset
        , warpd
-       , nitrogen
+       -- , nitrogen
        , fcitx
        , mainTerminal
        , htop
