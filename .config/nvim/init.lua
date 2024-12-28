@@ -1431,6 +1431,8 @@ maps(o_ns, {
 })
 
 vim.cmd([[
+    set shell=/bin/bash
+
     set foldnestmax=3
     set foldlevel=10
     set foldenable
