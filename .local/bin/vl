@@ -1,5 +1,0 @@
-#!/bin/bash
-
-mkdir -p /dev/shm/cache/vivaldi
-mkdir -p /dev/shm/config
-rsync -ah --no-compress ~/.backup/config/vivaldi /dev/shm/config/
