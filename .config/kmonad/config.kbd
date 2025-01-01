@@ -54,10 +54,10 @@
 (deflayer default
   _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _     _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _     _    _    _    @pom
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _     _    _    _    _
   lctl _    _    _    _    _    _    _    _    _    _    _    rctl                      _    _    _
-  lsft @\Ex _    _    _    _    _    _    _    _    _    _    rsft           _          @mlk @msh @mrp @mne
-  @cNm _    _              spc                      @rCm      @hen      _    _    _     @mpp @mpr
+  lsft @\Ex _    _    _    _    _    _    _    _    _    _    rsft           _          _    _    _    _
+  @cNm _    _              spc                      @rCm      @hen      _    _    _     _    _
 )
 
 ;;             _     _     _           _     _                                   _     _     _
@@ -71,10 +71,10 @@
 (deflayer ext
   _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _     _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    home pgup pgdn end  esc  ß    _         _    _     _    _    _    _
+  _    _    _    _    _    _    _    home pgup pgdn end  esc  ß    _         _    _     _    _    _    @pom
   _    _    _    _    _    _    left down up   rght ö    ä    _                         _    _    _
-  _    _    _    _    _    _    _    bspc ret  del  _    ü    _              _          _    _    _    _
-  _    _    _              _                        _         _         _    _    _     _    _
+  _    _    _    _    _    _    _    bspc ret  del  _    ü    _              _          @mlk @msh @mrp @mne
+  _    _    _              _                        _         _         _    _    _     @mpp @mpr
 )
 
 (deflayer num
