@@ -1226,6 +1226,7 @@ def 'polars duplicates-by' [select_expr] {
 source ~/.config/nushell/plugins/zoxide.nu
 source ~/.config/nushell/plugins/atuin.nu
 source ~/.config/nushell/completions/atuin-completions.nu
+source ~/.config/nushell/completions/uv-completions.nu
 
 def --env y [...args] {
   let tmp = (mktemp -t "yazi-cwd.XXXXX")
