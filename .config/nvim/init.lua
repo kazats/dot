@@ -27,6 +27,7 @@ require('lazy').setup({
     end,
   },
 
+  'HiPhish/rainbow-delimiters.nvim',
   'lambdalisue/vim-suda',
 
   {
