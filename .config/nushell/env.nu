@@ -141,7 +141,7 @@ $env.JULIA_DEPOT_PATH   = [
 $env.SQLITE_HISTORY     = $env.XDG_CACHE_HOME | path join sqlite_history
 $env.NO_AT_BRIDGE       = 1
 $env.SAL_USE_VCLPLUGIN  = 'gtk3'
-$env.QT_STYLE_OVERRIDE  = "GTK+"
+# $env.QT_STYLE_OVERRIDE  = "GTK+"
 $env._JAVA_OPTIONS      = '-Dawt.useSystemAAFontSettings=on'
 $env.GHCUP_USE_XDG_DIRS = 1
 $env.STACK_XDG          = 1
