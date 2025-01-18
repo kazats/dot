@@ -59,7 +59,7 @@ let $abbrs = {
     'ca':   'cabal'
     'py':   'python'
     'pi':   'ipython'
-    'pe':   'overlay use venv/bin/activate.nu'
+    'pe':   'overlay use .venv/bin/activate.nu'
     'jl':   'julia'
     'fl':   'flutter'
     'ha':   'systemctl poweroff'
