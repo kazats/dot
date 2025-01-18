@@ -275,6 +275,9 @@ myMouse XConfig {} = M.fromList $
         mouseResizeWindow w
         windows W.shiftMaster
 
+    , a button4 ｜ \w -> do
+        spawn boomer
+
     -- , n 6  ｜ const prevWS
     -- , n 7  ｜ const nextWS
     -- , n 10 ｜ const toggleWS
@@ -351,6 +354,7 @@ xset          = "xset r rate 250; xset dpms 0 0 0; xset s off"
 anki          = "anki -b ~/.anki"
 -- dmenu         = "dmenu-run"
 blueman       = "blueman-manager"
+boomer        = "boomer"
 dunstctl      = ("dunstctl " ++)
 easyeffects   = "easyeffects"
 gimp          = "gimp"
