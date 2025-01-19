@@ -143,7 +143,7 @@ keymap = [
 	{ on = "}", run = "tab_swap 1",  desc = "Swap current tab with next tab" },
 
 	# Tasks
-	{ on = "<S-t>", run = "tasks_show", desc = "Show task manager" },
+	{ on = "T", run = "tasks_show", desc = "Show task manager" },
 
 	# Goto
 	{ on = [ "g", "h" ],        run = "cd ~",               desc = "~" },
@@ -374,21 +374,31 @@ keymap = [
 ]
 
 [[manager.prepend_keymap]]
-on = [ "b", "m" ]
-run = "plugin bookmarks --args=save"
+on   = [ "b", "m" ]
+run  = "plugin bookmarks --args=save"
 desc = "Save current position as a bookmark"
 
 [[manager.prepend_keymap]]
-on = [ "'" ]
-run = "plugin bookmarks --args=jump"
+on   = [ "'" ]
+run  = "plugin bookmarks --args=jump"
 desc = "Jump to a bookmark"
 
 [[manager.prepend_keymap]]
-on = [ "b", "d" ]
-run = "plugin bookmarks --args=delete"
+on   = [ "b", "d" ]
+run  = "plugin bookmarks --args=delete"
 desc = "Delete a bookmark"
 
 [[manager.prepend_keymap]]
-on = [ "b", "D" ]
-run = "plugin bookmarks --args=delete_all"
+on   = [ "b", "D" ]
+run  = "plugin bookmarks --args=delete_all"
 desc = "Delete all bookmarks"
+
+[[manager.prepend_keymap]]
+on   = "F"
+run  = "plugin jump-to-char"
+desc = "Jump to char"
+
+[[manager.prepend_keymap]]
+on   = [ "c", "m" ]
+run  = "plugin chmod"
+desc = "Chmod selected files"
