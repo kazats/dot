@@ -37,6 +37,7 @@ let $abbrs = {
     'yy':   'paru; fixkb'
     'ys':   'paru -S'
     'ycc':  'paru -Scc'
+    'pa':   'paru'
     'p':    'parui'
     'pm':   'sudo pacman'
     'pms':  'sudo pacman -S'
