@@ -90,7 +90,6 @@ $env.NU_PLUGIN_DIRS = [
 ]
 
 $env.PATH = $env.PATH | split row (char esep) | prepend [
-  /opt/miniconda3/condabin
   ($env.HOME | path join .local bin)
   ($env.HOME | path join .cabal bin)
   ($env.HOME | path join .ghcup bin)
