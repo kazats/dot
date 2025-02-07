@@ -42,7 +42,7 @@ main = xmonad
     { focusFollowsMouse   = True
     , borderWidth         = 2
     -- , modMask             = mod1Mask
-    , workspaces          = return <$> "qwerasdf1234"
+    , workspaces          = return <$> "1qaz2wsx3edc4rfv"
     , normalBorderColor   = "#000000"
     , focusedBorderColor  = "#6e6a86"
     , keys                = myKeys
@@ -79,21 +79,25 @@ myLayout
 
 
 myManageHook = composeAll $ concatMap withMatch
-    [ shift "1" ｜ []
-    , shift "q" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
+    [ shift "1" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
+    , shift "q" ｜ []
     , shift "a" ｜ []
+    , shift "z" ｜ []
 
-    , shift "2" ｜ ["anytype"]
+    , shift "2" ｜ []
     , shift "w" ｜ ["main"]
     , shift "s" ｜ []
+    , shift "x" ｜ ["anytype"]
 
-    , shift "3" ｜ ["yazi", "ranger", "Transmission-gtk"]
-    , shift "e" ｜ ["Xephyr", "vlc"]
-    , shift "d" ｜ ["anki"]
+    , shift "3" ｜ ["yazi", "ranger"]
+    , shift "e" ｜ []
+    , shift "d" ｜ ["Xephyr", "vlc"]
+    , shift "c" ｜ ["anki"]
 
     , shift "4" ｜ ["htop"]
-    , shift "r" ｜ ["vmware", "VirtualBox Manager", "VirtualBox Machine"]
-    , shift "f" ｜ ["easyeffects", "skype", "zoom", "cmus", "spotify"]
+    , shift "r" ｜ ["Transmission-gtk"]
+    , shift "f" ｜ ["vmwafe", "VirtualBox Manager", "VirtualBox Machine"]
+    , shift "v" ｜ ["easyeffects"]
 
     , dofloat   ｜ ["foxwq.exe", "lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
@@ -127,6 +131,7 @@ myKeys XConfig
 
     map (second spawn)
     [ a  xK_grave         ｜ rofi "run"
+    , as xK_grave         ｜ rofiBt
     , a  xK_Return        ｜ termNew
     , as xK_Return        ｜ nvim
 
@@ -212,14 +217,14 @@ myKeys XConfig
     , as xK_k             ｜ windows W.swapUp
     , as xK_h             ｜ sendMessage Expand
     , as xK_l             ｜ sendMessage Shrink
-    , a  xK_v             ｜ withFocused $ windows . W.sink
+    , a  xK_t             ｜ withFocused $ windows . W.sink
     , a  xK_comma         ｜ sendMessage $ IncMasterN (-1)
     , a  xK_period        ｜ sendMessage $ IncMasterN 1
     -- , a  xK_x             ｜ sendMessage ToggleStruts
     , as xK_e             ｜ io exitSuccess
 
     , a  xK_i             ｜ toggleWS
-    , a  xK_x             ｜ toggleWS
+    , a  xK_b             ｜ toggleWS
     , a  xK_u             ｜ prevWS
     , a  xK_p             ｜ nextWS
     , as xK_u             ｜ shiftToPrev >> prevWS
@@ -232,7 +237,12 @@ myKeys XConfig
     ]
     ++
     [ (m k, f i)
-    | (i, k) <- spaces `zip` concat [qr, af, [xK_1..xK_4]]
+    | (i, k) <- zip spaces
+      [ xK_1, xK_q, xK_a, xK_z
+      , xK_2, xK_w, xK_s, xK_x
+      , xK_3, xK_e, xK_d, xK_c
+      , xK_4, xK_r, xK_f, xK_v
+      ]
     , (f, m) <- [ windows . W.view  ｜ a
                 , windows . W.shift ｜ ac ]
     ]
@@ -249,8 +259,8 @@ myKeys XConfig
     -- eject      = xF86XK_Eject
     -- scroll     = xK_Scroll_Lock
 
-    af = [xK_a, xK_s, xK_d, xK_f]
-    qr = [xK_q, xK_w, xK_e, xK_r]
+    -- af = [xK_a, xK_s, xK_d, xK_f]
+    -- qr = [xK_q, xK_w, xK_e, xK_r]
 
     -- toggle ws = do
     --     current <- W.tag . W.workspace . W.current . windowset <$> get
@@ -365,6 +375,7 @@ openbox       = "ob"
 ogatak        = "ogatak"
 pavucontrol   = "pavucontrol"
 rofi          = ("rofi -m -4 -show " ++)
+rofiBt        = "rofi-bluetooth"
 scrot         = "scrot-mv"
 transmission  = "transmission-gtk"
 vivaldi       = "vivaldi"
