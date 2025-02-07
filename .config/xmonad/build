@@ -8,4 +8,4 @@ exec ghc \
   -fforce-recomp \
   -main-is main \
   -v0 \
-  -o "$1"
+  -o ~/.config/xmonad/xmonad-x86_64-linux
