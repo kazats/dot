@@ -1,42 +1,41 @@
 # version = "0.102.0"
 
-def create_left_prompt [] {
-}
+const bg_color = '#191724'
 
 def create_right_prompt [] {
-    let home = $nu.home-path
+    let dir = match (do -i { $env.PWD | path relative-to $nu.home-path }) {
+        null => $env.PWD
+        '' => '~'
+        $relative_pwd => ([~ $relative_pwd] | path join)
+    }
 
-    let dir = ([
-        ($env.PWD | str substring 0..<($home | str length) | str replace $home "~"),
-        ($env.PWD | str substring ($home | str length)..)
-    ] | str join)
-
-    let color = ansi -e { fg: black, bg: blue }
-    let path_color = (if (is-admin) { ansi red } else { $color })
-    let separator_color = (if (is-admin) { ansi light_red } else { ansi black })
-    let path_segment = $"($path_color) ($dir)"
-    let path = $" ($path_segment) " | str replace --all (char path_sep) $"($separator_color)/($path_color)"
+    let path_color = if (is-admin) { ansi red } else { ansi -e { fg: $bg_color, bg: blue } }
+    let separator_color = (if (is-admin) { ansi red } else { ansi -e { fg: $bg_color } })
+    let path_segment = $"($dir)"
+    let path = $" ($path_color) ($path_segment) " | str replace --all (char path_sep) $"($separator_color)/($path_color)"
 
     let git_status = gstat
     def changes_sum []: any -> int {
         transpose key value
-        | filter {|l| ($l.value | describe) == int }
+        | where (($it.value | describe) == int )
         | get value
-        | reduce {|x,acc| $x + $acc }
+        | math sum
     }
-    let git = if ($git_status.branch != no_branch) {([
+    let git = if $git_status.branch != no_branch {([
+        (char space)
         (if (($git_status | changes_sum) > 0) {
             ansi -e { fg: yellow }
         } else {
             ansi -e { fg: blue }
         })
-        (char space)
         $git_status.branch
-    ] | str join)
+        (ansi reset)
+    ] | str join "")
     }
 
     let last_exit_code = if ($env.LAST_EXIT_CODE != 0) {([
-        (ansi -e { fg: black, bg: red})
+        (char space)
+        (ansi -e { fg: black bg: red})
         (char space)
         ($env.LAST_EXIT_CODE)
         (char space)
@@ -44,27 +43,21 @@ def create_right_prompt [] {
     ] | str join)
     } else { "" }
 
-    ([$last_exit_code, $git, $path] | str join)
+    ([$last_exit_code $git $path] | str join)
 }
 
-$env.PROMPT_COMMAND = {|| create_left_prompt }
-$env.PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
+let prompt        = " ⟩ "
+let multiline     = " :: "
+let prompt_insert = ansi -e { fg: $bg_color bg: blue }
+let prompt_normal = ansi -e { fg: $bg_color bg: cyan }
+let trans_normal  = ansi -e { fg: dark_gray bg: default }
 
-let prompt_insert  = ansi -e { fg: black bg: blue }
-let prompt_normal  = ansi -e { fg: black bg: cyan }
-let trans_normal   = ansi -e { fg: dark_gray bg: default }
-$env.PROMPT_INDICATOR = {|| " ⟩ " }
-$env.PROMPT_INDICATOR_VI_INSERT = {|| $"($prompt_insert) ⟩ (ansi reset) " }
-$env.PROMPT_INDICATOR_VI_NORMAL = {|| $"($prompt_normal) ⟩ (ansi reset) " }
-$env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
-
-$env.TRANSIENT_PROMPT_COMMAND = {|| create_left_prompt }
-$env.TRANSIENT_PROMPT_INDICATOR = {|| " ⟩ " }
-$env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| $"($trans_normal)(do $env.PROMPT_COMMAND) ⟩  (ansi reset)" }
-$env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| $"($trans_normal)(do $env.PROMPT_COMMAND) ⟩  (ansi reset)" }
-$env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "::: " }
-$env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| $"($trans_normal)(create_right_prompt | ansi strip)(ansi reset)" }
-
+$env.PROMPT_COMMAND                       = {||}
+$env.PROMPT_COMMAND_RIGHT                 = {|| create_right_prompt }
+$env.PROMPT_INDICATOR                     = {|| $prompt }
+$env.PROMPT_INDICATOR_VI_INSERT           = {|| $"($prompt_insert)($prompt)(ansi reset) " }
+$env.PROMPT_INDICATOR_VI_NORMAL           = {|| $"($prompt_normal)($prompt)(ansi reset) " }
+$env.PROMPT_MULTILINE_INDICATOR           = {|| $multiline }
 
 # Note: The conversions happen *after* config.nu is loaded
 $env.ENV_CONVERSIONS = {
