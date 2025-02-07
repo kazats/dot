@@ -1234,10 +1234,8 @@ def 'polars duplicates-by' [select_expr] {
   $df | polars filter-with $mask
 }
 
-source ~/.config/nushell/plugins/zoxide.nu
-source ~/.config/nushell/plugins/atuin.nu
-source ~/.config/nushell/completions/atuin-completions.nu
-source ~/.config/nushell/completions/uv-completions.nu
+source ($NU_PLUGIN_DIRS | path join zoxide.nu)
+source ($NU_PLUGIN_DIRS | path join atuin.nu)
 
 def --env y [...args] {
   let tmp = (mktemp -t "yazi-cwd.XXXXX")
@@ -1249,5 +1247,6 @@ def --env y [...args] {
   rm -fp $tmp
 }
 
-use git-completions.nu *
-use modules/virtual_environments/nu_conda_2/conda.nu
+use atuin-completions.nu *
+use uv-completions.nu *
+use custom-completions/zellij/zellij-completions.nu *
