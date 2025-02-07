@@ -1222,6 +1222,11 @@ def icams [] {
   sudo openvpn icams.ovpn
 }
 
+def cmp [] {
+  cd ~/p/hs/cmpimg
+  cabal run cmpimg -- rating.db
+}
+
 def 'polars duplicates-by' [select_expr] {
   let df = $in
   let mask = $df | polars select $select_expr | polars is-duplicated
