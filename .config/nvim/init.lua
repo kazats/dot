@@ -132,6 +132,7 @@ require('lazy').setup({
   'tpope/vim-repeat',
   'tpope/vim-unimpaired',
   'tpope/vim-speeddating',
+  'tpope/vim-dadbod',
   -- 'tpope/vim-fugitive',
 
   -- 'ludovicchabant/vim-gutentags',
