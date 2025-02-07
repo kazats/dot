@@ -305,6 +305,7 @@ module completions {
     --help(-h)                # Print help
   ]
 
+  # Register a new account
   export extern "atuin account register" [
     --username(-u): string
     --password(-p): string
@@ -329,6 +330,12 @@ module completions {
     --help(-h)                # Print help
   ]
 
+  # Verify your account
+  export extern "atuin account verify" [
+    --token(-t): string
+    --help(-h)                # Print help
+  ]
+
   # Print this message or the help of the given subcommand(s)
   export extern "atuin account help" [
   ]
@@ -337,6 +344,7 @@ module completions {
   export extern "atuin account help login" [
   ]
 
+  # Register a new account
   export extern "atuin account help register" [
   ]
 
@@ -350,6 +358,10 @@ module completions {
 
   # Change your password
   export extern "atuin account help change-password" [
+  ]
+
+  # Verify your account
+  export extern "atuin account help verify" [
   ]
 
   # Print this message or the help of the given subcommand(s)
@@ -647,11 +659,17 @@ module completions {
     --help(-h)                # Print help
   ]
 
+  export extern "atuin wrapped" [
+    year?: string
+    --help(-h)                # Print help
+  ]
+
+  # *Experimental* Start the background daemon
   export extern "atuin daemon" [
     --help(-h)                # Print help
   ]
 
-  # Print example configuration
+  # Print the default atuin configuration (config.toml)
   export extern "atuin default-config" [
     --help(-h)                # Print help
   ]
@@ -828,6 +846,7 @@ module completions {
   export extern "atuin help account login" [
   ]
 
+  # Register a new account
   export extern "atuin help account register" [
   ]
 
@@ -841,6 +860,10 @@ module completions {
 
   # Change your password
   export extern "atuin help account change-password" [
+  ]
+
+  # Verify your account
+  export extern "atuin help account verify" [
   ]
 
   # Get or set small key-value pairs
@@ -940,10 +963,14 @@ module completions {
   export extern "atuin help doctor" [
   ]
 
+  export extern "atuin help wrapped" [
+  ]
+
+  # *Experimental* Start the background daemon
   export extern "atuin help daemon" [
   ]
 
-  # Print example configuration
+  # Print the default atuin configuration (config.toml)
   export extern "atuin help default-config" [
   ]
 

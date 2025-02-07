@@ -1,1 +1,0 @@
-/home/v/.config/nushell/scripts/custom-completions/zellij/zellij-completions.nu
