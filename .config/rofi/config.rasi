@@ -158,7 +158,7 @@ kb-row-down: "Control+j,Down,Control+n";
     red: #eb6f92;
     yel: #f6c177;
 
-    font: "JetBrains Mono 16";
+    font: "Iosevka Term Extended 16";
 
     foreground:        @fgd;
     background:        @bg;
@@ -174,7 +174,7 @@ kb-row-down: "Control+j,Down,Control+n";
 
 #window {
     width:            800px;
-    height:           400px;
+    height:           420px;
     padding:          0;
     background-color: @background;
     border:           2px;
