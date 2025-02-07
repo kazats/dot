@@ -1,4 +1,4 @@
-# version = "0.100"
+# version = "0.102.0"
 
 let $abbrs = {
     'clr':  'clear --keep-scrollback'
@@ -95,9 +95,11 @@ let dark_theme = {
     binary: purple
     cell-path: white
     row_index: dark_gray
+    closure: { fg: dark_gray attr: i }
     record: { fg: dark_gray attr: i }
     list: { fg: dark_gray attr: i }
     block: { fg: dark_gray attr: i }
+    glob: cyan
     hints: dark_gray
     search_result: { bg: yellow fg: black }
     shape_and: purple
@@ -113,11 +115,11 @@ let dark_theme = {
     shape_external_resolved: { fg: blue attr: i }
     shape_filepath: cyan
     shape_flag: blue
-    shape_float: yellow
+    shape_float: { fg: yellow attr: i }
     shape_garbage: red
     shape_glob_interpolation: purple
     shape_globpattern: cyan
-    shape_int: yellow
+    shape_int: { fg: yellow attr: i }
     shape_internalcall: { fg: green attr: i }
     shape_keyword: green
     shape_list: dark_gray
@@ -156,58 +158,58 @@ let carapace_completer = {|spans|
   | from json
 }
 
-let fish_completer = {|spans|
-    fish --command $'complete "--do-complete=($spans | str join " ")"'
-    | $"value(char tab)description(char newline)" + $in
-    | from tsv --flexible --no-infer
-}
-
-let zoxide_completer = {|spans|
-    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
-}
-
-let external_completer = {|spans|
-    let spans_orig = $spans
-
-    let spans_skip_sudo = if $spans.0 == sudo and ($spans | length) != 2 {
-        $spans | skip
-    } else {
-        $spans
-    }
-
-    let expanded_alias = scope aliases
-        | where name == $spans_skip_sudo.0
-        | get -i 0.expansion
-
-    let spans = if $expanded_alias != null {
-        $spans_skip_sudo
-        | skip 1
-        | prepend ($expanded_alias | split row ' ' | take 1)
-        #| append ''
-    } else {
-        $spans
-    }
-
-    #{ spans_orig: $spans_orig
-    #  spans_skip_sudo: $spans_skip_sudo
-    #  expanded_alias: $expanded_alias
-    #  spans: $spans
-    #} | to nuon | save -f ~/test/spans.nuon
-
-    match $spans.0 {
-        __zoxide_z => $zoxide_completer
-        #pacman     => $fish_completer
-        #systemctl  => $fish_completer
-        #git        => $fish_completer
-        # zellij     => $fish_completer
-        pijul      => $fish_completer
-        udisksctl  => $fish_completer
-        ghc        => $fish_completer
-        runhaskell => $fish_completer
-        cabal      => $fish_completer
-        _          => $carapace_completer
-    } | do $in $spans
-}
+# let fish_completer = {|spans|
+#     fish --command $'complete "--do-complete=($spans | str join " ")"'
+#     | $"value(char tab)description(char newline)" + $in
+#     | from tsv --flexible --no-infer
+# }
+#
+# let zoxide_completer = {|spans|
+#     $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
+# }
+#
+# let external_completer = {|spans|
+#     let spans_orig = $spans
+#
+#     let spans_skip_sudo = if $spans.0 == sudo and ($spans | length) != 2 {
+#         $spans | skip
+#     } else {
+#         $spans
+#     }
+#
+#     let expanded_alias = scope aliases
+#         | where name == $spans_skip_sudo.0
+#         | get -i 0.expansion
+#
+#     let spans = if $expanded_alias != null {
+#         $spans_skip_sudo
+#         | skip 1
+#         | prepend ($expanded_alias | split row ' ' | take 1)
+#         #| append ''
+#     } else {
+#         $spans
+#     }
+#
+#     #{ spans_orig: $spans_orig
+#     #  spans_skip_sudo: $spans_skip_sudo
+#     #  expanded_alias: $expanded_alias
+#     #  spans: $spans
+#     #} | to nuon | save -f ~/test/spans.nuon
+#
+#     match $spans.0 {
+#         __zoxide_z => $zoxide_completer
+#         #pacman     => $fish_completer
+#         #systemctl  => $fish_completer
+#         #git        => $fish_completer
+#         # zellij     => $fish_completer
+#         pijul      => $fish_completer
+#         udisksctl  => $fish_completer
+#         ghc        => $fish_completer
+#         runhaskell => $fish_completer
+#         cabal      => $fish_completer
+#         _          => $carapace_completer
+#     } | do $in $spans
+# }
 
 $env.config = {
     show_banner: false
@@ -280,14 +282,14 @@ $env.config = {
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-            completer: $external_completer # check 'carapace_completer' above as an example
+            completer: $carapace_completer # check 'carapace_completer' above as an example
         }
         use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
 
     filesize: {
-        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-        format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
+        unit: metric
+        precision: 1
     }
 
     cursor_shape: {
