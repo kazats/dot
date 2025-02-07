@@ -140,21 +140,26 @@ let dark_theme = {
     shape_raw_string: yellow
 }
 
-# External completer example
-# let carapace_completer = {|spans|
-#     carapace $spans.0 nushell ...$spans | from json
-# }
+let carapace_completer = {|spans|
+  # if the current command is an alias, get it's expansion
+  let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+
+  # overwrite
+  let spans = (if $expanded_alias != null  {
+    # put the first word of the expanded alias first in the span
+    $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
+  } else {
+    $spans | skip 1 | prepend ($spans.0)
+  })
+
+  carapace $spans.0 nushell ...$spans
+  | from json
+}
 
 let fish_completer = {|spans|
     fish --command $'complete "--do-complete=($spans | str join " ")"'
     | $"value(char tab)description(char newline)" + $in
     | from tsv --flexible --no-infer
-}
-
-let carapace_completer = {|spans: list<string>|
-    carapace $spans.0 nushell ...$spans
-        | from json
-        | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
 }
 
 let zoxide_completer = {|spans|
@@ -194,7 +199,7 @@ let external_completer = {|spans|
         #pacman     => $fish_completer
         #systemctl  => $fish_completer
         #git        => $fish_completer
-        zellij     => $fish_completer
+        # zellij     => $fish_completer
         pijul      => $fish_completer
         udisksctl  => $fish_completer
         ghc        => $fish_completer
