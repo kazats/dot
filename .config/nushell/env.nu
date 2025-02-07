@@ -1,6 +1,4 @@
-# Nushell Environment Config File
-#
-# version = "0.100"
+# version = "0.102.0"
 
 def create_left_prompt [] {
 }
