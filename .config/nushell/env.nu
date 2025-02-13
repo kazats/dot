@@ -47,7 +47,7 @@ def create_right_prompt [] {
 }
 
 let prompt        = " ⟩ "
-let multiline     = " :: "
+let multiline     = "::: "
 let prompt_insert = ansi -e { fg: $bg_color bg: blue }
 let prompt_normal = ansi -e { fg: $bg_color bg: cyan }
 let trans_normal  = ansi -e { fg: dark_gray bg: default }
