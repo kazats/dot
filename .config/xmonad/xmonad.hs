@@ -79,8 +79,8 @@ myLayout
 
 
 myManageHook = composeAll $ concatMap withMatch
-    [ shift "1" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
-    , shift "q" ｜ []
+    [ shift "1" ｜ []
+    , shift "q" ｜ ["Chromium", "Firefox", "google-chrome", "Opera", "vivaldi-stable"]
     , shift "a" ｜ []
     , shift "z" ｜ []
 
