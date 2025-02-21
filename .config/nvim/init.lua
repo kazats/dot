@@ -161,7 +161,7 @@ require('lazy').setup({
       },
     },
     opts = {
-      open_for_directories = true,
+      open_for_directories = false,
 
       -- enable these if you are using the latest version of yazi
       use_ya_for_events_reading = true,
@@ -916,6 +916,11 @@ lspconfig.gleam.setup({
   capabilities = capabilities
 })
 
+-- lspconfig.nushell.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities
+-- })
+
 mason_lspconfig.setup()
 mason_lspconfig.setup_handlers({
   function(server_name)
@@ -1431,6 +1436,15 @@ maps(o_ns, {
     },
   },
 })
+
+-- vim.opt.sh = "/usr/bin/nu"
+-- vim.opt.shelltemp = false
+-- vim.opt.shellredir = "out+err> %s"
+-- vim.opt.shellcmdflag = "--login --stdin --no-newline -c"
+-- vim.opt.shellxescape = ""
+-- vim.opt.shellxquote = ""
+-- vim.opt.shellquote = ""
+-- vim.opt.shellpipe = '| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record'
 
 vim.cmd([[
     set shell=/bin/bash
