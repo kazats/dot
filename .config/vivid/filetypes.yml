@@ -146,7 +146,6 @@ programming:
     assembly: [.asm]
     awk: [.awk]
     basic: [.vb]
-    cabal: [.cabal]
     clojure: [.clj]
     crystal: [.cr]
     csharp: [.cs, .csx]
@@ -253,6 +252,8 @@ programming:
         - requirements.txt
 
     packaging:
+      haskell:
+        - .cabal
       go:
         - go.mod
       python:
