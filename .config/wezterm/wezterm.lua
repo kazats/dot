@@ -114,7 +114,7 @@ return {
     'HanaMinB',
     'Unifont',
   },
-  font_size                                   = 16,
+  font_size                                   = 14,
   colors                                      = rose_pine,
   -- color_scheme                                = 'Catppuccin Mocha',
 
