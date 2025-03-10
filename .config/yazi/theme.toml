@@ -55,16 +55,16 @@ syntect_theme = ""
 
 [mode]
 
-normal_main = { fg = "black", bg = "cyan" }
-normal_alt  = { fg = "cyan", bg = "reset" }
+normal_main = { fg = "#191724", bg = "cyan" }
+normal_alt  = { fg = "cyan", bg = "#191724" }
 
 # Select mode
-select_main = { fg = "black", bg = "magenta" }
-select_alt  = { fg = "magenta", bg = "reset" }
+select_main = { fg = "#191724", bg = "magenta" }
+select_alt  = { fg = "magenta", bg = "#191724" }
 
 # Unset mode
-unset_main = { fg = "black", bg = "red" }
-unset_alt  = { fg = "red", bg = "reset" }
+unset_main = { fg = "#191724", bg = "red" }
+unset_alt  = { fg = "red", bg = "#191724" }
 
 # : }}}
 
@@ -72,8 +72,8 @@ unset_alt  = { fg = "red", bg = "reset" }
 # : Status bar {{{
 
 [status]
-separator_open  = ""
-separator_close = ""
+separator_open  = "█"
+separator_close = "█"
 
 # Progress
 progress_label  = {}
