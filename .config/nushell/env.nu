@@ -92,6 +92,7 @@ $env.PATH = $env.PATH | split row (char esep) | prepend [
   ($env.HOME | path join .local bin)
   ($env.HOME | path join .cabal bin)
   ($env.HOME | path join .ghcup bin)
+  ($env.HOME | path join .config emacs bin)
   #~/.local/opt/go/bin
   #~/Android/Sdk/cmdline-tools/latest/bin
 ] | uniq
@@ -138,6 +139,7 @@ $env.PARALLEL_HOME      = $env.XDG_CONFIG_HOME | path join parallel
 $env.MPLAYER_HOME       = $env.XDG_CONFIG_HOME | path join mplayer
 $env.ZDOTDIR            = $env.XDG_CONFIG_HOME | path join zsh
 $env.BUNDLE_USER_CONFIG = $env.XDG_CONFIG_HOME | path join bundle
+$env.DOOMDIR            = $env.XDG_CONFIG_HOME | path join doom
 
 $env.ANDROID_HOME       = $env.XDG_DATA_HOME   | path join Android Sdk
 $env.WINEPREFIX         = $env.XDG_DATA_HOME   | path join wine
