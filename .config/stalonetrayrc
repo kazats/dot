@@ -1,8 +1,19 @@
 # vim:filetype=config:tw=80:et
+#
+# This is sample ~/.stalonetrayrc, resembling default configuration.
+# Remember: command line parameters take precedence.
+#
+# Directives introduced in @VERSION_STR@ are marked with "NEW in @VERSION_STR@"
+#
+####################################################################
+#
+# stalonetray understands following directives
+#
+####################################################################
 
 # background <color>         # color can be specified as an HTML hex triplet or
                              # as a name from rgb.txt, note that '#' must be quoted
-background "#000000"
+background "#777777"
 
 # decorations <decspec>      # set trays window decorations; possible values for
                              # decspec are: all, title, border, none
@@ -12,8 +23,8 @@ decorations none
 
 # dockapp_mode <mode>        # set dockapp mode, which can be either simple (for
                              # e.g. OpenBox, wmaker for WindowMaker, or none
-                             # (default). NEW in 0.8.
-dockapp_mode none
+                             # (default). NEW in @VERSION_STR@.
+dockapp_mode simple
 
 # fuzzy_edges [<level>]      # enable fuzzy edges and set fuzziness level. level
                              # can be from 0 (disabled) to 3; this setting works
@@ -23,39 +34,44 @@ fuzzy_edges 0
 
 # geometry <geometry>        # tray's geometry in standard X notation; width and
                              # height are specified in slot_size multiples
-# geometry 1x1+165
+geometry 1x1+0+0
 
 # grow_gravity <gravity>     # one of N, S, E, W, NW, NE, SW, SE; tray will grow
                              # in the direction opposite to one specified by
-                             # grow_gravity; if horizontal or vertical
-                             # direction is not specified, tray will not grow in
-                             # that direction
+							 # grow_gravity; if horizontal or vertical
+							 # direction is not specified, tray will not grow in
+							 # that direction
 grow_gravity NW
 
 # icon_gravity <gravity>     # icon placement gravity, one of NW, NE, SW, SE
 icon_gravity NW
 
-# icon_size <int>            # specifies dimensions of typical icon slot
-icon_size 16
+# icon_size <int>            # specifies dimensions of an icon
+icon_size 24
+
+# slot_size <w>[x<h>]        # specifies width and hight of an icon slot that
+                             # contains icon; must be larger than icon size;
+                             # height is set to width if it is omitted;
+                             # defaults to icon size
+slot_size 32x64
 
 # log_level <level>          # controls the amount of logging output, level can
                              # be err (default), info, or trace (enabled only
                              # when stalonetray configured with --enable-debug)
-                             # NEW in 0.8.
+                             # NEW in @VERSION_STR@.
 log_level err
 
 # kludges kludge[,kludge]    # enable specific kludges to work around
                              # non-conforming WMs and/or stalonetray bugs.
-                             # NEW in 0.8. Argument is a
+                             # NEW in @VERSION_STR@. Argument is a
                              # comma-separated list of
                              # * fix_window_pos - fix tray window position on
                              #     erroneous moves by WM
-                             # * force_icon_size - ignore resize events on all
+                             # * force_icons_size - ignore resize events on all
                              #     icons; force their size to be equal to
                              #     icon_size
                              # * use_icon_hints - use icon window hints to
                              #     dtermine icon size
-kludges fix_window_pos,force_icons_size
 
 # max_geometry <geometry>    # maximal tray dimensions; 0 in width/height means
                              # no limit
@@ -64,7 +80,7 @@ max_geometry 0x0
 # no_shrink [<bool>]         # disables shrink-back mode
 no_shrink false
 
-# parent_bg [<bool>]         # whether to use pseudo-transparency 
+# parent_bg [<bool>]         # whether to use pseudo-transparency
                              # (looks better when reparented into smth like FvwmButtons)
 parent_bg false
 
@@ -73,7 +89,7 @@ parent_bg false
 
 # scrollbars <mode>          # enable/disable scrollbars; mode is either
                              # vertical, horizontal, all or none (default)
-                             # NEW in 0.8.
+                             # NEW in @VERSION_STR@.
 scrollbars none
 
 # scrollbars-size <size>     # scrollbars step in pixels; default is slot_size / 4
@@ -83,7 +99,7 @@ scrollbars none
 # scrollbars-step 32
 
 # slot_size <int>            # specifies size of icon slot, defaults to
-                             # icon_size NEW in 0.8.
+                             # icon_size NEW in @VERSION_STR@.
 
 # skip_taskbar [<bool>]      # hide tray`s window from the taskbar
 skip_taskbar true
@@ -108,7 +124,7 @@ transparent false
 vertical false
 
 # window_layer <layer>       # set the EWMH-compatible window layer; one of:
-                             # bootom, normal, top
+                             # bottom, normal, top
 window_layer normal
 
 # window_strut <mode>        # enable/disable window struts for tray window (to
@@ -124,3 +140,4 @@ window_type dock
 
 # xsync [<bool>]             # whether to operate on X server synchronously (SLOOOOW)
 xsync false
+
