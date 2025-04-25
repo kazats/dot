@@ -97,7 +97,7 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "4" ｜ ["htop"]
     , shift "r" ｜ ["Transmission-gtk"]
     , shift "f" ｜ ["vmwafe", "VirtualBox Manager", "VirtualBox Machine"]
-    , shift "v" ｜ ["easyeffects"]
+    , shift "v" ｜ ["easyeffects", "protonvpn-app"]
 
     , dofloat   ｜ ["foxwq.exe", "lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
     , ignore    ｜ ["desktop", "desktop_window", "trayer"]
