@@ -417,6 +417,17 @@ require('lazy').setup({
   },
 
   {
+    'isovector/cornelis',
+    name = 'cornelis',
+    ft = 'agda',
+    -- build = 'stack install',
+    dependencies = {'neovimhaskell/nvim-hs.vim', 'kana/vim-textobj-user'},
+    version = 'v2.7.*',
+  },
+
+  'liuchengxu/vim-which-key',
+
+  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
@@ -1342,6 +1353,9 @@ local dap = require('dap')
 --   },
 -- }
 
+
+vim.g.cornelis_use_global_binary = 1
+
 maps(o_ns, {
   n = {
     {
@@ -1555,6 +1569,26 @@ vim.cmd([[
 
     nnoremap <silent> <F11> :set spell!<cr>
     inoremap <silent> <F11> <C-o>:set spell!<cr>
+
+
+    au BufRead,BufNewFile *.agda call AgdaFiletype()
+    au QuitPre *.agda :CornelisCloseInfoWindows
+    function! AgdaFiletype()
+        nnoremap <buffer> <localleader>l :CornelisLoad<CR>
+        nnoremap <buffer> <localleader>r :CornelisRefine<CR>
+        nnoremap <buffer> <localleader>d :CornelisMakeCase<CR>
+        nnoremap <buffer> <localleader>, :CornelisTypeContext<CR>
+        nnoremap <buffer> <localleader>. :CornelisTypeContextInfer<CR>
+        nnoremap <buffer> <localleader>n :CornelisSolve<CR>
+        nnoremap <buffer> <localleader>a :CornelisAuto<CR>
+        nnoremap <buffer> gd             :CornelisGoToDefinition<CR>
+        nnoremap <buffer> [/             :CornelisPrevGoal<CR>
+        nnoremap <buffer> ]/             :CornelisNextGoal<CR>
+        nnoremap <buffer> <C-A>          :CornelisInc<CR>
+        nnoremap <buffer> <C-X>          :CornelisDec<CR>
+    endfunction
+
+    inoremap <localleader> <C-O>:call cornelis#prompt_input()<CR>
 ]])
 
 -- vim: ts=2 sts=2 sw=2 et
