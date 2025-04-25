@@ -11,21 +11,21 @@ require("bookmarks"):setup({
 })
 
 require("git"):setup()
-THEME.git = THEME.git or {}
+th.git = th.git or {}
 
-THEME.git.modified = ui.Style():fg("blue")
-THEME.git.added = ui.Style():fg("blue")
-THEME.git.untracked = ui.Style():fg("blue")
-THEME.git.ignored = ui.Style():fg("blue")
-THEME.git.deleted = ui.Style():fg("blue")
-THEME.git.updated = ui.Style():fg("blue")
+th.git.modified = ui.Style():fg("blue")
+th.git.added = ui.Style():fg("blue")
+th.git.untracked = ui.Style():fg("blue")
+th.git.ignored = ui.Style():fg("blue")
+th.git.deleted = ui.Style():fg("blue")
+th.git.updated = ui.Style():fg("blue")
 
-THEME.git.modified_sign = "M"
-THEME.git.added_sign = "A"
-THEME.git.untracked_sign = "?"
-THEME.git.ignored_sign = "I"
-THEME.git.deleted_sign = "D"
-THEME.git.updated_sign = "U"
+th.git.modified_sign = "M"
+th.git.added_sign = "A"
+th.git.untracked_sign = "?"
+th.git.ignored_sign = "I"
+th.git.deleted_sign = "D"
+th.git.updated_sign = "U"
 
 function Status:name()
   local h = self._current.hovered
