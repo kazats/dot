@@ -104,7 +104,7 @@ return {
     -- 'JetBrains Mono', --/ Fira Code / Iosevka / Cascadia Code
     -- 'IosevkaTerm NF Light',
     -- 'NotoSans Nerd Font',
-    'Iosevka Term Light Extended',
+    'IosevkaTerm NF',
     'Noto Sans Mono',
     'Noto Color Emoji',
     'Symbols Nerd Font Mono',
