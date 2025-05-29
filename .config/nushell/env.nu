@@ -84,9 +84,9 @@ $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| $multiline }
 #     ($nu.default-config-dir | path join 'completions')
 # ]
 
-# $env.NU_PLUGIN_DIRS = [
-#     ($nu.default-config-dir | path join 'plugins')
-# ]
+const NU_PLUGIN_DIRS = [
+    ($nu.default-config-dir | path join 'plugins')
+]
 
 $env.PATH = $env.PATH | split row (char esep) | prepend [
   ($env.HOME | path join .local bin)
