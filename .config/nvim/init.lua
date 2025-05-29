@@ -933,50 +933,50 @@ lspconfig.gleam.setup({
 -- })
 
 mason_lspconfig.setup()
-mason_lspconfig.setup_handlers({
-  function(server_name)
-    if server_name == 'sumneko_lua' then
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-          },
-        },
-      })
-    -- elseif server_name == 'hls' then
-    --   lspconfig[server_name].setup({
-    --     on_attach = on_attach,
-    --     capabilities = capabilities,
-    --     settings = {
-    --       haskell = {
-    --         formattingProvider = "fourmolu",
-    --         -- plugin = {
-    --         --   ghcideCodeActionsTypeSignatures = true
-    --         -- }
-    --       },
-    --     },
-    --   })
-    elseif server_name == 'julials' then
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        root_dir = function(fname)
-          local util = require('lspconfig.util')
-          return util.root_pattern 'Project.toml'(fname) or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1]) or vim.fs.dirname(fname)
-        end
-      })
-    else
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-    end
-  end,
-})
+-- mason_lspconfig.setup_handlers({
+--   function(server_name)
+--     if server_name == 'sumneko_lua' then
+--       lspconfig[server_name].setup({
+--         on_attach = on_attach,
+--         capabilities = capabilities,
+--         settings = {
+--           Lua = {
+--             completion = {
+--               callSnippet = 'Replace',
+--             },
+--           },
+--         },
+--       })
+--     -- elseif server_name == 'hls' then
+--     --   lspconfig[server_name].setup({
+--     --     on_attach = on_attach,
+--     --     capabilities = capabilities,
+--     --     settings = {
+--     --       haskell = {
+--     --         formattingProvider = "fourmolu",
+--     --         -- plugin = {
+--     --         --   ghcideCodeActionsTypeSignatures = true
+--     --         -- }
+--     --       },
+--     --     },
+--     --   })
+--     elseif server_name == 'julials' then
+--       lspconfig[server_name].setup({
+--         on_attach = on_attach,
+--         capabilities = capabilities,
+--         root_dir = function(fname)
+--           local util = require('lspconfig.util')
+--           return util.root_pattern 'Project.toml'(fname) or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1]) or vim.fs.dirname(fname)
+--         end
+--       })
+--     else
+--       lspconfig[server_name].setup({
+--         on_attach = on_attach,
+--         capabilities = capabilities,
+--       })
+--     end
+--   end,
+-- })
 
 -- require('flutter-tools').setup({
 --   ui = {
@@ -1588,7 +1588,7 @@ vim.cmd([[
         nnoremap <buffer> <C-X>          :CornelisDec<CR>
     endfunction
 
-    inoremap <localleader> <C-O>:call cornelis#prompt_input()<CR>
+    " inoremap <localleader> <C-O>:call cornelis#prompt_input()<CR>
 ]])
 
 -- vim: ts=2 sts=2 sw=2 et
