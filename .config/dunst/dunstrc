@@ -38,7 +38,7 @@
     ignore_newline = no
 
     width = (305, 500) #(100, 500)
-    offset = 30x30
+    offset = (30, 30)
 
     # The transparency of the window. range: [0; 100]
     # This option will only work if a compositing windowmanager is present (e.g. xcompmgr, compiz, etc..)
