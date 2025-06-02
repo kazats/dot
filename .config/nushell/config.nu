@@ -1236,6 +1236,42 @@ def 'polars duplicates-by' [select_expr] {
   $df | polars filter-with $mask
 }
 
+def span-once [f: closure]: list<any> -> list<record<fst: list<any>, snd: list<any>>> {
+  let data = $in
+
+  match $data {
+    [] => []
+    _ => {
+      let useful = $data | skip until $f
+      let match = $useful | first
+      let chunk = $useful | skip | take until $f
+      let rest = $useful | skip | skip ($chunk | length)
+
+      [{ fst: ($match | append $chunk), snd: $rest }]
+    }
+  }
+}
+
+def span-by [f: closure]: list<any> -> list<list<any>> {
+  let data = $in
+  let is = $data | enumerate | flatten | filter $f | get index
+  let rs = $is
+  | append $is
+  | sort | skip
+  | append [($data | length)]
+  | chunks 2
+  | each { $in.0..<$in.1 }
+
+  $rs | each {|it| $data | slice $it }
+}
+
+def unfold [f: closure]: any -> list<any> {
+  match (do $f $in) {
+    [{ fst: $a, snd: $b }] => ([$a] | append ($b | unfold $f))
+    [] => []
+  }
+}
+
 source ($NU_PLUGIN_DIRS | path join zoxide.nu)
 source ($NU_PLUGIN_DIRS | path join atuin.nu)
 
