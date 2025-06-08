@@ -88,16 +88,6 @@ const NU_PLUGIN_DIRS = [
     ($nu.default-config-dir | path join 'plugins')
 ]
 
-$env.PATH = $env.PATH | split row (char esep) | prepend [
-  ($env.HOME | path join .local bin)
-  ($env.HOME | path join .cabal bin)
-  ($env.HOME | path join .ghcup bin)
-  ($env.HOME | path join .config emacs bin)
-  #~/.local/opt/go/bin
-  #~/Android/Sdk/cmdline-tools/latest/bin
-] | uniq
-
-
 use ($NU_PLUGIN_DIRS | path join bash-env-nushell/bash-env.nu)
 bash-env /etc/profile | load-env
 
@@ -145,6 +135,7 @@ $env.ANDROID_HOME       = $env.XDG_DATA_HOME   | path join Android Sdk
 $env.WINEPREFIX         = $env.XDG_DATA_HOME   | path join wine
 $env.LEIN_HOME          = $env.XDG_DATA_HOME   | path join lein
 $env.CARGO_HOME         = $env.XDG_DATA_HOME   | path join cargo
+$env.GOPATH             = $env.XDG_DATA_HOME   | path join go
 $env.JULIA_DEPOT_PATH   = [($env.XDG_DATA_HOME | path join julia) ($env.JULIA_DEPOT_PATH? | default '')] | str join ':'
 
 $env.SQLITE_HISTORY     = $env.XDG_CACHE_HOME  | path join sqlite_history
@@ -166,8 +157,17 @@ $env.FZF_DEFAULT_OPTS   = [
 
 # $env.CHROME_EXECUTABLE  = '/usr/bin/google-chrome-stable'
 # $env.QT_STYLE_OVERRIDE   = "GTK+"
-# $env.GOPATH              = $env.HOME | path join .local opt go
 # $env.LIBVA_DRIVER_NAME   = "radeonsi"
 # $env.VDPAU_DRIVER        = "nvidia"
 # $env.LIBVA_DRIVER_NAME   = "vdpau"
 # $env.XDG_SCREENSHOTS_DIR = ~/m/p/scr
+
+
+$env.PATH = $env.PATH | split row (char esep) | prepend [
+  ($env.HOME | path join .local bin)
+  ($env.HOME | path join .cabal bin)
+  ($env.HOME | path join .ghcup bin)
+  ($env.HOME | path join .config emacs bin)
+  ($env.GOPATH | path join bin)
+  #~/Android/Sdk/cmdline-tools/latest/bin
+] | uniq
