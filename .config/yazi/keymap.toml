@@ -2,7 +2,7 @@
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
 
-[manager]
+[mgr]
 
 keymap = [
 	{ on = "<Esc>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
@@ -373,32 +373,32 @@ keymap = [
 	{ on = "f", run = "filter", desc = "Apply a filter for the help items" },
 ]
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "b", "m" ]
 run  = "plugin bookmarks --args=save"
 desc = "Save current position as a bookmark"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "'" ]
 run  = "plugin bookmarks --args=jump"
 desc = "Jump to a bookmark"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "b", "d" ]
 run  = "plugin bookmarks --args=delete"
 desc = "Delete a bookmark"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "b", "D" ]
 run  = "plugin bookmarks --args=delete_all"
 desc = "Delete all bookmarks"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = "F"
 run  = "plugin jump-to-char"
 desc = "Jump to char"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "c", "m" ]
 run  = "plugin chmod"
 desc = "Chmod selected files"
