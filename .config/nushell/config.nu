@@ -250,8 +250,8 @@ $env.config = {
     # Behavior without this configuration point will be to "humanize" the datetime display,
     # showing something like "a day ago."
     datetime_format: {
-        normal: '%A, %Y-%m-%d %H:%M:%S %z'    # shows up in displays of variables or other datetime's outside of tables
-        table: '%Y-%m-%d %H:%M:%S'          # generally shows up in tabular outputs such as ls. commenting this out will change it to the default human readable datetime format
+        normal: '%A, %F %H:%M:%S %z'    # shows up in displays of variables or other datetime's outside of tables
+        table: '%F %a %H:%M:%S'          # generally shows up in tabular outputs such as ls. commenting this out will change it to the default human readable datetime format
     }
 
     explore: {
