@@ -88,6 +88,14 @@ const NU_PLUGIN_DIRS = [
     ($nu.default-config-dir | path join 'plugins')
 ]
 
+$env.PATH = $env.PATH | split row (char esep) | prepend [
+  ($env.HOME | path join .local bin)
+  ($env.HOME | path join .cabal bin)
+  ($env.HOME | path join .ghcup bin)
+  ($env.HOME | path join .config emacs bin)
+  #~/Android/Sdk/cmdline-tools/latest/bin
+] | uniq
+
 use ($NU_PLUGIN_DIRS | path join bash-env-nushell/bash-env.nu)
 bash-env /etc/profile | load-env
 
@@ -162,12 +170,6 @@ $env.FZF_DEFAULT_OPTS   = [
 # $env.LIBVA_DRIVER_NAME   = "vdpau"
 # $env.XDG_SCREENSHOTS_DIR = ~/m/p/scr
 
-
 $env.PATH = $env.PATH | split row (char esep) | prepend [
-  ($env.HOME | path join .local bin)
-  ($env.HOME | path join .cabal bin)
-  ($env.HOME | path join .ghcup bin)
-  ($env.HOME | path join .config emacs bin)
   ($env.GOPATH | path join bin)
-  #~/Android/Sdk/cmdline-tools/latest/bin
 ] | uniq
