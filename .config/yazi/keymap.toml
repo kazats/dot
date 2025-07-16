@@ -143,7 +143,7 @@ keymap = [
 	{ on = "}", run = "tab_swap 1",  desc = "Swap current tab with next tab" },
 
 	# Tasks
-	{ on = "T", run = "tasks_show", desc = "Show task manager" },
+	{ on = "T", run = "tasks:show", desc = "Show task manager" },
 
 	# Goto
 	{ on = [ "g", "h" ],        run = "cd ~",               desc = "~" },
