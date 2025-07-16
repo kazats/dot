@@ -1254,7 +1254,7 @@ def span-once [f: closure]: list<any> -> list<record<fst: list<any>, snd: list<a
 
 def span-by [f: closure]: list<any> -> list<list<any>> {
   let data = $in
-  let is = $data | enumerate | flatten | filter $f | get index
+  let is = $data | enumerate | flatten | where $f | get index
   let rs = $is
   | append $is
   | sort | skip
