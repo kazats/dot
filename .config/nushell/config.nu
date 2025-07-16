@@ -1272,6 +1272,47 @@ def unfold [f: closure]: any -> list<any> {
   }
 }
 
+def 'liga credentials' []: nothing -> path {
+  '~/d/formal/security/google/kazatsu-300cd7be464f.json' | path expand
+}
+
+def 'liga id' []: nothing -> string {
+  '1fj2xdeAbf1zhgLbhXFYUL1zGbm54M3WLQFN7fJaWtmE'
+}
+
+def 'liga get-players' []: string -> list<string> {
+  lines | first | split row , | where ($it | is-not-empty) | str downcase
+}
+
+def 'liga meetings' []: nothing -> table {
+  let raw = GOOGLE_APPLICATION_CREDENTIALS=$'(liga credentials)' gsheet csv --id (liga id) --range 'Meetings'
+  let players = $raw | liga get-players
+
+  let meetings = $raw | lines | skip | str join "\n" | from csv
+  | rename half home index opp datetime ...$players
+  | update half { match $in { H => 1, _ => 2 } }
+  | update home { match $in { H => true, _ => false } }
+  | update datetime { str replace -r '\(.\)' '' | into datetime }
+
+  $players | reduce -f $meetings {|x, acc| $acc | into bool $x }
+}
+
+def 'liga availability' []: nothing -> table {
+  let raw = GOOGLE_APPLICATION_CREDENTIALS=$'(liga credentials)' gsheet csv --id (liga id) --range 'Availability'
+  let players = $raw | liga get-players
+
+  let meetings = $raw | lines | skip | str join "\n" | from csv
+  | rename id opp datetime final ...$players
+  | into bool final
+  | update datetime { str replace -r '\(.\)' '' | into datetime }
+
+  $players | reduce -f $meetings {|x, acc| $acc | into bool $x }
+}
+
+def 'liga availability-grouped' []: nothing -> table {
+  liga availability | group-by id | transpose id data
+}
+
 source ($NU_PLUGIN_DIRS | path join zoxide.nu)
 source ($NU_PLUGIN_DIRS | path join atuin.nu)
 
