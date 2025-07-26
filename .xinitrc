@@ -36,11 +36,12 @@ fi
 
 # eval $(gnome-keyring-daemon --start)
 # export SSH_AUTH_SOCK
-
-setxkbmap -option compose:menu
 # autorandr -c &
 # xrandr --setprovideroutputsource modesetting NVIDIA-0
 # xrandr --auto
+
+setxkbmap -option compose:menu
+pactl set-card-profile 47 output:hdmi-stereo
 disp
 
 exec xmonad-x86_64-linux
