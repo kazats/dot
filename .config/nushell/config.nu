@@ -144,7 +144,7 @@ let dark_theme = {
 
 let carapace_completer = {|spans|
   # if the current command is an alias, get it's expansion
-  let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+  let expanded_alias = (scope aliases | where name == $spans.0 | get -o 0.expansion)
 
   # overwrite
   let spans = (if $expanded_alias != null  {
