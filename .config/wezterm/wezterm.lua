@@ -129,6 +129,7 @@ return {
   use_ime                                     = true,
   enable_kitty_keyboard                       = true,
   max_fps                                     = 240,
+  -- enable_wayland                              = false,
   -- front_end                                   = 'WebGpu',
   -- webgpu_power_preference                     = 'HighPerformance'
 
