@@ -50,6 +50,7 @@ let $abbrs = {
     'pmqi': 'pacman -Qi'
     'pmqm': 'pacman -Qm'
     'bt':   'bluetuith'
+    'nt':   'nmtui-connect'
 
     'za':   'zathura'
     'lo':   'libreoffice'
