@@ -21,8 +21,13 @@
 .local/share/Anki
 .local/share/icons/
 .local/share/lutris
+.local/share/nvim
 .local/share/jupyter
 .local/share/fish/generated_completions
+.local/share/stack
+.local/share/ghcup
+.local/share/cargo
+.local/share/zed
 .local/state
 .anki
 .cabal
