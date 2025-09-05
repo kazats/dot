@@ -85,12 +85,12 @@ let dark_theme = {
     header: dark_gray
     empty: dark_gray
     bool: cyan
-    int: yellow
+    int: { fg: yellow attr: i }
     filesize: cyan
     duration: purple
     date: purple
     range: yellow
-    float: yellow
+    float: { fg: yellow attr: i }
     string: white
     nothing: dark_gray
     binary: purple
