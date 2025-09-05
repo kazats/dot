@@ -75,6 +75,7 @@ alias e  = explore --index
 alias p  = parui
 alias v  = nvim
 alias gg = lazygit
+alias sk = sk --color=none,fg:8,matched:#191724,matched_bg:8,current:3,current_match:#191724,current_match_bg:3,spinner:1,info:8,prompt:8,cursor:#191724,selected:3,header:7,border:#191724
 
 let dark_theme = {
     # Closures can be used to choose colors for specific values.
@@ -635,6 +636,28 @@ $env.config = {
             }
         }
         {
+            name: show_env
+            modifier: control
+            keycode: char_v
+            mode: [emacs, vi_insert]
+            event: {
+                send: ExecuteHostCommand
+                cmd:
+                    "$env | transpose key val | sk -f { get key } -p { get val }"
+            }
+        }
+        {
+            name: fd
+            modifier: control
+            keycode: char_f
+            mode: [emacs, vi_insert]
+            event: {
+                send: ExecuteHostCommand
+                cmd:
+                    "fd -H | lines | sk -p { bat --color=always $in }"
+            }
+        }
+        {
             name: completion_menu
             modifier: control
             keycode: char_n
@@ -955,19 +978,19 @@ $env.config = {
                 ]
             }
         }
-        {
-            name: move_right_or_take_history_hint
-            modifier: control
-            keycode: char_f
-            mode: emacs
-            event: {
-                until: [
-                    { send: historyhintcomplete }
-                    { send: menuright }
-                    { send: right }
-                ]
-            }
-        }
+        # {
+        #     name: move_right_or_take_history_hint
+        #     modifier: control
+        #     keycode: char_f
+        #     mode: emacs
+        #     event: {
+        #         until: [
+        #             { send: historyhintcomplete }
+        #             { send: menuright }
+        #             { send: right }
+        #         ]
+        #     }
+        # }
         {
             name: redo_change
             modifier: control
