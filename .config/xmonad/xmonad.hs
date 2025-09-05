@@ -339,10 +339,10 @@ myStartupHook = do
        -- , nitrogen
        , fcitx
        , mainTerminal
-       , htop
+       -- , htop
        , yazi
        , redshift
-       , easyeffects
+       -- , easyeffects
        ]
 
 
