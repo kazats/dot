@@ -973,7 +973,7 @@ $env.config = {
             modifier: control
             keycode: char_r
             mode: [vi_normal]
-            event: {edit: redo}
+            event: { edit: redo }
         }
         {
             name: redo_change
