@@ -200,6 +200,11 @@ return {
         end),
       },
     },
+
+    { key = 'Enter',
+      mods = 'ALT',
+      action = act.DisableDefaultAssignment
+    }
   },
 
   mouse_bindings = {
