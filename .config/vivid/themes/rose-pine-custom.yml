@@ -54,7 +54,8 @@ core:
 
   broken_symlink:
     foreground: text
-    background: rose
+    background: love
+    font-style: italic
 
   missing_symlink_target:
     foreground: text
