@@ -87,16 +87,16 @@ myManageHook = composeAll $ concatMap withMatch
     , shift "2" ｜ []
     , shift "w" ｜ ["main"]
     , shift "s" ｜ []
-    , shift "x" ｜ ["anytype"]
+    , shift "x" ｜ []
 
-    , shift "3" ｜ ["yazi", "ranger"]
+    , shift "3" ｜ ["anytype"]
     , shift "e" ｜ []
     , shift "d" ｜ ["Xephyr", "vlc"]
     , shift "c" ｜ ["anki"]
 
-    , shift "4" ｜ ["htop"]
+    , shift "4" ｜ []
     , shift "r" ｜ ["Transmission-gtk"]
-    , shift "f" ｜ ["vmwafe", "VirtualBox Manager", "VirtualBox Machine"]
+    , shift "f" ｜ ["vmware", "VirtualBox Manager", "VirtualBox Machine"]
     , shift "v" ｜ ["easyeffects", "protonvpn-app"]
 
     , dofloat   ｜ ["foxwq.exe", "lxqt-openssh-askpass", "Zotero Preferences", "Quick Format Citation", "Add-ons Manager", "Extension Manager", "sun-awt-X11-XFramePeer"]
