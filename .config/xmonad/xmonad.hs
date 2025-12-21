@@ -336,12 +336,12 @@ myStartupHook = do
     mapM_ spawnOnce
        [ xset
        , warpd
-       -- , nitrogen
        , fcitx
        , mainTerminal
-       -- , htop
-       , yazi
        , redshift
+       -- , nitrogen
+       -- , htop
+       -- , yazi
        -- , easyeffects
        ]
 
