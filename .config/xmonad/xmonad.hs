@@ -132,8 +132,8 @@ myKeys XConfig
     map (second spawn)
     [ a  xK_grave         ｜ rofi "run"
     , as xK_grave         ｜ rofiBt
-    , a  xK_Return        ｜ termNew
-    , as xK_Return        ｜ nvim
+    , m  xK_Return        ｜ termNew
+    , ms xK_Return        ｜ nvim
 
     , m  xK_w             ｜ vivaldi
     , m  xK_e             ｜ easyeffects
