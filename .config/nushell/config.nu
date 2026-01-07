@@ -49,7 +49,7 @@ let $abbrs = {
     'pmqs': 'pacman -Qs'
     'pmqi': 'pacman -Qi'
     'pmqm': 'pacman -Qm'
-    'bt':   'bluetuith'
+    'bl':   'bluetuith'
     'nt':   'nmtui-connect'
 
     'za':   'zathura'
@@ -85,13 +85,13 @@ let dark_theme = {
     leading_trailing_space_bg: { bg: black }
     header: dark_gray
     empty: dark_gray
-    bool: cyan
-    int: { fg: yellow attr: i }
+    bool: { fg: cyan attr: i }
+    int: yellow
     filesize: cyan
     duration: purple
     date: purple
     range: yellow
-    float: { fg: yellow attr: i }
+    float: yellow
     string: white
     nothing: dark_gray
     binary: purple
@@ -100,6 +100,7 @@ let dark_theme = {
     closure: { fg: dark_gray attr: i }
     record: { fg: dark_gray attr: i }
     list: { fg: dark_gray attr: i }
+    table: { fg: dark_gray attr: i }
     block: { fg: dark_gray attr: i }
     glob: cyan
     hints: dark_gray
@@ -107,7 +108,7 @@ let dark_theme = {
     shape_and: purple
     shape_binary: purple
     shape_block: dark_gray
-    shape_bool: cyan
+    shape_bool: { fg: cyan attr: i }
     shape_closure: dark_gray
     shape_custom: cyan
     shape_datetime: cyan
@@ -654,7 +655,8 @@ $env.config = {
             event: {
                 send: ExecuteHostCommand
                 cmd:
-                    "fd -H | lines | sk -p { bat --color=always $in }"
+                    # "fd -H | lines | sk -p { bat --color=always $in }"
+                    'commandline edit -i $"(fd -H | lines | sk -p { bat --color=always $in })"'
             }
         }
         {
