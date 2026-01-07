@@ -1178,6 +1178,13 @@ $env.config = {
             mode: emacs
             event: { edit: pastecutbufferbefore }
         }
+        {
+            name: newline
+            modifier: alt
+            keycode: enter
+            mode: vi_insert
+            event: { edit: insertnewline }
+        }
     ]
 }
 
