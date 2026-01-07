@@ -1248,9 +1248,10 @@ def icams [] {
   sudo openvpn icams.ovpn
 }
 
-def cmp [] {
+def cmp [path = paths.txt] {
   cd ~/p/hs/cmpimg
-  cabal run cmpimg -- rating.db
+  $path | path expand | print $in
+  cabal run cmpimg -- rating.db $path
 }
 
 def 'polars duplicates-by' [select_expr] {
