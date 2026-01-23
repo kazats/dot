@@ -599,6 +599,7 @@ unimportant:
   other:
     - "~"
     - .bak
+    - .default
     - .ctags
     - .git  # only works for '.git' files (submodules)
     - .lock
