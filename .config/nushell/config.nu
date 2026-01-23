@@ -1326,7 +1326,7 @@ def 'liga meetings' []: nothing -> table {
   | rename half home index opp datetime ...$players
   | update half { match $in { H => 1, _ => 2 } }
   | update home { match $in { H => true, _ => false } }
-  | update datetime { str replace -r '\(.\)' '' | into datetime }
+  | update datetime { str replace -r '\(.+\)' '' | into datetime }
 
   $players | reduce -f $meetings {|x, acc| $acc | into bool $x }
 }
@@ -1338,7 +1338,7 @@ def 'liga availability' []: nothing -> table {
   let meetings = $raw | lines | skip | str join "\n" | from csv
   | rename id opp datetime final ...$players
   | into bool final
-  | update datetime { str replace -r '\(.\)' '' | into datetime }
+  | update datetime { str replace -r '\(.+\)' '' | into datetime }
 
   $players | reduce -f $meetings {|x, acc| $acc | into bool $x }
 }
