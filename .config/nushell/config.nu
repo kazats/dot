@@ -1347,9 +1347,6 @@ def 'liga availability-grouped' []: nothing -> table {
   liga availability | group-by id | transpose id data
 }
 
-source ($NU_PLUGIN_DIRS | path join zoxide.nu)
-source ($NU_PLUGIN_DIRS | path join atuin.nu)
-
 def --env y [...args] {
   let tmp = (mktemp -t "yazi-cwd.XXXXX")
   yazi ...$args --cwd-file $tmp
@@ -1360,6 +1357,25 @@ def --env y [...args] {
   rm -fp $tmp
 }
 
+source zoxide.nu
+source atuin.nu
+
 use atuin-completions.nu *
 use uv-completions.nu *
-use custom-completions/zellij/zellij-completions.nu *
+use nu_scripts/custom-completions/zellij/zellij-completions.nu *
+
+def "nu-complete zoxide path" [context: string] {
+    let parts = $context | split row " " | skip 1
+    {
+      options: {
+        sort: false,
+        completion_algorithm: substring,
+        case_sensitive: false,
+      },
+      completions: (^zoxide query --list --exclude $env.PWD -- ...$parts | lines),
+    }
+  }
+
+def --env --wrapped z [...rest: string@"nu-complete zoxide path"] {
+  __zoxide_z ...$rest
+}

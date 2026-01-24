@@ -84,9 +84,9 @@ $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| $multiline }
 #     ($nu.default-config-dir | path join 'completions')
 # ]
 
-const NU_PLUGIN_DIRS = [
-    ($nu.default-config-dir | path join 'plugins')
-]
+# const NU_PLUGIN_DIRS = [
+#     ($nu.default-config-dir | path join 'plugins')
+# ]
 
 $env.PATH = $env.PATH | split row (char esep) | prepend [
   ($env.HOME | path join .local bin)
@@ -96,7 +96,7 @@ $env.PATH = $env.PATH | split row (char esep) | prepend [
   #~/Android/Sdk/cmdline-tools/latest/bin
 ] | uniq
 
-use ($NU_PLUGIN_DIRS | path join bash-env-nushell/bash-env.nu)
+use bash-env-nushell/bash-env.nu
 bash-env /etc/profile | load-env
 
 $env.XDG_CONFIG_HOME    = $env.HOME | path join .config
