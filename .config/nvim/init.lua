@@ -1,14 +1,7 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 ---@diagnostic disable-next-line: undefined-field
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable',
-    lazypath,
-  })
+  vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -37,16 +30,16 @@ require('lazy').setup({
     }
   },
 
-  {
-      "rachartier/tiny-inline-diagnostic.nvim",
-      event = "VeryLazy", -- Or `LspAttach`
-      priority = 1000, -- needs to be loaded in first
-      config = function()
-          require('tiny-inline-diagnostic').setup({
-        preset = 'simple'
-      })
-      end
-  },
+  -- {
+  --     "rachartier/tiny-inline-diagnostic.nvim",
+  --     event = "VeryLazy", -- Or `LspAttach`
+  --     priority = 1000, -- needs to be loaded in first
+  --     config = function()
+  --         require('tiny-inline-diagnostic').setup({
+  --       preset = 'simple'
+  --     })
+  --     end
+  -- },
 
   -- {
   --   "utilyre/barbecue.nvim",
@@ -89,11 +82,11 @@ require('lazy').setup({
   -- },
   -- { "rcarriga/nvim-notify" },
 
-  {
-    'folke/trouble.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = true,
-  },
+  -- {
+  --   'folke/trouble.nvim',
+  --   dependencies = 'nvim-tree/nvim-web-devicons',
+  --   config = true,
+  -- },
 
   -- {
   --   'folke/twilight.nvim',
@@ -132,7 +125,7 @@ require('lazy').setup({
   'tpope/vim-repeat',
   'tpope/vim-unimpaired',
   'tpope/vim-speeddating',
-  'tpope/vim-dadbod',
+  -- 'tpope/vim-dadbod',
   -- 'tpope/vim-fugitive',
 
   -- 'ludovicchabant/vim-gutentags',
@@ -305,18 +298,18 @@ require('lazy').setup({
     },
   },
 
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    version = 'v2.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons',
-      'MunifTanjim/nui.nvim',
-    },
-    config = function()
-      vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-    end,
-  },
+  -- {
+  --   'nvim-neo-tree/neo-tree.nvim',
+  --   version = 'v2.x',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-tree/nvim-web-devicons',
+  --     'MunifTanjim/nui.nvim',
+  --   },
+  --   config = function()
+  --     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+  --   end,
+  -- },
 
   {
     'nvim-lualine/lualine.nvim',
@@ -389,7 +382,7 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-context',
       -- 'JoosepAlviste/nvim-ts-context-commentstring',
       'drybalka/tree-climber.nvim',
-      'nushell/tree-sitter-nu',
+      -- 'nushell/tree-sitter-nu',
       {
         'andymass/vim-matchup',
         config = function()
@@ -416,16 +409,16 @@ require('lazy').setup({
     -- ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
   },
 
-  {
-    'isovector/cornelis',
-    name = 'cornelis',
-    ft = 'agda',
-    -- build = 'stack install',
-    dependencies = {'neovimhaskell/nvim-hs.vim', 'kana/vim-textobj-user'},
-    version = 'v2.7.*',
-  },
+  -- {
+  --   'isovector/cornelis',
+  --   name = 'cornelis',
+  --   ft = 'agda',
+  --   -- build = 'stack install',
+  --   dependencies = {'neovimhaskell/nvim-hs.vim', 'kana/vim-textobj-user'},
+  --   version = 'v2.7.*',
+  -- },
 
-  'liuchengxu/vim-which-key',
+  -- 'liuchengxu/vim-which-key',
 
   {
     'hrsh7th/nvim-cmp',
@@ -537,51 +530,51 @@ require('lazy').setup({
   -- 'easymotion/vim-easymotion',
   'unblevable/quick-scope',
   'junegunn/vim-easy-align',
-  'mtth/scratch.vim',
+  -- 'mtth/scratch.vim',
 
-  {
-    'akinsho/toggleterm.nvim',
-    config = function()
-      require('toggleterm').setup({
-        size = 20, -- | function(term)
-        -- if term.direction == "horizontal" then
-        --   return 15
-        -- elseif term.direction == "vertical" then
-        --   return vim.o.columns * 0.4
-        -- end
-        -- end,
-        open_mapping = [[<c-\>]],
-        -- on_open = fun(t: Terminal), -- function to run when the terminal opens
-        -- on_close = fun(t: Terminal), -- function to run when the terminal closes
-        hide_numbers = true, -- hide the number column in toggleterm buffers
-        shade_filetypes = {},
-        shade_terminals = true,
-        shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-        start_in_insert = true,
-        insert_mappings = true, -- whether or not the open mapping applies in insert mode
-        terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-        persist_size = true,
-        direction = 'float', --'vertical' | 'horizontal' | 'window' | 'float',
-        close_on_exit = true, -- close the terminal window when the process exits
-        shell = vim.o.shell, -- change the default shell
-        -- This field is only relevant if direction is set to 'float'
-        float_opts = {
-          -- The border key is *almost* the same as 'nvim_open_win'
-          -- see :h nvim_open_win for details on borders however
-          -- the 'curved' border is a custom border type
-          -- not natively supported but implemented in this plugin.
-          border = 'single', -- | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-          -- width = <value>,
-          -- height = <value>,
-          winblend = 3,
-          highlights = {
-            border = 'Normal',
-            background = 'Normal',
-          },
-        },
-      })
-    end,
-  },
+  -- {
+  --   'akinsho/toggleterm.nvim',
+  --   config = function()
+  --     require('toggleterm').setup({
+  --       size = 20, -- | function(term)
+  --       -- if term.direction == "horizontal" then
+  --       --   return 15
+  --       -- elseif term.direction == "vertical" then
+  --       --   return vim.o.columns * 0.4
+  --       -- end
+  --       -- end,
+  --       open_mapping = [[<c-\>]],
+  --       -- on_open = fun(t: Terminal), -- function to run when the terminal opens
+  --       -- on_close = fun(t: Terminal), -- function to run when the terminal closes
+  --       hide_numbers = true, -- hide the number column in toggleterm buffers
+  --       shade_filetypes = {},
+  --       shade_terminals = true,
+  --       shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+  --       start_in_insert = true,
+  --       insert_mappings = true, -- whether or not the open mapping applies in insert mode
+  --       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+  --       persist_size = true,
+  --       direction = 'float', --'vertical' | 'horizontal' | 'window' | 'float',
+  --       close_on_exit = true, -- close the terminal window when the process exits
+  --       shell = vim.o.shell, -- change the default shell
+  --       -- This field is only relevant if direction is set to 'float'
+  --       float_opts = {
+  --         -- The border key is *almost* the same as 'nvim_open_win'
+  --         -- see :h nvim_open_win for details on borders however
+  --         -- the 'curved' border is a custom border type
+  --         -- not natively supported but implemented in this plugin.
+  --         border = 'single', -- | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+  --         -- width = <value>,
+  --         -- height = <value>,
+  --         winblend = 3,
+  --         highlights = {
+  --           border = 'Normal',
+  --           background = 'Normal',
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
 
   { 'windwp/nvim-autopairs', config = true },
 
@@ -684,9 +677,21 @@ require('lazy').setup({
   })
 
 vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  underline = true,
+  virtual_text = {
+    current_line = true
+  },
+  -- virtual_lines = {
+  --   current_line = true,
+  -- },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '⏹',
+      [vim.diagnostic.severity.WARN]  = '⏹',
+      [vim.diagnostic.severity.INFO]  = '⏹',
+      [vim.diagnostic.severity.HINT]  = '⏹',
+    }
+  },
+  underline = false,
   update_in_insert = false,
   severity_sort = true,
 })
@@ -834,17 +839,17 @@ require('nvim-treesitter.configs').setup({
 
 local _border = "single"
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
-    border = _border
-  }
-)
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+--   vim.lsp.handlers.hover, {
+--     border = _border
+--   }
+-- )
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, {
-    border = _border
-  }
-)
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+--   vim.lsp.handlers.signature_help, {
+--     border = _border
+--   }
+-- )
 
 vim.diagnostic.config({
   float = { border = _border }
@@ -854,50 +859,50 @@ require('lspconfig.ui.windows').default_options = {
   border = _border
 }
 
-local lspconfig = require('lspconfig')
-local on_attach = function(_, bufnr)
-  local opts = { noremap = true, silent = false }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]], opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', ':Trouble<cr>', opts)
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '<leader>ls',
-    [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '<leader>lo',
-    [[<cmd>lua require('telescope.builtin').lsp_outgoing_calls()<CR>]],
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '<leader>li',
-    [[<cmd>lua require('telescope.builtin').lsp_incoming_calls()<CR>]],
-    opts
-  )
-  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
-end
+-- local lspconfig = require('lspconfig')
+-- local on_attach = function(_, bufnr)
+--   local opts = { noremap = true, silent = false }
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]], opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+--   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+--   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+--   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+--   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+--   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', ':Trouble<cr>', opts)
+--   vim.api.nvim_buf_set_keymap(
+--     bufnr,
+--     'n',
+--     '<leader>ls',
+--     [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
+--     opts
+--   )
+--   vim.api.nvim_buf_set_keymap(
+--     bufnr,
+--     'n',
+--     '<leader>lo',
+--     [[<cmd>lua require('telescope.builtin').lsp_outgoing_calls()<CR>]],
+--     opts
+--   )
+--   vim.api.nvim_buf_set_keymap(
+--     bufnr,
+--     'n',
+--     '<leader>li',
+--     [[<cmd>lua require('telescope.builtin').lsp_incoming_calls()<CR>]],
+--     opts
+--   )
+--   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
+-- end
 
 require('mason').setup({
   ui = {
@@ -922,10 +927,10 @@ require('null-ls').setup({
 local mason_lspconfig = require('mason-lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.gleam.setup({
-  on_attach = on_attach,
-  capabilities = capabilities
-})
+-- lspconfig.gleam.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities
+-- })
 
 -- lspconfig.nushell.setup({
 --   on_attach = on_attach,
