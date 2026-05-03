@@ -145,7 +145,8 @@ myKeys XConfig
 
     , m  xK_a             ｜ anki
     , m  xK_g             ｜ gimp
-    , m  xK_h             ｜ htop
+    , m  xK_h             ｜ btop
+    , ms xK_h             ｜ htop
     , m  xK_k             ｜ katrain
     , m  xK_l             ｜ libreoffice
 
@@ -351,6 +352,7 @@ myStartupHook = do
 anytype       = "anytype"
 fcitx         = "fcitx5"
 nitrogen      = "nitrogen --restore"
+btop          = term "btop" "btop"
 htop          = term "htop" "htop -u v"
 mainTerminal  = termClass "main"
 -- picom         = "picom --experimental-backends"
