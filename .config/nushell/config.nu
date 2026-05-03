@@ -1,6 +1,9 @@
 # version = "0.102.0"
 
 let $abbrs = {
+    'cn':   'config nu'
+    'ce':   'config env'
+
     'clr':  'clear --keep-scrollback'
     'e':    'explore --index'
     'ep':   'explore --index --peek'
@@ -67,6 +70,10 @@ let $abbrs = {
     'ha':   'systemctl poweroff'
     're':   'systemctl reboot'
     'moz':  '/usr/lib/mozc/mozc_tool --mode=config_dialog'
+    'levi': 'hledger -f ~/.local/share/hledger/vi.journal'
+    'lesh': 'hledger -f ~/.local/share/hledger/sh.journal'
+    'luvi': 'hledger ui -f ~/.local/share/hledger/vi.journal'
+    'lush': 'hledger ui -f ~/.local/share/hledger/sh.journal'
 
     'po':   'polars'
 } | transpose | rename abbreviation expansion
@@ -1357,12 +1364,31 @@ def --env y [...args] {
   rm -fp $tmp
 }
 
-source zoxide.nu
-source atuin.nu
+let plugins = [nu_plugin_polars nu_plugin_gstat nu_plugin_query nu_plugin_skim nu_plugin_formats nu_plugin_inc]
+
+def 'plugins install' [] {
+  $plugins | each { cargo install --locked $in }
+}
+
+def 'plugins add' [] {
+  $plugins | each {|it| '~/.local/share/cargo/bin' | path join $it | plugin add $in }
+}
+
+# @complete external
+# def --wrapped jc [...args] {
+#     ^jc ...$args | from json
+# }
+
 
 use atuin-completions.nu *
 use uv-completions.nu *
 use nu_scripts/custom-completions/zellij/zellij-completions.nu *
+use nu_scripts/modules/jc
+
+source zoxide.nu
+source atuin.nu
+source nu_scripts/custom-completions/auto-generate/completions/hledger.nu
+extern 'hledger ui' []
 
 def "nu-complete zoxide path" [context: string] {
     let parts = $context | split row " " | skip 1
