@@ -1,6 +1,6 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+#:schema https://yazi-rs.github.io/schemas/keymap.json
 
 [mgr]
 
@@ -75,6 +75,7 @@ keymap = [
 	{ on = "D",         run = "remove --permanently",         desc = "Permanently delete the files" },
 	{ on = "a",         run = "create",                       desc = "Create a file or directory (end with / for directories)" },
 	{ on = "r",         run = "rename --cursor=before_ext",   desc = "Rename a file or directory" },
+	{ on = "R",         run = "bulk_rename",                  desc = "Bulk rename" },
 	{ on = ";",         run = "shell --interactive",          desc = "Run a shell command" },
 	{ on = ":",         run = "shell --interactive --block",  desc = "Run a shell command (block the UI until the command finishes)" },
 	{ on = "!",         run = 'shell "$SHELL" --block',       desc = "Open a shell" },
@@ -166,7 +167,7 @@ keymap = [
 	{ on = [ "g", "<C-e>" ],    run = "cd /etc",            desc = "/etc" },
 	{ on = [ "g", "<C-m>" ],    run = "cd /mnt",            desc = "/mnt" },
 	{ on = [ "g", "<C-o>" ],    run = "cd /opt",            desc = "/opt" },
-	{ on = [ "g", "<C-r>" ],    run = "cd /run",            desc = "/run" },
+	{ on = [ "g", "<C-r>" ],    run = "cd /run/media",      desc = "/run/media" },
 	{ on = [ "g", "<C-t>" ],    run = "cd /tmp",            desc = "/tmp" },
 	{ on = [ "g", "<C-u>" ],    run = "cd /usr",            desc = "/usr" },
 	{ on = [ "g", "<C-b>" ],    run = "cd /usr/bin",        desc = "/usr/bin" },
