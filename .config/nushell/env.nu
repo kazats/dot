@@ -1,4 +1,4 @@
-# version = "0.102.0"
+# version = "0.113"
 
 const bg_color = '#191724'
 
@@ -50,6 +50,7 @@ let prompt        = " ⟩ "
 let multiline     = "::: "
 let prompt_insert = ansi -e { fg: $bg_color bg: blue }
 let prompt_normal = ansi -e { fg: $bg_color bg: cyan }
+let prompt_visual = ansi -e { fg: $bg_color bg: purple }
 let trans_normal  = ansi -e { fg: dark_gray bg: default }
 
 $env.PROMPT_COMMAND                       = {||}
@@ -57,6 +58,7 @@ $env.PROMPT_COMMAND_RIGHT                 = {|| create_right_prompt }
 $env.PROMPT_INDICATOR                     = {|| $prompt }
 $env.PROMPT_INDICATOR_VI_INSERT           = {|| $"($prompt_insert)($prompt)(ansi reset) " }
 $env.PROMPT_INDICATOR_VI_NORMAL           = {|| $"($prompt_normal)($prompt)(ansi reset) " }
+$env.PROMPT_INDICATOR_VI_VISUAL           = {|| $"($prompt_visual)($prompt)(ansi reset) " }
 $env.PROMPT_MULTILINE_INDICATOR           = {|| $multiline }
 
 $env.TRANSIENT_PROMPT_COMMAND             = {|| $"($trans_normal)(do $env.PROMPT_COMMAND)(ansi reset)" }
