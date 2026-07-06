@@ -1,8 +1,9 @@
-# version = "0.102.0"
+# version = "0.114"
 
-let $abbrs = {
+$env.config.abbreviations = {
     'cn':   'config nu'
     'ce':   'config env'
+    'd':    'describe'
 
     'clr':  'clear --keep-scrollback'
     'e':    'explore --index'
@@ -52,7 +53,7 @@ let $abbrs = {
     'pmqs': 'pacman -Qs'
     'pmqi': 'pacman -Qi'
     'pmqm': 'pacman -Qm'
-    'bl':   'bluetuith'
+    'bl':   'bluetui'
     'nt':   'nmtui-connect'
 
     'za':   'zathura'
@@ -76,7 +77,7 @@ let $abbrs = {
     'lush': 'hledger ui -f ~/.local/share/hledger/sh.journal'
 
     'po':   'polars'
-} | transpose | rename abbreviation expansion
+}
 
 alias e  = explore --index
 alias p  = parui
@@ -487,48 +488,48 @@ $env.config = {
                 | each {|it| { value: $it.expansion } }
             }
         }
-        {
-            name: abbr_menu
-            only_buffer_difference: false
-            marker: $"(ansi -e { fg: black,   bg: blue }) | (ansi reset) "
-            type: {
-                layout: ide
-                min_completion_width: 0
-                max_completion_width: 80
-                max_completion_height: 80
-                padding: 0
-                border: false
-                cursor_offset: 0
-                description_mode: "prefer_right"
-                min_description_width: 0
-                max_description_width: 50
-                max_description_height: 10
-                description_offset: 1
-                correct_cursor_pos: true
-            }
-            style: {
-                text: { fg: blue attr: i }
-                selected_text: { fg: black bg: blue }
-                description_text: yellow
-                match_text: {}
-                selected_match_text: { fg: black bg: blue }
-            }
-            source: {|buffer, position|
-                let segs = $buffer | split row -r '\s+'
-                let segs_dropped = $segs | drop
-                let last_seg = $segs | last
-
-                #let match = scope aliases | where name == $buffer
-                let match = $abbrs | where abbreviation == $last_seg
-
-                if ($match | is-not-empty) {
-                  # { value: $match.expansion.0 }
-                  { value: ($segs_dropped | append $match.expansion.0 | str join ' ') }
-                } else {
-                  { value: $buffer }
-                }
-            }
-        }
+        # {
+        #     name: abbr_menu
+        #     only_buffer_difference: false
+        #     marker: $"(ansi -e { fg: black,   bg: blue }) | (ansi reset) "
+        #     type: {
+        #         layout: ide
+        #         min_completion_width: 0
+        #         max_completion_width: 80
+        #         max_completion_height: 80
+        #         padding: 0
+        #         border: false
+        #         cursor_offset: 0
+        #         description_mode: "prefer_right"
+        #         min_description_width: 0
+        #         max_description_width: 50
+        #         max_description_height: 10
+        #         description_offset: 1
+        #         correct_cursor_pos: true
+        #     }
+        #     style: {
+        #         text: { fg: blue attr: i }
+        #         selected_text: { fg: black bg: blue }
+        #         description_text: yellow
+        #         match_text: {}
+        #         selected_match_text: { fg: black bg: blue }
+        #     }
+        #     source: {|buffer, position|
+        #         let segs = $buffer | split row -r '\s+'
+        #         let segs_dropped = $segs | drop
+        #         let last_seg = $segs | last
+        #
+        #         #let match = scope aliases | where name == $buffer
+        #         let match = $abbrs | where abbreviation == $last_seg
+        #
+        #         if ($match | is-not-empty) {
+        #           # { value: $match.expansion.0 }
+        #           { value: ($segs_dropped | append $match.expansion.0 | str join ' ') }
+        #         } else {
+        #           { value: $buffer }
+        #         }
+        #     }
+        # }
     ]
 
     keybindings: [
@@ -1208,11 +1209,6 @@ def --env cla [bl: closure] {
     clear --keep-scrollback
 }
 
-def --env d [] {
-    cd
-    clear --keep-scrollback
-}
-
 def --env mdc [dir: path] {
     mkdir -v $dir
     cd $dir
@@ -1231,7 +1227,7 @@ def dh [] {
   df -h
   | str replace "Mounted on" "mounted_on"
   | from ssv -m 1
-  | rename --block { str downcase }
+  | rename --block { str lowercase }
   | into filesize size
   | into filesize used
   | into filesize avail
@@ -1318,11 +1314,12 @@ def 'liga credentials' []: nothing -> path {
 }
 
 def 'liga id' []: nothing -> string {
-  '1fj2xdeAbf1zhgLbhXFYUL1zGbm54M3WLQFN7fJaWtmE'
+  # '1fj2xdeAbf1zhgLbhXFYUL1zGbm54M3WLQFN7fJaWtmE'
+  '1_U9H4OmU6JuwR-n0aGhKvZhurbnIZcZyDQ-EpNV6sLA'
 }
 
 def 'liga get-players' []: string -> list<string> {
-  lines | first | split row , | where ($it | is-not-empty) | str downcase
+  lines | first | split row , | where ($it | is-not-empty) | str lowercase
 }
 
 def 'liga meetings' []: nothing -> table {
@@ -1343,15 +1340,16 @@ def 'liga availability' []: nothing -> table {
   let players = $raw | liga get-players
 
   let meetings = $raw | lines | skip | str join "\n" | from csv
-  | rename id opp datetime final ...$players
+  | rename id home opp datetime final enough ...$players
   | into bool final
+  | into bool enough
   | update datetime { str replace -r '\(.+\)' '' | into datetime }
 
   $players | reduce -f $meetings {|x, acc| $acc | into bool $x }
 }
 
 def 'liga availability-grouped' []: nothing -> table {
-  liga availability | group-by id | transpose id data
+  liga availability | group-by --prune id
 }
 
 def --env y [...args] {
@@ -1364,7 +1362,14 @@ def --env y [...args] {
   rm -fp $tmp
 }
 
-let plugins = [nu_plugin_polars nu_plugin_gstat nu_plugin_query nu_plugin_skim nu_plugin_formats nu_plugin_inc]
+const plugins = [
+  nu_plugin_polars
+  nu_plugin_gstat
+  nu_plugin_query
+  nu_plugin_skim
+  nu_plugin_formats
+  nu_plugin_inc
+]
 
 def 'plugins install' [] {
   $plugins | each { cargo install --locked $in }
@@ -1372,6 +1377,10 @@ def 'plugins install' [] {
 
 def 'plugins add' [] {
   $plugins | each {|it| '~/.local/share/cargo/bin' | path join $it | plugin add $in }
+}
+
+def 'conservation-mode' [] {
+  cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
 }
 
 # @complete external
