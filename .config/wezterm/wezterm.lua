@@ -190,7 +190,8 @@ return {
         label = 'open url',
         patterns = {
           '(?:https?://|ftp://|file://)\\S+', -- url
-          '(?:[.\\w\\-@~]+)?(?:/+[.\\w\\-@]+)+', -- path
+          -- '(?:[^\\s]|[/~\\.]*)(?:/?.+)+[^\\s]', -- path
+          '(?:[.\\w\\-@~]+)?(?:/+[.\\s\\(\\)\\w\\-@]+)+[\\w\\.]', -- path
         },
         -- skip_action_on_paste = true,
         action = wezterm.action_callback(function(window, pane)
