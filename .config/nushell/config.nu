@@ -75,6 +75,8 @@ $env.config.abbreviations = {
     'lesh': 'hledger -f ~/.local/share/hledger/sh.journal'
     'luvi': 'hledger ui -f ~/.local/share/hledger/vi.journal'
     'lush': 'hledger ui -f ~/.local/share/hledger/sh.journal'
+    'bm':   'use custom/at; at usage | reject id | group-by --prune type | select racket shoes'
+    'bma':  'use custom/at; at usage | where status == active | reject id | group-by --prune type | select racket shoes'
 
     'po':   'polars'
 }
