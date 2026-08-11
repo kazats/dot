@@ -205,7 +205,7 @@ myKeys XConfig
     [ as xK_q             ｜ kill
     , a  xK_space         ｜ sendMessage NextLayout
     , as xK_space         ｜ setLayout layout
-    , a  xK_n             ｜ refresh
+    , as xK_n             ｜ refresh
     , a  xK_j             ｜ windows W.focusDown
     , a  xK_k             ｜ windows W.focusUp
     , a  xK_l             ｜ windows W.focusUp
