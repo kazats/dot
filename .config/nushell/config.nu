@@ -1,9 +1,11 @@
-# version = "0.114"
+# version = "0.115"
 
 $env.config.abbreviations = {
     'cn':   'config nu'
     'ce':   'config env'
     'd':    'describe'
+    'an':   '$ans'
+    'it':   '$ans.last'
 
     'clr':  'clear --keep-scrollback'
     'e':    'explore --index'
@@ -278,6 +280,8 @@ $env.config = {
         },
         selected_cell: { fg: black, bg: light_blue },
     }
+
+    max_last_result_size: 10mb
 
     history: {
         max_size: 100_000 # Session has to be reloaded for this to take effect
