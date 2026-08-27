@@ -100,7 +100,7 @@ $env.config = (
     $env.config | upsert keybindings (
         $env.config.keybindings
         | append {
-            name: atuin
+            name: atuin_history
             modifier: control
             keycode: char_r
             mode: [emacs, vi_normal, vi_insert]
@@ -113,7 +113,7 @@ $env.config = (
     $env.config | upsert keybindings (
         $env.config.keybindings
         | append {
-            name: atuin
+            name: atuin_directory
             modifier: shift
             keycode: up
             mode: [emacs, vi_normal, vi_insert]
