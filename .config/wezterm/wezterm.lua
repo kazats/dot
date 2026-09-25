@@ -1,4 +1,6 @@
 local wezterm = require 'wezterm';
+local io = require 'io'
+local os = require 'os'
 local act = wezterm.action
 
 local tab_fg  = '#6e6a86'
@@ -94,6 +96,29 @@ wezterm.on(
       { Foreground = { Color = tab_fg } },
       { Text = ' ' .. pane:get_domain_name() .. ' ' },
     }))
+  end
+)
+
+
+wezterm.on(
+  'edit-scrollback',
+  function(window, pane)
+    local text = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
+    local name = os.tmpname()
+    local f = io.open(name, 'w+')
+    f:write(text)
+    f:flush()
+    f:close()
+
+    window:perform_action(
+      act.SpawnCommandInNewTab {
+        args = { 'nvim', name }
+      },
+      pane
+    )
+
+    wezterm.sleep_ms(1000)
+    os.remove(name)
   end
 )
 
@@ -205,6 +230,11 @@ return {
     { key = 'Enter',
       mods = 'ALT',
       action = act.DisableDefaultAssignment
+    },
+
+    { key = 'E',
+      mods = 'SHIFT|CTRL',
+      action = act.EmitEvent 'edit-scrollback'
     }
   },
 
