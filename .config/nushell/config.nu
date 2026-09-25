@@ -77,8 +77,8 @@ $env.config.abbreviations = {
     'lesh': 'hledger -f ~/.local/share/hledger/sh.journal'
     'luvi': 'hledger ui -f ~/.local/share/hledger/vi.journal'
     'lush': 'hledger ui -f ~/.local/share/hledger/sh.journal'
-    'bm':   'use custom/at; at usage | reject id | group-by --prune type | select racket shoes'
-    'bma':  'use custom/at; at usage | where status == active | reject id | group-by --prune type | select racket shoes'
+    'bm':   'use custom/at; at usage -s [active]'
+    'bma':  'use custom/at; at usage'
 
     'po':   'polars'
 }
@@ -1231,6 +1231,8 @@ def lla [dir: path = "."] { ls -la $dir | sort-by type name }
 
 def dh [] {
   df -h
+  | where $it !~ '^df'
+  | get 0
   | str replace "Mounted on" "mounted_on"
   | from ssv -m 1
   | rename --block { str lowercase }
