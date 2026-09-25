@@ -95,6 +95,7 @@ $env.PATH = $env.PATH | split row (char esep) | prepend [
   ($env.HOME | path join .cabal bin)
   ($env.HOME | path join .ghcup bin)
   ($env.HOME | path join .config emacs bin)
+  ($env.HOME | path join .local share cargo bin)
   #~/Android/Sdk/cmdline-tools/latest/bin
 ] | uniq
 
