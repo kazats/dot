@@ -10,31 +10,31 @@ DefaultIM=mozc
 # Name
 Name=keyboard-us-de_se_fi
 # Layout
-Layout=
+# Layout=
 
 [Groups/0/Items/1]
 # Name
 Name=mozc
 # Layout
-Layout=
+# Layout=
 
 [Groups/0/Items/2]
 # Name
 Name=rime
 # Layout
-Layout=
+# Layout=
 
 [Groups/0/Items/3]
 # Name
 Name=hangul
 # Layout
-Layout=
+# Layout=
 
 [Groups/0/Items/4]
 # Name
 Name=zhengma-large
 # Layout
-Layout=
+# Layout=
 
 [GroupOrder]
 0=1
