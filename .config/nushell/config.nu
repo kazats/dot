@@ -1395,15 +1395,14 @@ source atuin.nu
 source nu_scripts/custom-completions/auto-generate/completions/hledger.nu
 extern 'hledger ui' []
 
-def "nu-complete zoxide path" [context: string] {
-    let parts = $context | split row " " | skip 1
+def "nu-complete zoxide path" [place] {
     {
       options: {
         sort: false,
         completion_algorithm: substring,
         case_sensitive: false,
       },
-      completions: (^zoxide query --list --exclude $env.PWD -- ...$parts | lines),
+      completions: (^zoxide query --list --exclude $env.PWD -- ...($place.command | skip 1) | lines),
     }
   }
 
