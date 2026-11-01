@@ -157,20 +157,8 @@ let dark_theme = {
     shape_raw_string: yellow
 }
 
-let carapace_completer = {|spans|
-  # if the current command is an alias, get it's expansion
-  let expanded_alias = (scope aliases | where name == $spans.0 | get -o 0.expansion)
-
-  # overwrite
-  let spans = (if $expanded_alias != null  {
-    # put the first word of the expanded alias first in the span
-    $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
-  } else {
-    $spans | skip 1 | prepend ($spans.0)
-  })
-
-  carapace $spans.0 nushell ...$spans
-  | from json
+let carapace_completer = {|place|
+  CARAPACE_LENIENT=1 carapace $place.command.0 nushell ...$place.command | from json
 }
 
 # let fish_completer = {|spans|
