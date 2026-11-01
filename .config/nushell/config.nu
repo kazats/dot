@@ -77,7 +77,7 @@ $env.config.abbreviations = {
     'lesh': 'hledger -f ~/.local/share/hledger/sh.journal'
     'luvi': 'hledger ui -f ~/.local/share/hledger/vi.journal'
     'lush': 'hledger ui -f ~/.local/share/hledger/sh.journal'
-    'bm':   'use custom/at; at usage -s [active]'
+    'bm':   'use custom/at; at usage -s [active] | select string shoes'
     'bma':  'use custom/at; at usage'
 
     'po':   'polars'
