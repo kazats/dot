@@ -1392,8 +1392,8 @@ use nu_scripts/modules/jc
 
 source zoxide.nu
 source atuin.nu
-source nu_scripts/custom-completions/auto-generate/completions/hledger.nu
-extern 'hledger ui' []
+# source nu_scripts/custom-completions/auto-generate/completions/hledger.nu
+# extern 'hledger ui' []
 
 def "nu-complete zoxide path" [place] {
     {
