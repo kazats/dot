@@ -216,7 +216,8 @@ return {
         patterns = {
           '(?:https?://|ftp://|file://)\\S+', -- url
           -- '(?:[^\\s]|[/~\\.]*)(?:/?.+)+[^\\s]', -- path
-          '(?:[.\\w\\-@~]+)?(?:/+[.\\s\\(\\)\\w\\-@]+)+[\\w\\.]', -- path
+          -- '(?:[.\\w\\-@~]+)?(?:/+[.\\s\\(\\)\\w\\-@]+)+[\\w\\.]', -- path
+          '(?:[.\\w\\-@~]+)?(?:/+[.\\(\\)\\w\\-@]+)+[\\w\\.]', -- path
         },
         -- skip_action_on_paste = true,
         action = wezterm.action_callback(function(window, pane)
