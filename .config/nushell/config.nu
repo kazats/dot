@@ -1379,6 +1379,14 @@ def 'conservation-mode' [] {
   cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
 }
 
+def minutes [] {
+  each {
+    split row : | reverse | zip ([hr min sec] | reverse) | each {|x| $x.0 | into duration -u $x.1 } | math sum
+  }
+  | math sum
+  | format duration min
+}
+
 # @complete external
 # def --wrapped jc [...args] {
 #     ^jc ...$args | from json
