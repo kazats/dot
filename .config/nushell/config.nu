@@ -563,16 +563,16 @@ $env.config = {
                 { edit: insertchar value: ' ' }
             ]
         }
-        {
-            name: alias_menu
-            modifier: control
-            keycode: space
-            mode: [vi_normal, vi_insert]
-            event: [
-                { send: menu name: alias_menu }
-                { edit: insertchar, value: ' ' }
-            ]
-        }
+        # {
+        #     name: alias_menu
+        #     modifier: control
+        #     keycode: space
+        #     mode: [vi_normal, vi_insert]
+        #     event: [
+        #         { send: menu name: alias_menu }
+        #         { edit: insertchar, value: ' ' }
+        #     ]
+        # }
         {
             name: ide_completion_menu
             modifier: none
